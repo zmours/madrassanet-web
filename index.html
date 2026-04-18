@@ -3,478 +3,1274 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MadrassaNET – Logiciel de gestion scolaire</title>
-  <meta name="description" content="MadrassaNET est la solution complète de gestion scolaire pour tout type d'établissement. Gérez élèves, enseignants, présences, notes, bulletins et finances depuis une seule application.">
-  <meta property="og:title" content="MadrassaNET – Logiciel de gestion scolaire">
-  <meta property="og:description" content="La solution tout-en-un pour les établissements scolaires modernes.">
+  <title>MadrassaNET – Logiciel de gestion scolaire pour associations</title>
+  <meta name="description" content="MadrassaNET, la solution tout-en-un pour gérer votre école ou association scolaire : élèves, enseignants, présences, notes, bulletins, finances. Simple, mobile, abordable.">
+  <meta property="og:title" content="MadrassaNET – Gérez votre école simplement">
+  <meta property="og:description" content="La solution tout-en-un pour les associations scolaires, madrasas et établissements privés. Inscriptions, présences, notes, bulletins PDF, finances et bien plus.">
   <meta property="og:type" content="website">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+/* ──────────────────────────────────────────
+   RESET & BASE
+────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',system-ui,sans-serif;color:#1a1d2e;background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%;height:auto}
+ul{list-style:none}
+
+/* ──────────────────────────────────────────
+   DESIGN TOKENS
+────────────────────────────────────────── */
+:root{
+  --c-brand:       #3949AB;
+  --c-brand-dark:  #1A237E;
+  --c-brand-light: #5C6BC0;
+  --c-accent:      #00BFA5;
+  --c-accent-dark: #00897B;
+  --c-text:        #1a1d2e;
+  --c-muted:       #6b7280;
+  --c-bg:          #f8f9fc;
+  --c-surface:     #ffffff;
+  --c-border:      #e5e7eb;
+  --grad-hero: linear-gradient(140deg, #1A237E 0%, #3949AB 55%, #009688 100%);
+  --grad-cta:  linear-gradient(135deg, #3949AB 0%, #009688 100%);
+  --radius:    12px;
+  --radius-lg: 20px;
+  --shadow:    0 4px 24px rgba(57,73,171,.12);
+  --shadow-lg: 0 12px 48px rgba(57,73,171,.18);
+  --t: .22s cubic-bezier(.4,0,.2,1);
+}
+
+/* ──────────────────────────────────────────
+   UTILITIES
+────────────────────────────────────────── */
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.section{padding:96px 0}
+.section--alt{background:var(--c-bg)}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--c-brand);background:#e8eaf6;padding:4px 12px;border-radius:100px}
+.badge--green{color:#00695C;background:#e0f2f1}
+h1,h2,h3,h4{line-height:1.25;font-weight:800}
+.text-center{text-align:center}
+.section-eyebrow{display:block;margin-bottom:12px}
+.section-title{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--c-text);margin-bottom:16px}
+.section-sub{font-size:1.05rem;color:var(--c-muted);max-width:620px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:56px}
+
+/* ──────────────────────────────────────────
+   NAVBAR
+────────────────────────────────────────── */
+.navbar{position:sticky;top:0;z-index:999;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-border);padding:0 24px}
+.navbar__inner{max-width:1160px;margin:0 auto;height:64px;display:flex;align-items:center;gap:32px}
+.navbar__logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.1rem;color:var(--c-brand-dark)}
+.navbar__logo-icon{width:34px;height:34px;background:var(--grad-cta);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.navbar__nav{display:flex;align-items:center;gap:4px;margin-left:auto}
+.navbar__link{font-size:.9rem;font-weight:500;color:var(--c-muted);padding:6px 12px;border-radius:8px;transition:color var(--t),background var(--t)}
+.navbar__link:hover{color:var(--c-brand);background:#e8eaf6}
+.navbar__cta{margin-left:8px;background:var(--grad-cta);color:#fff;font-size:.88rem;font-weight:600;padding:9px 20px;border-radius:100px;transition:opacity var(--t),transform var(--t)}
+.navbar__cta:hover{opacity:.9;transform:translateY(-1px)}
+.navbar__toggle{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:8px;border:none;background:none}
+.navbar__toggle span{display:block;width:22px;height:2px;background:var(--c-text);border-radius:2px}
+
+/* ──────────────────────────────────────────
+   HERO
+────────────────────────────────────────── */
+.hero{background:var(--grad-hero);color:#fff;padding:100px 24px 80px;overflow:hidden;position:relative}
+.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.hero__inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1}
+.hero__tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:6px 16px;font-size:.82rem;font-weight:600;letter-spacing:.04em;margin-bottom:24px}
+.hero__title{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-.03em}
+.hero__title em{font-style:normal;background:linear-gradient(90deg,#80DEEA,#B2FF59);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero__desc{font-size:1.05rem;color:rgba(255,255,255,.82);margin-bottom:36px;line-height:1.75;max-width:500px}
+.hero__actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;border-radius:100px;transition:var(--t);white-space:nowrap;cursor:pointer;border:none;font-family:inherit}
+.btn--primary{background:#fff;color:var(--c-brand-dark);padding:14px 28px;font-size:.95rem;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.btn--primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.btn--outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);padding:12px 26px;font-size:.95rem}
+.btn--outline:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.hero__phones{position:relative;height:480px;display:flex;align-items:center;justify-content:center}
+.hero__phone{position:absolute;border-radius:28px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.4);background:#fff}
+.hero__phone--main{width:220px;transform:translateX(-40px) rotate(-4deg);z-index:2}
+.hero__phone--main img{width:100%}
+.hero__phone--secondary{width:200px;transform:translateX(70px) translateY(30px) rotate(4deg);z-index:1;opacity:.9}
+.hero__phone--secondary img{width:100%}
+
+/* ──────────────────────────────────────────
+   TRUST BAR
+────────────────────────────────────────── */
+.trust-bar{background:#fff;border-bottom:1px solid var(--c-border);padding:28px 24px}
+.trust-bar__inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:10px}
+.trust-num{font-size:1.6rem;font-weight:900;color:var(--c-brand)}
+.trust-label{font-size:.85rem;color:var(--c-muted);line-height:1.3}
+.trust-divider{width:1px;height:32px;background:var(--c-border)}
+
+/* ──────────────────────────────────────────
+   FEATURES
+────────────────────────────────────────── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.feat-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:28px 24px;transition:box-shadow var(--t),transform var(--t)}
+.feat-card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.feat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px;flex-shrink:0}
+.fi-indigo{background:#e8eaf6}
+.fi-teal{background:#e0f2f1}
+.fi-green{background:#e8f5e9}
+.fi-amber{background:#fff8e1}
+.fi-blue{background:#e3f2fd}
+.fi-purple{background:#f3e5f5}
+.fi-orange{background:#fff3e0}
+.fi-red{background:#fce4ec}
+.fi-lime{background:#f9fbe7}
+.feat-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--c-text)}
+.feat-card p{font-size:.88rem;color:var(--c-muted);line-height:1.6}
+
+/* ──────────────────────────────────────────
+   SPOTLIGHT (alternating image+text)
+────────────────────────────────────────── */
+.spotlight{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:72px 0}
+.spotlight+.spotlight{border-top:1px solid var(--c-border)}
+.spotlight--flip .spotlight__visual{order:1}
+.spotlight--flip .spotlight__text{order:2}
+.spotlight__visual{position:relative;display:flex;justify-content:center}
+.spotlight__blob{position:absolute;width:360px;height:360px;border-radius:50%;background:var(--grad-cta);opacity:.08;filter:blur(60px)}
+.spotlight__phone{width:240px;border-radius:28px;overflow:hidden;box-shadow:var(--shadow-lg);position:relative;z-index:1}
+.spotlight__phone img{width:100%;display:block}
+.spotlight__text h2{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:16px;color:var(--c-text)}
+.spotlight__text p.lead{font-size:1rem;color:var(--c-muted);margin-bottom:24px;line-height:1.75}
+.check-list{display:flex;flex-direction:column;gap:10px}
+.check-item{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;color:var(--c-text)}
+.check-item::before{content:'✓';display:flex;align-items:center;justify-content:center;width:20px;height:20px;min-width:20px;border-radius:50%;background:#e8eaf6;color:var(--c-brand);font-size:.72rem;font-weight:700;margin-top:2px}
+
+/* ──────────────────────────────────────────
+   ROLES
+────────────────────────────────────────── */
+.roles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
+.role-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:28px 20px;text-align:center;transition:box-shadow var(--t),transform var(--t)}
+.role-card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.role-avatar{font-size:2.4rem;margin-bottom:14px}
+.role-card h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+.role-card p{font-size:.84rem;color:var(--c-muted);line-height:1.55;margin-bottom:16px}
+.role-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.role-tag{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:100px;background:#e8eaf6;color:var(--c-brand)}
+
+/* ──────────────────────────────────────────
+   SCREENSHOTS SCROLL
+────────────────────────────────────────── */
+.screens-scroll{display:flex;gap:20px;overflow-x:auto;padding:8px 4px 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--c-border) transparent}
+.screens-scroll::-webkit-scrollbar{height:4px}
+.screens-scroll::-webkit-scrollbar-track{background:transparent}
+.screens-scroll::-webkit-scrollbar-thumb{background:var(--c-border);border-radius:4px}
+.scr-item{flex-shrink:0;width:180px;text-align:center;scroll-snap-align:start}
+.scr-phone{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin-bottom:10px}
+.scr-phone img{width:100%;display:block}
+.scr-caption{font-size:.78rem;color:var(--c-muted);font-weight:500}
+
+/* ──────────────────────────────────────────
+   PRICING
+────────────────────────────────────────── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;align-items:stretch}
+.pricing-card{background:var(--c-surface);border:2px solid var(--c-border);border-radius:var(--radius-lg);padding:36px 28px;position:relative;transition:box-shadow var(--t),transform var(--t);display:flex;flex-direction:column}
+.pricing-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.pricing-card--popular{border-color:var(--c-brand);box-shadow:var(--shadow-lg)}
+.pricing-popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--grad-cta);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 16px;border-radius:100px;white-space:nowrap}
+.pricing-name{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-muted);margin-bottom:8px}
+.pricing-price{font-size:2.8rem;font-weight:900;color:var(--c-text);line-height:1;margin-bottom:4px}
+.pricing-price span{font-size:1rem;font-weight:500;color:var(--c-muted);vertical-align:top;margin-top:8px;display:inline-block;margin-left:2px}
+.pricing-billing{font-size:.82rem;color:var(--c-muted);margin-bottom:6px}
+.pricing-students{font-size:.88rem;font-weight:600;color:var(--c-brand);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--c-border)}
+.pricing-features{list-style:none;display:flex;flex-direction:column;gap:10px;flex:1;margin-bottom:28px}
+.pricing-features li{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--c-text)}
+.pricing-features li::before{content:'✓';display:flex;align-items:center;justify-content:center;width:18px;height:18px;min-width:18px;border-radius:50%;background:#e8eaf6;color:var(--c-brand);font-size:.68rem;font-weight:700}
+.pricing-features li.off{color:var(--c-muted)}
+.pricing-features li.off::before{background:#f3f4f6;color:#d1d5db;content:'×'}
+.btn--pricing{display:block;text-align:center;padding:13px 20px;border-radius:100px;font-weight:600;font-size:.9rem;transition:var(--t)}
+.btn--pricing-outline{border:2px solid var(--c-border);color:var(--c-text)}
+.btn--pricing-outline:hover{border-color:var(--c-brand);color:var(--c-brand)}
+.btn--pricing-fill{background:var(--grad-cta);color:#fff;box-shadow:0 4px 16px rgba(57,73,171,.3)}
+.btn--pricing-fill:hover{opacity:.9;transform:translateY(-1px)}
+.pricing-note{text-align:center;margin-top:28px;font-size:.82rem;color:var(--c-muted)}
+.pricing-note a{color:var(--c-brand);font-weight:500}
+
+/* ──────────────────────────────────────────
+   FAQ
+────────────────────────────────────────── */
+.faq-list{max-width:720px;margin:48px auto 0;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden}
+.faq-item input[type=checkbox]{display:none}
+.faq-label{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;font-weight:600;font-size:.95rem;user-select:none;transition:background var(--t)}
+.faq-label:hover{background:var(--c-bg)}
+.faq-arrow{transition:transform var(--t);font-size:.9rem;color:var(--c-muted)}
+.faq-item input:checked+.faq-label .faq-arrow{transform:rotate(180deg)}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;padding:0 20px;font-size:.9rem;color:var(--c-muted);line-height:1.7}
+.faq-item input:checked~.faq-body{max-height:300px;padding:0 20px 18px}
+
+/* ──────────────────────────────────────────
+   CTA FINAL
+────────────────────────────────────────── */
+.cta-final{background:var(--grad-hero);color:#fff;padding:80px 24px;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.cta-final__inner{max-width:640px;margin:0 auto;position:relative;z-index:1}
+.cta-final h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:16px}
+.cta-final p{color:rgba(255,255,255,.8);margin-bottom:36px;font-size:1.05rem}
+.cta-final__actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ──────────────────────────────────────────
+   FOOTER
+────────────────────────────────────────── */
+.footer{background:#0d1117;color:#e5e7eb;padding:56px 24px 32px}
+.footer__grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid #1f2937}
+.footer__brand-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:12px}
+.footer__brand-logo-icon{width:32px;height:32px;background:var(--grad-cta);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.footer__brand p{font-size:.85rem;color:#9ca3af;line-height:1.65;margin-bottom:16px}
+.footer__social{display:flex;gap:10px}
+.footer__social a{width:34px;height:34px;border-radius:8px;background:#1f2937;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background var(--t)}
+.footer__social a:hover{background:var(--c-brand)}
+.footer__col h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:14px}
+.footer__col ul{display:flex;flex-direction:column;gap:8px}
+.footer__col a{font-size:.88rem;color:#d1d5db;transition:color var(--t)}
+.footer__col a:hover{color:#fff}
+.footer__bottom{max-width:1160px;margin:24px auto 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.82rem;color:#6b7280}
+.footer__bottom a{color:#9ca3af}
+.footer__bottom a:hover{color:#fff}
+
+/* ──────────────────────────────────────────
+   LANGUAGE BANNER
+────────────────────────────────────────── */
+.lang-banner{background:#fff;border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:40px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;margin-top:48px}
+.lang-flags{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.lang-flag{display:flex;align-items:center;gap:8px;background:var(--c-bg);border:1px solid var(--c-border);border-radius:100px;padding:6px 14px;font-size:.85rem;font-weight:500}
+.lang-rtl{font-family:'Arial',sans-serif;font-size:1.1rem;font-weight:700;direction:rtl;padding:12px 20px;background:var(--grad-cta);color:#fff;border-radius:var(--radius);line-height:1.7;text-align:right;min-width:200px}
+
+/* ──────────────────────────────────────────
+   MOBILE RESPONSIVE
+────────────────────────────────────────── */
+@media(max-width:900px){
+  .hero__inner{grid-template-columns:1fr;text-align:center;gap:48px}
+  .hero__desc{max-width:100%}
+  .hero__actions{justify-content:center}
+  .hero__phones{height:280px;width:100%;max-width:320px;margin:0 auto}
+  .hero__phone--main{width:160px;transform:translateX(-30px) rotate(-4deg)}
+  .hero__phone--secondary{width:150px;transform:translateX(50px) translateY(20px) rotate(4deg)}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+  .roles-grid{grid-template-columns:repeat(2,1fr)}
+  .spotlight{grid-template-columns:1fr;gap:40px;padding:48px 0}
+  .spotlight--flip .spotlight__visual{order:0}
+  .spotlight--flip .spotlight__text{order:1}
+  .footer__grid{grid-template-columns:1fr 1fr;gap:32px}
+  .trust-bar__inner{gap:28px}
+  .trust-divider{display:none}
+  .lang-banner{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .section{padding:64px 0}
+  .features-grid{grid-template-columns:1fr}
+  .roles-grid{grid-template-columns:1fr}
+  .navbar__nav{display:none}
+  .navbar__toggle{display:flex}
+  .footer__grid{grid-template-columns:1fr}
+  .hero{padding:72px 24px 60px}
+}
+
+/* ──────────────────────────────────────────
+   MOBILE MENU (toggle)
+────────────────────────────────────────── */
+#nav-toggle:checked~.navbar__nav{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:#fff;padding:16px 24px;border-bottom:1px solid var(--c-border);z-index:998;box-shadow:var(--shadow)}
+
+/* ──────────────────────────────────────────
+   DESKTOP SCREENSHOTS
+────────────────────────────────────────── */
+.desktop-scroll{display:flex;gap:24px;overflow-x:auto;padding:8px 4px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--c-border) transparent}
+.desktop-scroll::-webkit-scrollbar{height:5px}
+.desktop-scroll::-webkit-scrollbar-thumb{background:var(--c-border);border-radius:4px}
+.desk-item{flex-shrink:0;width:520px;scroll-snap-align:start;text-align:center}
+@media(max-width:600px){.desk-item{width:320px}}
+.browser-frame{background:#fff;border-radius:12px;box-shadow:0 4px 32px rgba(0,0,0,.14);overflow:hidden;border:1px solid var(--c-border)}
+.browser-bar{background:#f1f3f4;padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--c-border)}
+.browser-dots{display:flex;gap:5px}
+.browser-dots span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.browser-dots span:nth-child(1){background:#ff5f57}
+.browser-dots span:nth-child(2){background:#febc2e}
+.browser-dots span:nth-child(3){background:#28c840}
+.browser-url{flex:1;background:#fff;border-radius:20px;padding:3px 12px;font-size:.72rem;color:var(--c-muted);border:1px solid var(--c-border);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser-frame img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;object-position:top}
+.desk-caption{margin-top:10px;font-size:.82rem;color:var(--c-muted);font-weight:500}
+
+/* ──────────────────────────────────────────
+   CAROUSEL
+────────────────────────────────────────── */
+.carousel{position:relative}
+.carousel-track-wrap{overflow:hidden;border-radius:var(--radius-lg)}
+.carousel-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+.carousel-slide{flex-shrink:0;width:100%}
+.carousel-btn{position:absolute;top:40%;transform:translateY(-50%);z-index:10;width:42px;height:42px;border-radius:50%;border:none;background:rgba(255,255,255,.93);box-shadow:var(--shadow);cursor:pointer;font-size:1.6rem;display:flex;align-items:center;justify-content:center;transition:var(--t);color:var(--c-brand);line-height:1;padding:0}
+.carousel-btn:hover{background:#fff;box-shadow:var(--shadow-lg);transform:translateY(-50%) scale(1.08)}
+.carousel-prev{left:-16px}.carousel-next{right:-16px}
+@media(max-width:640px){.carousel-prev{left:4px}.carousel-next{right:4px}}
+.carousel-dots{display:flex;justify-content:center;gap:7px;margin-top:20px;flex-wrap:wrap}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--c-border);border:none;cursor:pointer;transition:var(--t);padding:0;flex-shrink:0}
+.carousel-dot.active{background:var(--c-brand);width:24px;border-radius:4px}
+.mob-carousel .carousel-slide{display:flex;justify-content:center;align-items:flex-end;gap:16px;padding:8px 48px 16px}
+.mob-carousel .scr-item{flex-shrink:0;width:155px;text-align:center}
+@media(max-width:500px){.mob-carousel .scr-item{width:110px}.mob-carousel .carousel-slide{gap:10px;padding:8px 24px 16px}}
+.desk-carousel .carousel-slide{display:flex;justify-content:center;padding:8px 48px 16px}
+.desk-carousel .desk-item{max-width:780px;width:100%}
+@media(max-width:640px){.desk-carousel .carousel-slide{padding:8px 12px 16px}}
+
+/* ──────────────────────────────────────────
+   PERMISSION MATRIX
+────────────────────────────────────────── */
+.int-roles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-bottom:40px}
+.int-role-card{background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:var(--radius);padding:18px 12px;text-align:center;transition:var(--t)}
+.int-role-card:hover{border-color:var(--c-brand);box-shadow:var(--shadow);transform:translateY(-2px)}
+.int-role-icon{font-size:1.8rem;margin-bottom:6px}
+.int-role-name{font-size:.88rem;font-weight:700;color:var(--c-text)}
+.int-role-desc{font-size:.73rem;color:var(--c-muted);margin-top:3px;line-height:1.4}
+.perm-wrap{overflow-x:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-top:32px}
+.perm-table{width:100%;border-collapse:collapse;font-size:.83rem;min-width:580px}
+.perm-table thead th{background:var(--c-brand);color:#fff;font-weight:600;padding:13px 12px;text-align:center;white-space:nowrap}
+.perm-table thead th:first-child{background:var(--c-brand-dark);text-align:left;min-width:170px}
+.perm-table td{padding:11px 12px;border-bottom:1px solid var(--c-border);text-align:center;font-size:.85rem}
+.perm-table td:first-child{text-align:left;font-weight:500;color:var(--c-text);background:var(--c-bg)}
+.perm-table tr:last-child td{border-bottom:none}
+.perm-table tbody tr:hover td:not(:first-child){background:#e8eaf6}
+.pv{color:#16a34a;font-weight:700;font-size:1rem}
+.pp{color:#d97706;font-weight:600;font-size:.85rem}
+.px{color:#d1d5db;font-size:.85rem}
+.perm-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;font-size:.8rem;color:var(--c-muted);justify-content:center}
+.perm-legend span{display:flex;align-items:center;gap:5px;font-weight:500}
+
+/* ──────────────────────────────────────────
+   NEW PRICING
+────────────────────────────────────────── */
+.pricing-hero-block{background:var(--grad-cta);color:#fff;border-radius:var(--radius-lg);padding:44px 36px;margin-bottom:36px;position:relative;overflow:hidden;text-align:center}
+.pricing-hero-block::after{content:'';position:absolute;bottom:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none}
+.pricing-hero-block h3{font-size:2.6rem;font-weight:900;margin-bottom:8px;line-height:1.1}
+.pricing-hero-block p{font-size:.98rem;opacity:.9;max-width:560px;margin:0 auto 24px}
+.ph-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:7px 20px;font-size:.88rem;font-weight:600;margin-bottom:20px}
+.pricing-exs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;text-align:left}
+@media(max-width:600px){.pricing-exs{grid-template-columns:1fr;max-width:320px;margin-left:auto;margin-right:auto}}
+.pricing-ex{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:var(--radius);padding:14px 16px}
+.pricing-ex .ex-label{font-size:.7rem;font-weight:700;opacity:.8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.pricing-ex .ex-price{font-size:1.35rem;font-weight:800;margin-bottom:2px}
+.pricing-ex .ex-monthly{font-size:.75rem;opacity:.85}
+.pricing-ex .ex-promo{font-size:.7rem;opacity:.65;text-decoration:line-through;margin-top:3px}
+.free-banner{display:flex;align-items:flex-start;gap:20px;background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1.5px solid #6ee7b7;border-radius:var(--radius-lg);padding:24px 28px;margin-bottom:36px;flex-wrap:wrap}
+.free-banner-icon{font-size:2.2rem;flex-shrink:0;margin-top:2px}
+.free-banner h4{font-size:1rem;font-weight:700;color:#065f46;margin-bottom:8px}
+.free-banner-items{display:flex;gap:10px;flex-wrap:wrap}
+.fb-item{display:flex;align-items:center;gap:6px;font-size:.81rem;font-weight:600;color:#047857;background:#fff;border-radius:100px;padding:5px 12px;border:1px solid #a7f3d0}
+.fb-item::before{content:'✓';width:16px;height:16px;background:#10b981;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0}
+.ptiers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:36px}
+@media(max-width:1100px){.ptiers-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.ptiers-grid{grid-template-columns:1fr}}
+.ptier{background:var(--c-surface);border:2px solid var(--c-border);border-radius:var(--radius-lg);padding:28px 22px;transition:var(--t);position:relative;display:flex;flex-direction:column}
+.ptier:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.ptier--popular{border-color:var(--c-brand);background:linear-gradient(160deg,#f0f4ff 0%,#fff 100%)}
+.ptier-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad-cta);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:5px 16px;border-radius:100px;white-space:nowrap}
+.ptier-range{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--c-muted);margin-bottom:10px}
+.ptier-price{font-size:2rem;font-weight:900;color:var(--c-brand);line-height:1;margin-bottom:4px}
+.ptier-price small{font-size:.85rem;font-weight:500;color:var(--c-muted)}
+.ptier-promo{display:flex;align-items:center;gap:8px;margin:6px 0 14px;flex-wrap:wrap}
+.ptier-old{font-size:.82rem;color:var(--c-muted);text-decoration:line-through}
+.ptier-new{font-size:.76rem;font-weight:700;color:#d97706;background:#fef3c7;border-radius:100px;padding:2px 9px}
+.ptier-example{font-size:.82rem;color:var(--c-muted);background:var(--c-bg);border-radius:var(--radius);padding:10px 14px;margin:12px 0;line-height:1.6}
+.ptier-example strong{color:var(--c-brand);font-weight:700;display:block;margin-bottom:2px}
+.ptier-feats{list-style:none;display:flex;flex-direction:column;gap:9px;flex:1;margin-bottom:22px}
+.ptier-feats li{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;color:var(--c-text);line-height:1.4}
+.ptier-feats li::before{content:'✓';display:flex;align-items:center;justify-content:center;width:17px;height:17px;min-width:17px;border-radius:50%;background:#e8eaf6;color:var(--c-brand);font-size:.62rem;font-weight:700;margin-top:1px}
+.ptier-cta{display:block;text-align:center;padding:13px;border-radius:100px;font-weight:600;font-size:.88rem;transition:var(--t);border:2px solid var(--c-border);color:var(--c-text);margin-top:auto}
+.ptier-cta:hover{border-color:var(--c-brand);color:var(--c-brand)}
+.ptier-cta--fill{background:var(--grad-cta);color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(57,73,171,.3)}
+.ptier-cta--fill:hover{opacity:.9;transform:translateY(-1px);border-color:transparent}
+.pricing-custom{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.pricing-custom p{font-size:.9rem;color:var(--c-text);margin:0}
+.pricing-custom a{white-space:nowrap;font-size:.88rem;font-weight:600;color:var(--c-brand);border:1.5px solid var(--c-brand);border-radius:100px;padding:8px 18px;transition:var(--t)}
+.pricing-custom a:hover{background:var(--c-brand);color:#fff}
+
+/* ──────────────────────────────────────────
+   CONTACT SECTION
+────────────────────────────────────────── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:48px;align-items:start}
+@media(max-width:800px){.contact-grid{grid-template-columns:1fr;gap:32px}}
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.contact-info-item{display:flex;align-items:flex-start;gap:16px;padding:16px;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);transition:box-shadow var(--t),transform var(--t)}
+.contact-info-item:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.contact-info-icon{font-size:1.4rem;min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#e8eaf6;border-radius:10px}
+.contact-info-item h4{font-size:.85rem;font-weight:600;color:var(--c-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.contact-info-item a,.contact-info-item p{font-size:.95rem;color:var(--c-text);font-weight:500}
+.contact-info-item a:hover{color:var(--c-brand)}
+.btn--whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;font-weight:700;font-size:1rem;padding:14px 28px;border-radius:100px;transition:var(--t);box-shadow:0 4px 20px rgba(37,211,102,.35);border:none;cursor:pointer;text-decoration:none}
+.btn--whatsapp:hover{background:#1ebe5b;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.4)}
+.btn--whatsapp svg{width:22px;height:22px;fill:#fff}
+.contact-form{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:36px 32px;box-shadow:var(--shadow)}
+@media(max-width:600px){.contact-form{padding:24px 18px}}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.form-group label{font-size:.85rem;font-weight:600;color:var(--c-text)}
+.form-group input,.form-group textarea,.form-group select{font-family:inherit;font-size:.95rem;color:var(--c-text);background:#f9fafb;border:1.5px solid var(--c-border);border-radius:8px;padding:11px 14px;transition:border-color var(--t),box-shadow var(--t);outline:none;width:100%}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--c-brand);box-shadow:0 0 0 3px rgba(57,73,171,.12);background:#fff}
+.form-group select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%236b7280' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;cursor:pointer}
+.form-group select option[value='']{color:#9ca3af}
+.form-group textarea{resize:vertical;min-height:110px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:520px){.form-row{grid-template-columns:1fr}}
+.form-success{display:none;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:var(--radius);padding:16px 20px;color:#2e7d32;font-weight:600;text-align:center;margin-top:12px}
+.contact-form[data-submitted] .form-success{display:block}
+.contact-form[data-submitted] .form-body{display:none}
+
+/* ──────────────────────────────────────────
+   WHATSAPP FLOATING BUTTON
+────────────────────────────────────────── */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.wa-float__btn{width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);cursor:pointer;transition:var(--t);border:none;text-decoration:none}
+.wa-float__btn:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.5)}
+.wa-float__btn svg{width:32px;height:32px;fill:#fff}
+.wa-float__tooltip{background:#1a1d2e;color:#fff;font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:100px;white-space:nowrap;opacity:0;transform:translateX(10px);transition:opacity .2s,transform .2s;pointer-events:none}
+.wa-float:hover .wa-float__tooltip{opacity:1;transform:translateX(0)}
+  </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════
-     NAV
-══════════════════════════════════════════════ -->
-<nav class="nav">
-  <a href="index.html" class="nav-brand">
-    <span class="nav-brand-icon">🎓</span>
-    MadrassaNET
-  </a>
-  <div class="nav-links">
-    <a href="#fonctionnalites">Fonctionnalités</a>
-    <a href="#roles">Qui l'utilise ?</a>
-    <a href="support/index.html">Support</a>
-    <a href="#telechargement" class="nav-cta">Télécharger</a>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="#" class="navbar__logo">
+      <div class="navbar__logo-icon">🎓</div>
+      MadrassaNET
+    </a>
+    <input type="checkbox" id="nav-toggle" style="display:none">
+    <div class="navbar__nav">
+      <a href="#fonctionnalites" class="navbar__link">Fonctionnalités</a>
+      <a href="#tarifs" class="navbar__link">Tarifs</a>
+      <a href="#roles" class="navbar__link">Qui l'utilise ?</a>
+      <a href="#faq" class="navbar__link">FAQ</a>
+      <a href="#contact" class="navbar__link">Contact</a>
+      <a href="support/index.html" class="navbar__link">Support</a>
+      <a href="#contact" class="navbar__cta">Demander une démo →</a>
+    </div>
+    <label for="nav-toggle" class="navbar__toggle">
+      <span></span><span></span><span></span>
+    </label>
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════════
-     HERO
-══════════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-pattern"></div>
-  <div class="hero-inner">
-
-    <!-- Left: text -->
-    <div class="hero-text">
-      <div class="hero-badge">🌍 Pour tous types d'établissements</div>
-      <h1>Gérez votre école.<br><em>Simplement, partout.</em></h1>
-      <p class="hero-desc">
-        MadrassaNET est la solution complète de gestion scolaire. Élèves, enseignants, présences, notes, bulletins, emplois du temps, devoirs et finances — tout en un, sur mobile.
+  <div class="hero__inner">
+    <div class="hero__text">
+      <div class="hero__tag">🕌 Pensé pour les associations scolaires &amp; madrasas</div>
+      <h1 class="hero__title">
+        Gérez votre école<br>
+        <em>simplement et efficacement.</em>
+      </h1>
+      <p class="hero__desc">
+        MadrassaNET est la solution tout-en-un pour piloter votre établissement :
+        inscriptions, présences, notes, bulletins PDF, emplois du temps, finances et messagerie
+        — depuis un seul outil, sur mobile ou bureau.
       </p>
-      <div class="store-row">
-        <a href="#telechargement" class="store-badge">
-          <span class="store-badge-icon">🍎</span>
-          <span>
-            <span class="store-badge-sub">Télécharger sur</span>
-            <span class="store-badge-name">App Store</span>
-          </span>
-        </a>
-        <a href="#telechargement" class="store-badge">
-          <span class="store-badge-icon">▶️</span>
-          <span>
-            <span class="store-badge-sub">Disponible sur</span>
-            <span class="store-badge-name">Google Play</span>
-          </span>
-        </a>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">🚀 Demander une démo gratuite</a>
+        <a href="#fonctionnalites" class="btn btn--outline">Voir les fonctionnalités</a>
       </div>
     </div>
-
-    <!-- Right: phones -->
-    <div class="hero-phones">
-      <div class="phone phone-main">
-        <div class="phone-shell">
-          <img src="assets/screenshots/screen-admin-home.png" alt="Tableau de bord MadrassaNET">
-        </div>
+    <div class="hero__phones">
+      <div class="hero__phone hero__phone--main">
+        <img src="assets/screenshots/screen-admin-home.png" alt="Tableau de bord MadrassaNET">
       </div>
-      <div class="phone phone-secondary">
-        <div class="phone-shell">
-          <img src="assets/screenshots/screen-dashboard.png" alt="Statistiques MadrassaNET">
-        </div>
+      <div class="hero__phone hero__phone--secondary">
+        <img src="assets/screenshots/screen-presences.png" alt="Gestion des présences">
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     STATS BAR
-══════════════════════════════════════════════ -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-num">10+</div>
-      <div class="stat-label">Modules intégrés</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Langues (FR / EN / AR)</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">4</div>
-      <div class="stat-label">Rôles utilisateurs</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Multi-établissements</div>
-    </div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar__inner">
+    <div class="trust-item"><div class="trust-num">10+</div><div class="trust-label">Modules<br>intégrés</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">3</div><div class="trust-label">Langues natives<br>FR · EN · العربية</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">100%</div><div class="trust-label">Multi-établissements<br>isolés</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">4</div><div class="trust-label">Rôles dédiés<br>Admin · Prof · Parent · Élève</div></div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="trust-num">0€</div><div class="trust-label">Pour commencer<br>Essai gratuit disponible</div></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     SCREENSHOTS SHOWCASE
-══════════════════════════════════════════════ -->
-<section style="background: var(--bg); padding: 72px 5%;">
-  <div class="section-inner">
-    <div class="text-center">
-      <div class="eyebrow">📱 L'application en images</div>
-      <h2 class="section-heading">Toutes vos données scolaires, accessibles en un instant</h2>
-      <p class="section-sub">Une interface intuitive conçue pour les administrateurs, enseignants, parents et élèves.</p>
-    </div>
-    <div class="screenshots-scroll">
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-admin-home.png" alt="Accueil administrateur">
-        </div>
-        <div class="scr-caption">Accueil Admin</div>
-      </div>
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-dashboard.png" alt="Tableau de bord statistiques">
-        </div>
-        <div class="scr-caption">Tableau de bord</div>
-      </div>
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-presences.png" alt="Gestion des présences">
-        </div>
-        <div class="scr-caption">Présences</div>
-      </div>
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-planning.png" alt="Emploi du temps">
-        </div>
-        <div class="scr-caption">Emploi du temps</div>
-      </div>
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-devoirs.png" alt="Devoirs">
-        </div>
-        <div class="scr-caption">Devoirs</div>
-      </div>
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-bulletins.png" alt="Bulletins scolaires">
-        </div>
-        <div class="scr-caption">Bulletins</div>
-      </div>
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-enseignant.png" alt="Espace enseignant">
-        </div>
-        <div class="scr-caption">Espace Enseignant</div>
-      </div>
-      <div class="scr-item">
-        <div class="scr-phone">
-          <img src="assets/screenshots/screen-classes.png" alt="Gestion des classes">
-        </div>
-        <div class="scr-caption">Classes</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     FEATURES GRID
-══════════════════════════════════════════════ -->
-<section id="fonctionnalites" style="background: var(--surface);">
-  <div class="section-inner">
-    <div class="text-center">
-      <div class="eyebrow">✨ Fonctionnalités</div>
-      <h2>Tout ce dont votre établissement a besoin</h2>
-      <p class="section-sub">Des outils puissants pensés pour simplifier le quotidien de toute l'équipe pédagogique.</p>
+<!-- FEATURES -->
+<section class="section" id="fonctionnalites">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">✨ Fonctionnalités</span>
+      <h2 class="section-title">Tout ce dont votre école a besoin</h2>
+      <p class="section-sub">Des outils complets pensés pour simplifier le quotidien de toute la communauté scolaire.</p>
     </div>
     <div class="features-grid">
-
-      <div class="feat-card">
-        <div class="feat-icon ic-indigo">👥</div>
-        <h3>Gestion des élèves</h3>
-        <p>Fiche complète, matricule auto-généré, inscription aux classes, suivi individuel et importation en masse via Excel.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-teal">🏫</div>
-        <h3>Classes &amp; emplois du temps</h3>
-        <p>Organisez vos groupes, niveaux et sections. Créez les emplois du temps et visualisez le planning de chaque enseignant.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-green">📋</div>
-        <h3>Présences &amp; absences</h3>
-        <p>Pointage rapide par classe ou session, statistiques de présence, notifications aux parents en cas d'absence.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-amber">📝</div>
-        <h3>Notes &amp; examens</h3>
-        <p>Saisie des notes par matière, calcul automatique des moyennes, coefficients paramétrables et statistiques de classe.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-blue">📄</div>
-        <h3>Bulletins scolaires PDF</h3>
-        <p>Génération automatique de bulletins personnalisés au format PDF, avec moyennes, appréciations et cachet de l'école.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-purple">📚</div>
-        <h3>Devoirs &amp; travaux</h3>
-        <p>Publication des devoirs par les enseignants, suivi des soumissions, correction et retour avec commentaires.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-orange">💰</div>
-        <h3>Finance &amp; facturation</h3>
-        <p>Types de frais configurables, paiements individuels ou par famille, génération de factures PDF et suivi des impayés.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-red">💬</div>
-        <h3>Messagerie interne</h3>
-        <p>Communication directe entre administrateurs, enseignants, parents et élèves au sein de la plateforme.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-teal">👨‍🏫</div>
-        <h3>Espace enseignant dédié</h3>
-        <p>Tableau de bord personnalisé : mes classes, mon planning, mes cours du jour, et statistiques de présence en temps réel.</p>
-      </div>
-
+      <div class="feat-card"><div class="feat-icon fi-indigo">👥</div><h3>Gestion des élèves</h3><p>Fiches complètes, matricule auto-généré, inscription aux classes, suivi individuel et import en masse via Excel.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-teal">👨‍🏫</div><h3>Gestion des enseignants</h3><p>Profils, affectation aux matières et classes, espace dédié avec planning et statistiques personnalisés.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-green">📋</div><h3>Présences &amp; absences</h3><p>Pointage rapide par classe ou session directement sur mobile, statistiques, historique et export Excel.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-amber">📝</div><h3>Notes &amp; examens</h3><p>Saisie des notes par matière, calcul automatique des moyennes, coefficients paramétrables et stats de classe.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-blue">📄</div><h3>Bulletins scolaires PDF</h3><p>Génération automatique de bulletins personnalisés avec logo de l'école, moyennes, appréciations et rang.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-purple">🗓️</div><h3>Emplois du temps</h3><p>Création et gestion des plannings par classe ou par enseignant. Vue semaine et vue journalière.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-orange">💰</div><h3>Finance &amp; facturation</h3><p>Types de frais configurables, paiements individuels ou par famille, factures PDF et suivi des impayés.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-red">📚</div><h3>Devoirs &amp; travaux</h3><p>Publication par les enseignants, suivi des soumissions, correction et retour avec commentaires.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-lime">💬</div><h3>Messagerie interne</h3><p>Communication directe entre admin, enseignants, parents et élèves en toute sécurité.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-indigo">🔐</div><h3>Droits &amp; permissions</h3><p>Attribuez des rôles précis à chaque bénévole : Direction, Secrétaire, Trésorier. Chacun accède uniquement à ce qui le concerne.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-teal">📖</div><h3>Bibliothèque scolaire</h3><p>Inventaire des livres, gestion des prêts et retours, suivi par élève. Gérez les ressources pédagogiques facilement.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-green">🔔</div><h3>Notifications push &amp; email</h3><p>Alertes automatiques pour les parents (absence, note, devoir), rappels de paiement et communications ciblées.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-amber">📊</div><h3>Statistiques &amp; rapports</h3><p>Tableaux de bord analytiques : taux de présence, progression des notes, suivi financier et rapports exportables.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-blue">🔄</div><h3>Réinscriptions annuelles</h3><p>Campagnes de réinscription automatisées, suivi des confirmations famille par famille et passage d'année en un clic.</p></div>
+      <div class="feat-card"><div class="feat-icon fi-purple">📅</div><h3>Rendez-vous &amp; agenda</h3><p>Prise de RDV en ligne entre parents et enseignants, agenda partagé et notifications de rappel automatiques.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     SPOTLIGHTS (alternating)
-══════════════════════════════════════════════ -->
-<section style="background: var(--bg);">
-  <div class="section-inner">
-
-    <!-- Spotlight 1: Dashboard -->
-    <div class="spotlight-item">
-      <div class="spotlight-visual">
-        <div class="spotlight-blob"></div>
-        <div class="spotlight-phone">
-          <img src="assets/screenshots/screen-dashboard.png" alt="Tableau de bord administrateur">
+<!-- SCREENSHOTS MOBILE -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">📱 Application mobile</span>
+      <h2 class="section-title">Toujours à portée de main</h2>
+      <p class="section-sub">L'application mobile permet aux enseignants et parents de suivre l'école depuis leur téléphone.</p>
+    </div>
+    <div class="carousel mob-carousel" data-autoplay="2800">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-admin-home.png" alt="Accueil Admin" loading="lazy"></div><div class="scr-caption">Accueil Admin</div></div>
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-dashboard.png" alt="Dashboard" loading="lazy"></div><div class="scr-caption">Tableau de bord</div></div>
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-presences.png" alt="Présences" loading="lazy"></div><div class="scr-caption">Présences</div></div>
+          </div>
+          <div class="carousel-slide">
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-planning.png" alt="Planning" loading="lazy"></div><div class="scr-caption">Emploi du temps</div></div>
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-bulletins.png" alt="Bulletins" loading="lazy"></div><div class="scr-caption">Bulletins PDF</div></div>
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-devoirs.png" alt="Devoirs" loading="lazy"></div><div class="scr-caption">Devoirs</div></div>
+          </div>
+          <div class="carousel-slide">
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-enseignant.png" alt="Enseignant" loading="lazy"></div><div class="scr-caption">Espace Enseignant</div></div>
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-classes.png" alt="Classes" loading="lazy"></div><div class="scr-caption">Classes</div></div>
+            <div class="scr-item"><div class="scr-phone"><img src="assets/screenshots/screen-messages.png" alt="Messages" loading="lazy"></div><div class="scr-caption">Messagerie</div></div>
+          </div>
         </div>
       </div>
-      <div class="spotlight-text">
-        <div class="eyebrow">📊 Vue globale</div>
+      <button class="carousel-btn carousel-prev">&#8249;</button>
+      <button class="carousel-btn carousel-next">&#8250;</button>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS DESKTOP -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">🖥️ Interface bureau</span>
+      <h2 class="section-title">Une interface web complète sur ordinateur</h2>
+      <p class="section-sub">L'administrateur gère l'ensemble de l'établissement depuis un navigateur — rapide, clair, sans installation.</p>
+    </div>
+    <div class="carousel desk-carousel" data-autoplay="3500">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / tableau-de-bord</div></div>
+                <img src="assets/screenshots/desktop/dashboard.png" alt="Tableau de bord" loading="lazy">
+              </div><div class="desk-caption">Tableau de bord principal</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / eleves</div></div>
+                <img src="assets/screenshots/desktop/eleves.png" alt="Gestion des élèves" loading="lazy">
+              </div><div class="desk-caption">Gestion des élèves</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / classes</div></div>
+                <img src="assets/screenshots/desktop/classes.png" alt="Classes" loading="lazy">
+              </div><div class="desk-caption">Organisation des classes</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / notes</div></div>
+                <img src="assets/screenshots/desktop/notes.png" alt="Notes" loading="lazy">
+              </div><div class="desk-caption">Saisie des notes</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / bulletins</div></div>
+                <img src="assets/screenshots/desktop/bulletin.png" alt="Bulletins PDF" loading="lazy">
+              </div><div class="desk-caption">Bulletins scolaires PDF</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / planning</div></div>
+                <img src="assets/screenshots/desktop/planning.png" alt="Planning" loading="lazy">
+              </div><div class="desk-caption">Emplois du temps</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / devoirs</div></div>
+                <img src="assets/screenshots/desktop/devoirs.png" alt="Devoirs" loading="lazy">
+              </div><div class="desk-caption">Devoirs &amp; travaux</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / inscriptions</div></div>
+                <img src="assets/screenshots/desktop/inscription.png" alt="Inscriptions" loading="lazy">
+              </div><div class="desk-caption">Inscriptions &amp; familles</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / finance</div></div>
+                <img src="assets/screenshots/desktop/paiement.png" alt="Finance" loading="lazy">
+              </div><div class="desk-caption">Finance &amp; paiements</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / messagerie</div></div>
+                <img src="assets/screenshots/desktop/message.png" alt="Messagerie" loading="lazy">
+              </div><div class="desk-caption">Messagerie interne</div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="desk-item">
+              <div class="browser-frame">
+                <div class="browser-bar"><div class="browser-dots"><span></span><span></span><span></span></div><div class="browser-url">app.madrassanet.fr / annee-scolaire</div></div>
+                <img src="assets/screenshots/desktop/annee.png" alt="Année scolaire" loading="lazy">
+              </div><div class="desk-caption">Gestion de l'année scolaire</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn carousel-prev">&#8249;</button>
+      <button class="carousel-btn carousel-next">&#8250;</button>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTLIGHTS -->
+<section class="section">
+  <div class="container">
+    <div class="spotlight">
+      <div class="spotlight__visual">
+        <div class="spotlight__blob"></div>
+        <div class="spotlight__phone"><img src="assets/screenshots/screen-dashboard.png" alt="Tableau de bord"></div>
+      </div>
+      <div class="spotlight__text">
+        <span class="section-eyebrow badge">📊 Vue globale</span>
         <h2>Pilotez votre établissement en un coup d'œil</h2>
-        <p class="lead">Le tableau de bord administrateur vous donne une vue synthétique de toute la vie de l'école : effectifs, présences, finances et activité en temps réel.</p>
+        <p class="lead">Le tableau de bord centralise toute la vie de l'école : effectifs, présences du jour, finances et activité en temps réel.</p>
         <ul class="check-list">
-          <li class="check-item"><span class="ci-icon"></span>Nombre d'élèves, enseignants et classes</li>
-          <li class="check-item"><span class="ci-icon"></span>Taux de présence global et par classe</li>
-          <li class="check-item"><span class="ci-icon"></span>Suivi des familles et paiements récents</li>
-          <li class="check-item"><span class="ci-icon"></span>Accès rapide à tous les modules</li>
+          <li class="check-item">Nombre d'élèves, enseignants et classes en direct</li>
+          <li class="check-item">Taux de présence global et par classe</li>
+          <li class="check-item">Suivi des familles et paiements récents</li>
+          <li class="check-item">Accès rapide à tous les modules</li>
         </ul>
       </div>
     </div>
 
-    <!-- Spotlight 2: Presences -->
-    <div class="spotlight-item flip">
-      <div class="spotlight-visual">
-        <div class="spotlight-blob"></div>
-        <div class="spotlight-phone">
-          <img src="assets/screenshots/screen-presences.png" alt="Gestion des présences">
-        </div>
+    <div class="spotlight spotlight--flip">
+      <div class="spotlight__visual">
+        <div class="spotlight__blob"></div>
+        <div class="spotlight__phone"><img src="assets/screenshots/screen-presences.png" alt="Présences"></div>
       </div>
-      <div class="spotlight-text">
-        <div class="eyebrow">📋 Présences</div>
-        <h2>Prenez l'appel en quelques secondes</h2>
-        <p class="lead">L'enseignant visualise ses cours du jour, sélectionne la session et pointe les présences directement sur son téléphone, sans papier ni saisie fastidieuse.</p>
+      <div class="spotlight__text">
+        <span class="section-eyebrow badge">📋 Présences</span>
+        <h2>L'appel en quelques secondes, sans papier</h2>
+        <p class="lead">L'enseignant ouvre l'application, sélectionne son cours du jour et pointe les présences directement depuis son téléphone.</p>
         <ul class="check-list">
-          <li class="check-item"><span class="ci-icon"></span>Cours du jour listés automatiquement</li>
-          <li class="check-item"><span class="ci-icon"></span>Pointage rapide : présent, absent, retard</li>
-          <li class="check-item"><span class="ci-icon"></span>Historique et statistiques par élève</li>
-          <li class="check-item"><span class="ci-icon"></span>Export Excel pour le suivi administratif</li>
+          <li class="check-item">Cours du jour listés automatiquement</li>
+          <li class="check-item">Pointage : présent, absent, en retard en un tap</li>
+          <li class="check-item">Historique complet et statistiques par élève</li>
+          <li class="check-item">Export Excel pour le suivi administratif</li>
         </ul>
       </div>
     </div>
 
-    <!-- Spotlight 3: Enseignant -->
-    <div class="spotlight-item">
-      <div class="spotlight-visual">
-        <div class="spotlight-blob"></div>
-        <div class="spotlight-phone">
-          <img src="assets/screenshots/screen-enseignant.png" alt="Espace enseignant">
-        </div>
+    <div class="spotlight">
+      <div class="spotlight__visual">
+        <div class="spotlight__blob"></div>
+        <div class="spotlight__phone"><img src="assets/screenshots/screen-bulletins.png" alt="Bulletins PDF"></div>
       </div>
-      <div class="spotlight-text">
-        <div class="eyebrow">👨‍🏫 Espace enseignant</div>
-        <h2>Un tableau de bord taillé pour les professeurs</h2>
-        <p class="lead">Chaque enseignant dispose de son espace personnel : ses classes, ses statistiques de présence, ses devoirs publiés et son planning hebdomadaire.</p>
+      <div class="spotlight__text">
+        <span class="section-eyebrow badge">📄 Bulletins</span>
+        <h2>Des bulletins professionnels en un clic</h2>
+        <p class="lead">Générez des bulletins complets en PDF avec le logo de votre école, les moyennes, les appréciations et le rang de chaque élève.</p>
         <ul class="check-list">
-          <li class="check-item"><span class="ci-icon"></span>Vue synthétique : classes, élèves, présence</li>
-          <li class="check-item"><span class="ci-icon"></span>Planning de la semaine en un coup d'œil</li>
-          <li class="check-item"><span class="ci-icon"></span>Publication et suivi des devoirs</li>
-          <li class="check-item"><span class="ci-icon"></span>Accès à l'historique des notes par matière</li>
+          <li class="check-item">Calcul automatique des moyennes et rangs</li>
+          <li class="check-item">Personnalisé avec le logo et le nom de l'école</li>
+          <li class="check-item">Export PDF individuel ou groupé par classe</li>
+          <li class="check-item">Appréciations libres par matière</li>
         </ul>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     ROLES
-══════════════════════════════════════════════ -->
-<section class="roles-section" id="roles">
-  <div class="section-inner">
-    <div class="text-center">
-      <div class="eyebrow">👤 Rôles &amp; accès</div>
-      <h2>Conçu pour toute la communauté scolaire</h2>
-      <p class="section-sub">Chaque utilisateur accède à un espace personnalisé adapté à son rôle, avec les permissions appropriées.</p>
+<!-- MULTI-LANGUE -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="lang-banner">
+      <div>
+        <span class="section-eyebrow badge badge--green">🌍 Multi-langue natif</span>
+        <h2 style="font-size:1.7rem;margin:12px 0 12px;">Français, Anglais &amp; Arabe (RTL)</h2>
+        <p style="color:var(--c-muted);font-size:.95rem;max-width:500px;line-height:1.7;">
+          MadrassaNET prend en charge trois langues dont l'arabe avec affichage de droite à gauche (RTL).
+          Chaque utilisateur choisit sa langue depuis son profil. Idéal pour les madrasas et établissements islamiques.
+        </p>
+        <div class="lang-flags">
+          <div class="lang-flag">🇫🇷 Français</div>
+          <div class="lang-flag">🇬🇧 English</div>
+          <div class="lang-flag">🇸🇦 العربية (RTL)</div>
+        </div>
+      </div>
+      <div class="lang-rtl">
+        مرحباً بكم في<br>
+        نظام إدارة المدرسة<br>
+        <span style="font-size:.8rem;opacity:.8">MadrassaNET – كل شيء في مكان واحد</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section class="section" id="roles">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">👤 Rôles &amp; accès</span>
+      <h2 class="section-title">Un espace dédié pour chaque acteur</h2>
+      <p class="section-sub">Chaque utilisateur accède à une interface personnalisée avec les outils dont il a besoin.</p>
     </div>
     <div class="roles-grid">
-
       <div class="role-card">
         <div class="role-avatar">🏢</div>
         <h3>Administrateur</h3>
-        <p>Gère l'ensemble de l'établissement : élèves, enseignants, classes, finances et paramètres.</p>
-        <div class="role-perms">
-          <span class="role-perm">CRUD complet</span>
-          <span class="role-perm">Bulletins PDF</span>
-          <span class="role-perm">Finances</span>
-          <span class="role-perm">Exports</span>
-        </div>
+        <p>Pilote l'ensemble de l'établissement : élèves, enseignants, classes, finances et paramètres.</p>
+        <div class="role-tags"><span class="role-tag">CRUD complet</span><span class="role-tag">Bulletins PDF</span><span class="role-tag">Finances</span><span class="role-tag">Exports</span></div>
       </div>
-
       <div class="role-card">
         <div class="role-avatar">👨‍🏫</div>
         <h3>Enseignant</h3>
-        <p>Accède à ses classes, gère les présences, publie les devoirs, saisit les notes.</p>
-        <div class="role-perms">
-          <span class="role-perm">Planning</span>
-          <span class="role-perm">Présences</span>
-          <span class="role-perm">Devoirs</span>
-          <span class="role-perm">Notes</span>
-        </div>
+        <p>Accède à ses classes, gère les présences, publie les devoirs et saisit les notes.</p>
+        <div class="role-tags"><span class="role-tag">Planning</span><span class="role-tag">Présences</span><span class="role-tag">Devoirs</span><span class="role-tag">Notes</span></div>
       </div>
-
       <div class="role-card">
         <div class="role-avatar">👨‍👩‍👧</div>
         <h3>Parent</h3>
         <p>Suit en temps réel les présences, notes et devoirs de ses enfants inscrits dans l'établissement.</p>
-        <div class="role-perms">
-          <span class="role-perm">Suivi enfants</span>
-          <span class="role-perm">Bulletins</span>
-          <span class="role-perm">Messages</span>
-        </div>
+        <div class="role-tags"><span class="role-tag">Suivi enfants</span><span class="role-tag">Bulletins</span><span class="role-tag">Messages</span></div>
       </div>
-
       <div class="role-card">
         <div class="role-avatar">🎒</div>
         <h3>Élève</h3>
         <p>Consulte son emploi du temps, ses devoirs, ses notes et communique avec ses enseignants.</p>
-        <div class="role-perms">
-          <span class="role-perm">Planning</span>
-          <span class="role-perm">Devoirs</span>
-          <span class="role-perm">Notes</span>
-          <span class="role-perm">Messages</span>
-        </div>
+        <div class="role-tags"><span class="role-tag">Planning</span><span class="role-tag">Devoirs</span><span class="role-tag">Notes</span><span class="role-tag">Messages</span></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     MULTILINGUAL
-══════════════════════════════════════════════ -->
-<section style="background: var(--surface);">
-  <div class="section-inner">
-    <div class="spotlight-item">
-      <div class="spotlight-text">
-        <div class="eyebrow">🌍 Multi-langue</div>
-        <h2>Français, Anglais et Arabe nativement</h2>
-        <p class="lead">MadrassaNET prend en charge trois langues dont l'arabe avec un affichage de droite à gauche (RTL). Chaque utilisateur choisit sa langue depuis son profil.</p>
-        <ul class="check-list">
-          <li class="check-item"><span class="ci-icon"></span>Interface disponible en Français, Anglais et Arabe</li>
-          <li class="check-item"><span class="ci-icon"></span>Support RTL natif pour l'arabe</li>
-          <li class="check-item"><span class="ci-icon"></span>Chaque utilisateur change sa langue dans son profil</li>
-          <li class="check-item"><span class="ci-icon"></span>Contenu pédagogique dans la langue de l'établissement</li>
+<!-- PERMISSIONS -->
+<section class="section section--alt" id="permissions">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">🔐 Gestion des permissions</span>
+      <h2 class="section-title">Chaque bénévole a son propre niveau d'accès</h2>
+      <p class="section-sub">Définissez finement qui peut faire quoi : de la direction au bénévole, chaque rôle interne dispose d'un accès adapté à ses responsabilités.</p>
+    </div>
+    <div class="int-roles-grid">
+      <div class="int-role-card"><div class="int-role-icon">👑</div><div class="int-role-name">Direction</div><div class="int-role-desc">Accès total à tous les modules</div></div>
+      <div class="int-role-card"><div class="int-role-icon">📋</div><div class="int-role-name">Secrétaire</div><div class="int-role-desc">Élèves, inscriptions, présences, messagerie</div></div>
+      <div class="int-role-card"><div class="int-role-icon">🤝</div><div class="int-role-name">Bénévole</div><div class="int-role-desc">Présences &amp; communication uniquement</div></div>
+      <div class="int-role-card"><div class="int-role-icon">💼</div><div class="int-role-name">Trésorier</div><div class="int-role-desc">Finance, paiements, factures uniquement</div></div>
+      <div class="int-role-card"><div class="int-role-icon">👨‍🏫</div><div class="int-role-name">Enseignant</div><div class="int-role-desc">Ses classes, notes, devoirs, planning</div></div>
+    </div>
+    <div class="perm-wrap">
+      <table class="perm-table">
+        <thead>
+          <tr>
+            <th>Module / Fonctionnalité</th>
+            <th>👑 Direction</th>
+            <th>📋 Secrétaire</th>
+            <th>🤝 Bénévole</th>
+            <th>💼 Trésorier</th>
+            <th>👨‍🏫 Enseignant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Gestion des élèves</td><td><span class="pv">✓</span></td><td><span class="pv">✓</span></td><td><span class="pp">lecture</span></td><td><span class="pp">lecture</span></td><td><span class="px">×</span></td></tr>
+          <tr><td>Gestion des enseignants</td><td><span class="pv">✓</span></td><td><span class="pp">lecture</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td></tr>
+          <tr><td>Classes &amp; niveaux</td><td><span class="pv">✓</span></td><td><span class="pp">lecture</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="pp">ses classes</span></td></tr>
+          <tr><td>Présences &amp; absences</td><td><span class="pv">✓</span></td><td><span class="pv">✓</span></td><td><span class="pv">✓</span></td><td><span class="px">×</span></td><td><span class="pv">✓</span></td></tr>
+          <tr><td>Notes &amp; examens</td><td><span class="pv">✓</span></td><td><span class="pp">lecture</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="pv">✓</span></td></tr>
+          <tr><td>Bulletins scolaires PDF</td><td><span class="pv">✓</span></td><td><span class="pv">✓</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="pp">lecture</span></td></tr>
+          <tr><td>Emplois du temps</td><td><span class="pv">✓</span></td><td><span class="pv">✓</span></td><td><span class="pp">lecture</span></td><td><span class="px">×</span></td><td><span class="pp">son planning</span></td></tr>
+          <tr><td>Finance &amp; paiements</td><td><span class="pv">✓</span></td><td><span class="pp">lecture</span></td><td><span class="px">×</span></td><td><span class="pv">✓</span></td><td><span class="px">×</span></td></tr>
+          <tr><td>Devoirs &amp; travaux</td><td><span class="pv">✓</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="pv">✓</span></td></tr>
+          <tr><td>Messagerie interne</td><td><span class="pv">✓</span></td><td><span class="pv">✓</span></td><td><span class="pv">✓</span></td><td><span class="px">×</span></td><td><span class="pv">✓</span></td></tr>
+          <tr><td>Paramètres école</td><td><span class="pv">✓</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td></tr>
+          <tr><td>Rôles &amp; permissions</td><td><span class="pv">✓</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td><td><span class="px">×</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="perm-legend">
+      <span><span class="pv">✓</span> Accès complet</span>
+      <span><span class="pp">lecture</span> Lecture seule</span>
+      <span><span class="px">×</span> Aucun accès</span>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="section" id="tarifs">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">💳 Tarifs</span>
+      <h2 class="section-title">Des tarifs simples et transparents</h2>
+      <p class="section-sub">4 forfaits fixes, sans surprise. Tous les modules inclus, configuration et formation offertes.</p>
+    </div>
+
+    <!-- BANNIÈRE AVANTAGES OFFERTS -->
+    <div class="free-banner">
+      <div class="free-banner-icon">🎁</div>
+      <div>
+        <h4>Inclus gratuitement pour chaque nouveau client</h4>
+        <div class="free-banner-items">
+          <span class="fb-item">Configuration initiale</span>
+          <span class="fb-item">Formation de l'équipe</span>
+          <span class="fb-item">Import de vos données</span>
+          <span class="fb-item">Support email inclus</span>
+          <span class="fb-item">30 jours d'essai gratuit</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 FORFAITS -->
+    <div class="ptiers-grid">
+
+      <div class="ptier">
+        <div class="ptier-range">Starter · jusqu'à 250 élèves</div>
+        <div class="ptier-price">990€ <small>/ an</small></div>
+
+        <div class="ptier-example">
+          <strong>≈ 82€/mois</strong>
+          Soit 3.96€ par élève par an pour 250 élèves
+        </div>
+        <ul class="ptier-feats">
+          <li>Tous les modules inclus</li>
+          <li>Application mobile + bureau</li>
+          <li>Bulletins PDF illimités</li>
+          <li>Gestion des présences</li>
+          <li>Finance &amp; facturation</li>
+          <li>Support email</li>
         </ul>
+        <a href="#contact" class="ptier-cta">Démarrer l'essai gratuit</a>
       </div>
-      <div class="spotlight-visual">
-        <div class="spotlight-blob"></div>
-        <div class="spotlight-phone">
-          <img src="assets/screenshots/screen-profil.png" alt="Sélection de langue">
+
+      <div class="ptier ptier--popular">
+        <div class="ptier-badge">⭐ Le plus choisi</div>
+        <div class="ptier-range">École · 251 à 500 élèves</div>
+        <div class="ptier-price">1 500€ <small>/ an</small></div>
+
+        <div class="ptier-example">
+          <strong>≈ 125€/mois</strong>
+          Soit 3€ par élève par an pour 500 élèves
         </div>
+        <ul class="ptier-feats">
+          <li>Tout le forfait Starter inclus</li>
+          <li>Gestion des droits par rôle</li>
+          <li>Notifications push &amp; email</li>
+          <li>Statistiques avancées</li>
+          <li>Export comptabilité</li>
+          <li>Réinscriptions automatisées</li>
+        </ul>
+        <a href="#contact" class="ptier-cta ptier-cta--fill">Choisir ce forfait</a>
+      </div>
+
+      <div class="ptier">
+        <div class="ptier-range">Grande École · 501 à 1 000 élèves</div>
+        <div class="ptier-price">2 100€ <small>/ an</small></div>
+
+        <div class="ptier-example">
+          <strong>≈ 175€/mois</strong>
+          Soit 2.10€ par élève par an pour 1 000 élèves
+        </div>
+        <ul class="ptier-feats">
+          <li>Tout le forfait École inclus</li>
+          <li>Bibliothèque scolaire</li>
+          <li>Rendez-vous &amp; agenda</li>
+          <li>Multi-niveaux &amp; multi-classes</li>
+          <li>Support prioritaire</li>
+          <li>Onboarding personnalisé</li>
+        </ul>
+        <a href="#contact" class="ptier-cta">Nous contacter</a>
+      </div>
+
+      <div class="ptier">
+        <div class="ptier-range">Institution · 1 001 à 2 000 élèves</div>
+        <div class="ptier-price">3 500€ <small>/ an</small></div>
+
+        <div class="ptier-example">
+          <strong>≈ 290€/mois</strong>
+          Soit 1.75€ par élève par an pour 2 000 élèves
+        </div>
+        <ul class="ptier-feats">
+          <li>Tout le forfait Grande École inclus</li>
+          <li>Multi-établissements (filiales)</li>
+          <li>Accès API</li>
+          <li>SLA garanti</li>
+          <li>Accompagnement dédié</li>
+          <li>Formation sur site</li>
+        </ul>
+        <a href="#contact" class="ptier-cta">Nous contacter</a>
+      </div>
+
+    </div>
+
+    <!-- PLUS DE 2000 -->
+    <div class="pricing-custom">
+      <p>🏛️ <strong>Plus de 2 000 élèves ou réseau d'établissements ?</strong> Tarif sur mesure, SLA dédié et accompagnement complet.</p>
+      <a href="#contact">Nous contacter →</a>
+    </div>
+
+    <p class="pricing-note">Abonnement annuel · Tous modules inclus · Sans frais de mise en place · Sans engagement après la 1ère année</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">❓ FAQ</span>
+      <h2 class="section-title">Questions fréquentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <input type="checkbox" id="faq1">
+        <label class="faq-label" for="faq1">Est-ce que MadrassaNET est adapté aux associations et madrasas ?<span class="faq-arrow">▾</span></label>
+        <div class="faq-body">Oui, MadrassaNET a été conçu spécifiquement pour les associations scolaires, madrasas et écoles islamiques. Il gère les spécificités de ces structures : gestion par familles, multi-classes, cours du week-end et de soir, et interface entièrement disponible en arabe.</div>
+      </div>
+      <div class="faq-item">
+        <input type="checkbox" id="faq2">
+        <label class="faq-label" for="faq2">Faut-il un serveur ou des compétences informatiques ?<span class="faq-arrow">▾</span></label>
+        <div class="faq-body">Non. MadrassaNET est une solution en ligne (SaaS). Vous vous connectez depuis votre navigateur ou smartphone, sans rien installer. Nous gérons toute l'infrastructure technique pour vous.</div>
+      </div>
+      <div class="faq-item">
+        <input type="checkbox" id="faq3">
+        <label class="faq-label" for="faq3">Mes données sont-elles sécurisées et confidentielles ?<span class="faq-arrow">▾</span></label>
+        <div class="faq-body">Absolument. Chaque établissement dispose de son propre espace totalement isolé (architecture multi-tenant). Vos données ne sont jamais mélangées avec celles d'un autre établissement. Toutes les communications sont chiffrées (HTTPS) et les données sont sauvegardées quotidiennement.</div>
+      </div>
+      <div class="faq-item">
+        <input type="checkbox" id="faq4">
+        <label class="faq-label" for="faq4">Puis-je importer mes élèves existants depuis Excel ?<span class="faq-arrow">▾</span></label>
+        <div class="faq-body">Oui. MadrassaNET intègre un module d'import en masse via Excel. Vous téléchargez le modèle, le remplissez avec vos données et l'import se fait en quelques secondes. Un aperçu de validation est présenté avant la confirmation.</div>
+      </div>
+      <div class="faq-item">
+        <input type="checkbox" id="faq5">
+        <label class="faq-label" for="faq5">Comment se déroule la mise en place initiale ?<span class="faq-arrow">▾</span></label>
+        <div class="faq-body">Nous vous accompagnons de A à Z. Après votre inscription, vous bénéficiez d'une session d'onboarding pour configurer votre établissement (logo, classes, matières, enseignants) et importer vos élèves. La plupart de nos clients sont opérationnels en moins d'une journée.</div>
+      </div>
+      <div class="faq-item">
+        <input type="checkbox" id="faq6">
+        <label class="faq-label" for="faq6">L'application fonctionne-t-elle sur ordinateur de bureau ?<span class="faq-arrow">▾</span></label>
+        <div class="faq-body">Oui, l'application est entièrement responsive et optimisée pour desktop, tablette et mobile. L'administrateur travaille généralement sur ordinateur pour la gestion complète, tandis que les enseignants font l'appel depuis leur téléphone.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     CTA / DOWNLOAD
-══════════════════════════════════════════════ -->
-<section class="cta-section" id="telechargement">
-  <div class="section-inner">
-    <div class="cta-box">
-      <h2>Prêt à moderniser votre école ?</h2>
-      <p>Téléchargez MadrassaNET gratuitement sur l'App Store et Google Play. Disponible sur iOS et Android.</p>
-      <div class="cta-badges">
-        <a href="#" class="cta-badge">
-          <span class="cta-badge-icon">🍎</span>
-          <span>
-            <span class="cta-badge-sub">Télécharger sur</span>
-            <strong class="cta-badge-name">App Store</strong>
-          </span>
-        </a>
-        <a href="#" class="cta-badge">
-          <span class="cta-badge-icon">▶️</span>
-          <span>
-            <span class="cta-badge-sub">Disponible sur</span>
-            <strong class="cta-badge-name">Google Play</strong>
-          </span>
-        </a>
+<!-- SECTION CONTACT -->
+<section class="section section--alt" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow badge">📬 Contact</span>
+      <h2 class="section-title">Parlons de votre projet</h2>
+      <p class="section-sub">Une question, une démo ou un besoin spécifique ? Nous vous répondons sous 24h.</p>
+    </div>
+    <div class="contact-grid">
+
+      <!-- Infos de contact -->
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <div>
+            <h4>Formulaire de contact</h4>
+            <a href="#contactForm">Remplissez le formulaire ci-contre →</a>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">⏰</div>
+          <div>
+            <h4>Disponibilité</h4>
+            <p>Lun – Ven, 9h – 18h</p>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Formulaire de contact → MadrassaNET API -->
+      <form class="contact-form" id="contactForm" novalidate>
+        <!-- Honeypot anti-bot (doit rester vide) -->
+        <input type="text" name="website" id="cf-website" autocomplete="off"
+               tabindex="-1" aria-hidden="true"
+               style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+
+        <div class="form-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-name">Nom *</label>
+              <input type="text" id="cf-name" name="name" required placeholder="Votre nom">
+            </div>
+            <div class="form-group">
+              <label for="cf-email">Email *</label>
+              <input type="email" id="cf-email" name="email" required placeholder="votre@email.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-school">Nom de l'établissement</label>
+              <input type="text" id="cf-school" name="school" placeholder="Ma madrassa / Mon association scolaire">
+            </div>
+            <div class="form-group">
+              <label for="cf-phone">Téléphone</label>
+              <input type="tel" id="cf-phone" name="phone" placeholder="+33 6 …">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cf-subject">Objet de la demande *</label>
+            <select id="cf-subject" name="subject" required>
+              <option value="">-- Choisissez un objet --</option>
+              <option value="Demande de démo">Demande de démo</option>
+              <option value="Renseignements sur les tarifs">Renseignements sur les tarifs</option>
+              <option value="Essai gratuit">Essai gratuit</option>
+              <option value="Question technique">Question technique</option>
+              <option value="Partenariat">Partenariat</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cf-message">Message *</label>
+            <textarea id="cf-message" name="message" required rows="4" placeholder="Comment pouvons-nous vous aider ?"></textarea>
+          </div>
+          <div id="cf-error" role="alert" style="display:none;color:#c62828;font-size:.88rem;margin-bottom:8px"></div>
+          <button type="submit" id="cf-submit" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:8px">
+            Envoyer le message →
+          </button>
+        </div>
+
+        <div class="form-success">
+          ✅ Message envoyé ! Nous vous répondrons dans les meilleurs délais.
+        </div>
+      </form>
+
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════════ -->
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final__inner">
+    <h2>Prêt à moderniser votre école ?</h2>
+    <p>Rejoignez les établissements qui font confiance à MadrassaNET. Démarrez votre essai gratuit ou contactez-nous pour une démonstration personnalisée.</p>
+    <div class="cta-final__actions">
+      <a href="#contact" class="btn btn--primary">🚀 Demander une démo gratuite</a>
+      <a href="#contact" class="btn btn--outline">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-
-      <div class="footer-brand">
-        <div class="footer-logo">
-          <span class="fi">🎓</span>
-          MadrassaNET
-        </div>
-        <p>La solution complète de gestion scolaire pour tous types d'établissements. Simple, mobile et multi-établissements.</p>
+  <div class="footer__grid">
+    <div class="footer__brand">
+      <div class="footer__brand-logo">
+        <div class="footer__brand-logo-icon">🎓</div>
+        MadrassaNET
       </div>
-
-      <div class="footer-col">
-        <h4>Application</h4>
-        <ul>
-          <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-          <li><a href="#roles">Rôles utilisateurs</a></li>
-          <li><a href="#telechargement">Télécharger</a></li>
-          <li><a href="templates/index.html">Modèles Excel</a></li>
-        </ul>
+      <p>La solution complète de gestion scolaire pour associations, madrasas et établissements privés. Simple, mobile, abordable.</p>
+      <div class="footer__social">
+        <a href="#contact" title="Formulaire de contact">✉️</a>
       </div>
-
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="support/index.html">Centre d'aide</a></li>
-          <li><a href="support/index.html#faq">FAQ</a></li>
-          <li><a href="delete-account/index.html">Supprimer mon compte</a></li>
-          <li><a href="mailto:program@asz-consulting.fr">Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Légal</h4>
-        <ul>
-          <li><a href="privacy/index.html">Politique de confidentialité</a></li>
-          <li><a href="terms/index.html">Conditions d'utilisation</a></li>
-          <li><a href="legal/index.html">Mentions légales</a></li>
-        </ul>
-      </div>
-
     </div>
-    <div class="footer-bottom">
-      <span>© 2025 MadrassaNET. Tous droits réservés.</span>
-      <span>Contact : <a href="mailto:program@asz-consulting.fr">program@asz-consulting.fr</a></span>
+    <div class="footer__col">
+      <h4>Produit</h4>
+      <ul>
+        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#roles">Qui l'utilise ?</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="templates/index.html">Modèles Excel</a></li>
+      </ul>
     </div>
+    <div class="footer__col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="support/index.html">Centre d'aide</a></li>
+        <li><a href="support/index.html#faq">Documentation</a></li>
+        <li><a href="delete-account/index.html">Supprimer mon compte</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Légal</h4>
+      <ul>
+        <li><a href="privacy/index.html">Politique de confidentialité</a></li>
+        <li><a href="terms/index.html">Conditions d'utilisation</a></li>
+        <li><a href="legal/index.html">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 MadrassaNET · Tous droits réservés.</span>
+    <span><a href="#contact">Nous contacter</a></span>
   </div>
 </footer>
 
+<script>
+(function(){
+  function init(el){
+    var track = el.querySelector('.carousel-track');
+    var slides = Array.from(track.children);
+    var dotsEl = el.querySelector('.carousel-dots');
+    var prev = el.querySelector('.carousel-prev');
+    var next = el.querySelector('.carousel-next');
+    var cur = 0, timer;
+    var ms = parseInt(el.dataset.autoplay||'3500');
+    slides.forEach(function(_,i){
+      var d=document.createElement('button');
+      d.className='carousel-dot'+(i===0?' active':'');
+      d.setAttribute('aria-label','Slide '+(i+1));
+      d.onclick=function(){stop();go(i);start();};
+      dotsEl.appendChild(d);
+    });
+    function go(n){
+      cur=(n+slides.length)%slides.length;
+      track.style.transform='translateX(-'+cur*100+'%)';
+      dotsEl.querySelectorAll('.carousel-dot').forEach(function(d,i){d.classList.toggle('active',i===cur);});
+    }
+    function start(){timer=setInterval(function(){go(cur+1);},ms);}
+    function stop(){clearInterval(timer);}
+    prev.onclick=function(){stop();go(cur-1);start();};
+    next.onclick=function(){stop();go(cur+1);start();};
+    el.addEventListener('mouseenter',stop);
+    el.addEventListener('mouseleave',start);
+    var sx=0;
+    track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+    track.addEventListener('touchend',function(e){
+      var dx=e.changedTouches[0].clientX-sx;
+      if(Math.abs(dx)>50){stop();go(cur+(dx<0?1:-1));start();}
+    },{passive:true});
+    start();
+  }
+  document.querySelectorAll('.carousel').forEach(init);
+})();
+</script>
+
+
+
+<!-- Formulaire de contact → MadrassaNET API -->
+<script>
+(function() {
+  var API_BASE = 'https://api.madrassanet.com'; // production
+  // Pour les tests locaux, décommentez la ligne suivante :
+  // var API_BASE = 'http://localhost:8080';
+
+  var form    = document.getElementById('contactForm');
+  var body    = form && form.querySelector('.form-body');
+  var success = form && form.querySelector('.form-success');
+  var errBox  = document.getElementById('cf-error');
+  var submit  = document.getElementById('cf-submit');
+
+  if (!form) return;
+
+  function showError(msg) {
+    if (!errBox) return;
+    errBox.textContent = msg;
+    errBox.style.display = 'block';
+  }
+  function hideError() {
+    if (errBox) errBox.style.display = 'none';
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    hideError();
+
+    var fullName  = (document.getElementById('cf-name').value  || '').trim();
+    var email     = (document.getElementById('cf-email').value || '').trim();
+    var subject   = (document.getElementById('cf-subject').value || '').trim();
+    var message   = (document.getElementById('cf-message').value || '').trim();
+    var schoolName = (document.getElementById('cf-school').value || '').trim();
+    var phone     = (document.getElementById('cf-phone').value  || '').trim();
+    var honeypot  = (document.getElementById('cf-website').value || '').trim();
+
+    // Validation côté client
+    if (!fullName) { showError('Veuillez saisir votre nom.'); return; }
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { showError('Veuillez saisir un email valide.'); return; }
+    if (!subject)  { showError('Veuillez choisir un objet pour votre demande.'); return; }
+    if (!message)  { showError('Veuillez saisir un message.'); return; }
+
+    submit.disabled = true;
+    submit.textContent = 'Envoi en cours…';
+
+    try {
+      var resp = await fetch(API_BASE + '/api/public/contact', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName: fullName, email: email, subject: subject,
+                               message: message, schoolName: schoolName || null,
+                               phone: phone || null, website: honeypot || null })
+      });
+
+      if (resp.status === 429) {
+        showError('Trop de demandes. Veuillez réessayer dans une heure.');
+        submit.disabled = false;
+        submit.textContent = 'Envoyer le message →';
+        return;
+      }
+
+      var data = await resp.json();
+      if (data.success) {
+        if (body) body.style.display = 'none';
+        if (success) success.style.display = 'block';
+      } else {
+        showError(data.message || 'Une erreur est survenue. Veuillez réessayer.');
+        submit.disabled = false;
+        submit.textContent = 'Envoyer le message →';
+      }
+    } catch (err) {
+      showError('Impossible d\'envoyer le message. Vérifiez votre connexion et réessayez.');
+      submit.disabled = false;
+      submit.textContent = 'Envoyer le message →';
+    }
+  });
+})();
+</script>
 </body>
 </html>
