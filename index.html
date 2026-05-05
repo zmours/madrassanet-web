@@ -390,6 +390,23 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 .pricing-custom p{font-size:.9rem;color:var(--c-text);margin:0}
 .pricing-custom a{white-space:nowrap;font-size:.88rem;font-weight:600;color:var(--c-brand);border:1.5px solid var(--c-brand);border-radius:100px;padding:8px 18px;transition:var(--t)}
 .pricing-custom a:hover{background:var(--c-brand);color:#fff}
+.pricing-single-card{background:var(--c-surface);border:2px solid var(--c-brand);border-radius:var(--radius-lg);padding:48px 40px;max-width:680px;margin:0 auto 36px;display:flex;flex-direction:column;gap:32px;box-shadow:var(--shadow-lg)}
+@media(max-width:600px){.pricing-single-card{padding:32px 20px}}
+.pricing-single-formula{text-align:center}
+.psf-icon{font-size:2.8rem;margin-bottom:12px}
+.psf-price{font-size:4rem;font-weight:900;color:var(--c-brand);line-height:1;margin-bottom:8px}
+.psf-price span{font-size:1.1rem;font-weight:500;color:var(--c-muted);vertical-align:top;margin-top:14px;display:inline-block;margin-left:4px}
+.psf-min{display:inline-block;background:#e8eaf6;color:var(--c-brand);font-size:.88rem;font-weight:600;border-radius:100px;padding:6px 18px;margin-top:4px}
+.pricing-single-cta{text-align:center}
+.pricing-single-note{font-size:.82rem;color:var(--c-muted);margin-top:10px}
+.psf-promo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}
+.psf-old-price{font-size:1.5rem;font-weight:700;color:var(--c-muted);text-decoration:line-through;opacity:.7}
+.psf-promo-badge{background:#dc2626;color:#fff;font-size:.75rem;font-weight:700;border-radius:100px;padding:4px 12px;white-space:nowrap}
+.promo-banner{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#fef9c3,#fef08a);border:2px solid #facc15;border-radius:var(--radius-lg);padding:18px 24px;margin-bottom:28px;flex-wrap:wrap}
+.promo-banner-icon{font-size:2rem;flex-shrink:0}
+.promo-banner-content{display:flex;flex-direction:column;gap:3px;font-size:.9rem;color:#713f12}
+.promo-banner-content strong{font-weight:800;font-size:.95rem}
+.promo-banner-content em{font-style:normal;text-decoration:line-through;opacity:.7}
 
 /* ──────────────────────────────────────────
    CONTACT SECTION
@@ -472,7 +489,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
         — depuis un seul outil, sur mobile ou bureau.
       </p>
       <div class="hero__actions">
-        <a href="#contact" class="btn btn--primary">🚀 Demander une démo gratuite</a>
+        <a href="#contact" class="btn btn--primary">� Nous contacter</a>
         <a href="#fonctionnalites" class="btn btn--outline">Voir les fonctionnalités</a>
       </div>
     </div>
@@ -498,7 +515,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
     <div class="trust-divider"></div>
     <div class="trust-item"><div class="trust-num">4</div><div class="trust-label">Rôles dédiés<br>Admin · Prof · Parent · Élève</div></div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><div class="trust-num">0€</div><div class="trust-label">Pour commencer<br>Essai gratuit disponible</div></div>
+    <div class="trust-item"><div class="trust-num">1€</div><div class="trust-label">Par élève par an<br>Tarif unique transparent</div></div>
   </div>
 </div>
 
@@ -851,114 +868,45 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
   <div class="container">
     <div class="section-header">
       <span class="section-eyebrow badge">💳 Tarifs</span>
-      <h2 class="section-title">Des tarifs simples et transparents</h2>
-      <p class="section-sub">4 forfaits fixes, sans surprise. Tous les modules inclus, configuration et formation offertes.</p>
+      <h2 class="section-title">Une formule simple et transparente</h2>
+      <p class="section-sub">Un tarif unique, tous modules inclus. Pas de mauvaise surprise.</p>
     </div>
 
-    <!-- BANNIÈRE AVANTAGES OFFERTS -->
-    <div class="free-banner">
-      <div class="free-banner-icon">🎁</div>
-      <div>
-        <h4>Inclus gratuitement pour chaque nouveau client</h4>
-        <div class="free-banner-items">
-          <span class="fb-item">Configuration initiale</span>
-          <span class="fb-item">Formation de l'équipe</span>
-          <span class="fb-item">Import de vos données</span>
-          <span class="fb-item">Support email inclus</span>
-          <span class="fb-item">30 jours d'essai gratuit</span>
-        </div>
+    <!-- BANNIÈRE PROMO -->
+    <div class="promo-banner">
+      <div class="promo-banner-icon">🎉</div>
+      <div class="promo-banner-content">
+        <strong>Offre de lancement &mdash; En ce moment</strong>
+        <span>1€/élève/an <em>au lieu de 3€</em> &mdash; Profitez-en avant la fin de l&rsquo;offre !</span>
       </div>
     </div>
 
-    <!-- 4 FORFAITS -->
-    <div class="ptiers-grid">
-
-      <div class="ptier">
-        <div class="ptier-range">Starter · jusqu'à 250 élèves</div>
-        <div class="ptier-price">990€ <small>/ an</small></div>
-
-        <div class="ptier-example">
-          <strong>≈ 82€/mois</strong>
-          Soit 3.96€ par élève par an pour 250 élèves
-        </div>
+    <!-- FORMULE UNIQUE -->
+    <div class="pricing-single-card">
+      <div class="pricing-single-formula">
+        <div class="psf-icon">🎓</div>
+        <div class="psf-promo-row"><span class="psf-old-price">3€</span> <span class="psf-promo-badge">🎉 Offre de lancement</span></div>
+        <div class="psf-price">1€ <span>/ élève / an</span></div>
+        <div class="psf-min">Abonnement annuel · minimum 500&nbsp;€/an</div>
+      </div>
+      <div class="pricing-single-features">
         <ul class="ptier-feats">
-          <li>Tous les modules inclus</li>
+          <li>Tous les modules inclus (présences, notes, bulletins, planning, finance…)</li>
           <li>Application mobile + bureau</li>
           <li>Bulletins PDF illimités</li>
-          <li>Gestion des présences</li>
-          <li>Finance &amp; facturation</li>
-          <li>Support email</li>
-        </ul>
-        <a href="#contact" class="ptier-cta">Démarrer l'essai gratuit</a>
-      </div>
-
-      <div class="ptier ptier--popular">
-        <div class="ptier-badge">⭐ Le plus choisi</div>
-        <div class="ptier-range">École · 251 à 500 élèves</div>
-        <div class="ptier-price">1 500€ <small>/ an</small></div>
-
-        <div class="ptier-example">
-          <strong>≈ 125€/mois</strong>
-          Soit 3€ par élève par an pour 500 élèves
-        </div>
-        <ul class="ptier-feats">
-          <li>Tout le forfait Starter inclus</li>
-          <li>Gestion des droits par rôle</li>
           <li>Notifications push &amp; email</li>
-          <li>Statistiques avancées</li>
-          <li>Export comptabilité</li>
-          <li>Réinscriptions automatisées</li>
-        </ul>
-        <a href="#contact" class="ptier-cta ptier-cta--fill">Choisir ce forfait</a>
-      </div>
-
-      <div class="ptier">
-        <div class="ptier-range">Grande École · 501 à 1 000 élèves</div>
-        <div class="ptier-price">2 100€ <small>/ an</small></div>
-
-        <div class="ptier-example">
-          <strong>≈ 175€/mois</strong>
-          Soit 2.10€ par élève par an pour 1 000 élèves
-        </div>
-        <ul class="ptier-feats">
-          <li>Tout le forfait École inclus</li>
-          <li>Bibliothèque scolaire</li>
-          <li>Rendez-vous &amp; agenda</li>
           <li>Multi-niveaux &amp; multi-classes</li>
-          <li>Support prioritaire</li>
-          <li>Onboarding personnalisé</li>
+          <li>Gestion des droits par rôle (Admin, Enseignant, Parent, Élève)</li>
+          <li>Accès multi-établissements disponible</li>
         </ul>
-        <a href="#contact" class="ptier-cta">Nous contacter</a>
       </div>
-
-      <div class="ptier">
-        <div class="ptier-range">Institution · 1 001 à 2 000 élèves</div>
-        <div class="ptier-price">3 500€ <small>/ an</small></div>
-
-        <div class="ptier-example">
-          <strong>≈ 290€/mois</strong>
-          Soit 1.75€ par élève par an pour 2 000 élèves
-        </div>
-        <ul class="ptier-feats">
-          <li>Tout le forfait Grande École inclus</li>
-          <li>Multi-établissements (filiales)</li>
-          <li>Accès API</li>
-          <li>SLA garanti</li>
-          <li>Accompagnement dédié</li>
-          <li>Formation sur site</li>
-        </ul>
-        <a href="#contact" class="ptier-cta">Nous contacter</a>
+      <div class="pricing-single-cta">
+        <a href="#contact" class="ptier-cta ptier-cta--fill">Nous contacter pour plus de détails</a>
+        <p class="pricing-single-note">Contactez-nous pour obtenir un devis personnalisé selon votre situation.</p>
       </div>
-
     </div>
 
-    <!-- PLUS DE 2000 -->
-    <div class="pricing-custom">
-      <p>🏛️ <strong>Plus de 2 000 élèves ou réseau d'établissements ?</strong> Tarif sur mesure, SLA dédié et accompagnement complet.</p>
-      <a href="#contact">Nous contacter →</a>
-    </div>
-
-    <p class="pricing-note">Abonnement annuel · Tous modules inclus · Sans frais de mise en place · Sans engagement après la 1ère année</p>
+    <p class="pricing-note">Abonnement annuel · Tous modules inclus · Sans frais cachés</p>
   </div>
 </section>
 
@@ -1068,7 +1016,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
               <option value="">-- Choisissez un objet --</option>
               <option value="Demande de démo">Demande de démo</option>
               <option value="Renseignements sur les tarifs">Renseignements sur les tarifs</option>
-              <option value="Essai gratuit">Essai gratuit</option>
+              <option value="Demande de renseignements">Demande de renseignements</option>
               <option value="Question technique">Question technique</option>
               <option value="Partenariat">Partenariat</option>
               <option value="Autre">Autre</option>
@@ -1097,10 +1045,10 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 <section class="cta-final">
   <div class="cta-final__inner">
     <h2>Prêt à moderniser votre école ?</h2>
-    <p>Rejoignez les établissements qui font confiance à MadrassaNET. Démarrez votre essai gratuit ou contactez-nous pour une démonstration personnalisée.</p>
+    <p>Rejoignez les établissements qui font confiance à MadrassaNET. Contactez-nous pour une démonstration personnalisée et un devis adapté à votre situation.</p>
     <div class="cta-final__actions">
-      <a href="#contact" class="btn btn--primary">🚀 Demander une démo gratuite</a>
-      <a href="#contact" class="btn btn--outline">Nous contacter</a>
+      <a href="#contact" class="btn btn--primary">📩 Nous contacter</a>
+      <a href="#tarifs" class="btn btn--outline">Voir les tarifs</a>
     </div>
   </div>
 </section>
