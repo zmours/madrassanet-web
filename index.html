@@ -3,11 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MadrassaNET – Logiciel de gestion scolaire pour associations</title>
-  <meta name="description" content="MadrassaNET, la solution tout-en-un pour gérer votre école ou association scolaire : élèves, enseignants, présences, notes, bulletins, finances. Simple, mobile, abordable.">
-  <meta property="og:title" content="MadrassaNET – Gérez votre école simplement">
-  <meta property="og:description" content="La solution tout-en-un pour les associations scolaires, madrasas et établissements privés. Inscriptions, présences, notes, bulletins PDF, finances et bien plus.">
+  <title>Logiciel de gestion pour écoles coraniques, madrasas & associations | MadrassaNET</title>
+  <meta name="description" content="MadrassaNET gère élèves, présences, notes, bulletins PDF et finances de votre école coranique, madrasa ou association scolaire. Multilingue FR/EN/arabe, mobile, dès 1€/élève/an.">
+  <link rel="canonical" href="https://www.madrassanet.com/">
+  <meta name="robots" content="index, follow">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Logiciel de gestion pour écoles coraniques, madrasas & associations">
+  <meta property="og:description" content="La solution tout-en-un pour écoles coraniques, madrasas et associations scolaires : inscriptions, présences, notes, bulletins PDF, finances. Multilingue FR/EN/arabe.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.madrassanet.com/">
+  <meta property="og:site_name" content="MadrassaNET">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:image" content="https://www.madrassanet.com/assets/screenshots/desktop/dashboard.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Logiciel de gestion pour écoles coraniques, madrasas & associations">
+  <meta name="twitter:description" content="Inscriptions, présences, notes, bulletins PDF, finances. Multilingue FR/EN/arabe, dès 1€/élève/an.">
+  <meta name="twitter:image" content="https://www.madrassanet.com/assets/screenshots/desktop/dashboard.png">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -221,7 +234,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
    FOOTER
 ────────────────────────────────────────── */
 .footer{background:#0d1117;color:#e5e7eb;padding:56px 24px 32px}
-.footer__grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid #1f2937}
+.footer__grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid #1f2937}
 .footer__brand-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:12px}
 .footer__brand-logo-icon{width:32px;height:32px;background:var(--grad-cta);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
 .footer__brand p{font-size:.85rem;color:#9ca3af;line-height:1.65;margin-bottom:16px}
@@ -464,6 +477,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
       <a href="#tarifs" class="navbar__link">Tarifs</a>
       <a href="#roles" class="navbar__link">Qui l'utilise ?</a>
       <a href="#faq" class="navbar__link">FAQ</a>
+      <a href="blog/index.html" class="navbar__link">Blog</a>
       <a href="#contact" class="navbar__link">Contact</a>
       <a href="support/index.html" class="navbar__link">Support</a>
       <a href="#contact" class="navbar__cta">Demander une démo →</a>
@@ -478,18 +492,18 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 <section class="hero">
   <div class="hero__inner">
     <div class="hero__text">
-      <div class="hero__tag">🕌 Pensé pour les associations scolaires &amp; madrasas</div>
+      <div class="hero__tag">🕌 Pensé pour les écoles coraniques, madrasas &amp; associations scolaires</div>
       <h1 class="hero__title">
-        Gérez votre école<br>
-        <em>simplement et efficacement.</em>
+        Le logiciel de gestion pour<br>
+        <em>écoles coraniques &amp; madrasas.</em>
       </h1>
       <p class="hero__desc">
-        MadrassaNET est la solution tout-en-un pour piloter votre établissement :
-        inscriptions, présences, notes, bulletins PDF, emplois du temps, finances et messagerie
-        — depuis un seul outil, sur mobile ou bureau.
+        MadrassaNET est la solution tout-en-un pour piloter votre école coranique, madrasa ou
+        association scolaire : inscriptions, présences, notes, bulletins PDF, emplois du temps,
+        finances et messagerie — depuis un seul outil, sur mobile ou bureau, en français comme en arabe.
       </p>
       <div class="hero__actions">
-        <a href="#contact" class="btn btn--primary">� Nous contacter</a>
+        <a href="#contact" class="btn btn--primary">📩 Nous contacter</a>
         <a href="#fonctionnalites" class="btn btn--outline">Voir les fonctionnalités</a>
       </div>
     </div>
@@ -1067,12 +1081,21 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
       </div>
     </div>
     <div class="footer__col">
-      <h4>Produit</h4>
+      <h4>Solutions</h4>
       <ul>
-        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-        <li><a href="#tarifs">Tarifs</a></li>
-        <li><a href="#roles">Qui l'utilise ?</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="madrasa/index.html">Gestion de madrasa</a></li>
+        <li><a href="association-scolaire/index.html">Association scolaire</a></li>
+        <li><a href="ecole-arabe/index.html">École de langue arabe</a></li>
+        <li><a href="tarifs/index.html">Tarifs</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Fonctionnalités</h4>
+      <ul>
+        <li><a href="fonctionnalites/bulletins/index.html">Bulletins PDF</a></li>
+        <li><a href="fonctionnalites/presences/index.html">Présences &amp; appel</a></li>
+        <li><a href="fonctionnalites/finances/index.html">Finances &amp; paiements</a></li>
         <li><a href="templates/index.html">Modèles Excel</a></li>
       </ul>
     </div>
@@ -1219,6 +1242,81 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
     }
   });
 })();
+</script>
+
+<!-- Données structurées JSON-LD pour le référencement -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.madrassanet.com/#organization",
+      "name": "MadrassaNET",
+      "url": "https://www.madrassanet.com/",
+      "logo": "https://www.madrassanet.com/assets/og-image.svg",
+      "description": "Logiciel de gestion tout-en-un pour écoles coraniques, madrasas et associations scolaires."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.madrassanet.com/#website",
+      "url": "https://www.madrassanet.com/",
+      "name": "MadrassaNET",
+      "inLanguage": "fr-FR",
+      "publisher": { "@id": "https://www.madrassanet.com/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "MadrassaNET",
+      "operatingSystem": "Web, iOS, Android",
+      "applicationCategory": "BusinessApplication",
+      "description": "Solution de gestion scolaire tout-en-un pour écoles coraniques, madrasas et associations scolaires : inscriptions, présences, notes, bulletins PDF, emplois du temps, finances et messagerie. Interface multilingue français, anglais et arabe (RTL).",
+      "url": "https://www.madrassanet.com/",
+      "inLanguage": ["fr", "en", "ar"],
+      "offers": {
+        "@type": "Offer",
+        "price": "1",
+        "priceCurrency": "EUR",
+        "description": "1€ par élève et par an, tous modules inclus (abonnement annuel, minimum 500€/an)."
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Est-ce que MadrassaNET est adapté aux associations et madrasas ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui, MadrassaNET a été conçu spécifiquement pour les associations scolaires, madrasas et écoles islamiques. Il gère les spécificités de ces structures : gestion par familles, multi-classes, cours du week-end et de soir, et interface entièrement disponible en arabe." }
+        },
+        {
+          "@type": "Question",
+          "name": "Faut-il un serveur ou des compétences informatiques ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Non. MadrassaNET est une solution en ligne (SaaS). Vous vous connectez depuis votre navigateur ou smartphone, sans rien installer. Nous gérons toute l'infrastructure technique pour vous." }
+        },
+        {
+          "@type": "Question",
+          "name": "Mes données sont-elles sécurisées et confidentielles ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Absolument. Chaque établissement dispose de son propre espace totalement isolé (architecture multi-tenant). Vos données ne sont jamais mélangées avec celles d'un autre établissement. Toutes les communications sont chiffrées (HTTPS) et les données sont sauvegardées quotidiennement." }
+        },
+        {
+          "@type": "Question",
+          "name": "Puis-je importer mes élèves existants depuis Excel ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. MadrassaNET intègre un module d'import en masse via Excel. Vous téléchargez le modèle, le remplissez avec vos données et l'import se fait en quelques secondes. Un aperçu de validation est présenté avant la confirmation." }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment se déroule la mise en place initiale ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Nous vous accompagnons de A à Z. Après votre inscription, vous bénéficiez d'une session d'onboarding pour configurer votre établissement (logo, classes, matières, enseignants) et importer vos élèves. La plupart de nos clients sont opérationnels en moins d'une journée." }
+        },
+        {
+          "@type": "Question",
+          "name": "L'application fonctionne-t-elle sur ordinateur de bureau ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui, l'application est entièrement responsive et optimisée pour desktop, tablette et mobile. L'administrateur travaille généralement sur ordinateur pour la gestion complète, tandis que les enseignants font l'appel depuis leur téléphone." }
+        }
+      ]
+    }
+  ]
+}
 </script>
 </body>
 </html>

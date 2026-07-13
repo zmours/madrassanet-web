@@ -1,0 +1,8 @@
+# robots.txt — MadrassaNET
+# https://www.madrassanet.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.madrassanet.com/sitemap.xml
