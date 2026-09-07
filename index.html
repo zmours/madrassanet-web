@@ -449,6 +449,11 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 @media(max-width:520px){.form-row{grid-template-columns:1fr}}
 .form-success{display:none;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:var(--radius);padding:16px 20px;color:#2e7d32;font-weight:600;text-align:center;margin-top:12px}
 .contact-form[data-submitted] .form-success{display:block}
+.form-success{text-align:left}
+.form-success strong{display:block;font-size:1.05rem;margin-bottom:.5rem}
+.fs-line{display:block;font-weight:500;color:#2e7d32;margin-bottom:.35rem;font-size:.92rem}
+.fs-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.fs-actions .btn{font-size:.87rem;padding:.6rem 1.1rem}
 .contact-form[data-submitted] .form-body{display:none}
 
 /* ──────────────────────────────────────────
@@ -461,6 +466,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 .wa-float__tooltip{background:#1a1d2e;color:#fff;font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:100px;white-space:nowrap;opacity:0;transform:translateX(10px);transition:opacity .2s,transform .2s;pointer-events:none}
 .wa-float:hover .wa-float__tooltip{opacity:1;transform:translateX(0)}
   </style>
+  <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
 
@@ -1047,7 +1053,17 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
         </div>
 
         <div class="form-success">
-          ✅ Message envoyé ! Nous vous répondrons dans les meilleurs délais.
+          <strong>✅ Votre demande est bien arrivée.</strong>
+          <span class="fs-line">Nous répondons <b>sous 24 h ouvrées</b>, du lundi au vendredi, de 9 h à 18 h.</span>
+          <span class="fs-line" id="cf-next">En attendant, ceci peut vous faire gagner du temps :</span>
+          <div class="fs-actions">
+            <a class="btn btn--primary" id="cf-booking" href="#" hidden
+               data-track="Demo - Rendez-vous">📅 Réserver un créneau de 30 min</a>
+            <a class="btn btn--outline" id="cf-tour" href="#" hidden
+               data-track="Video - Visite guidee">▶ La visite guidée en 3 minutes</a>
+            <a class="btn btn--outline" href="templates/index.html"
+               data-track="Ressource - Depuis confirmation">📥 Les ressources gratuites</a>
+          </div>
         </div>
       </form>
 
@@ -1096,7 +1112,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
         <li><a href="fonctionnalites/bulletins/index.html">Bulletins PDF</a></li>
         <li><a href="fonctionnalites/presences/index.html">Présences &amp; appel</a></li>
         <li><a href="fonctionnalites/finances/index.html">Finances &amp; paiements</a></li>
-        <li><a href="templates/index.html">Modèles Excel</a></li>
+        <li><a href="templates/index.html">Ressources gratuites</a></li>
       </ul>
     </div>
     <div class="footer__col">
@@ -1168,6 +1184,19 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 <!-- Formulaire de contact → MadrassaNET API -->
 <script>
 (function() {
+  // ── À RENSEIGNER quand les outils existent (cf. MARKETING.md, lot 0 / F3) ──
+  // Laisser vide masque proprement le bouton correspondant : aucun lien mort
+  // n'est publié.
+  var BOOKING_URL = '';    // ex. 'https://cal.com/madrassanet/demo-30min'
+  var TOUR_VIDEO_URL = ''; // ex. 'https://www.youtube.com/watch?v=XXXXXXXXXXX'
+
+  // Inscription du prospect dans Brevo, en plus de l'enregistrement côté API.
+  // C'est Brevo qui envoie l'accusé de réception immédiat puis la séquence de
+  // relance (cf. docs/MARKETING_EMAILS_MADRASSANET.md). Tant que l'URL est
+  // vide, rien n'est envoyé. URL à récupérer dans Brevo > Formulaires > Partager.
+  var BREVO_FORM_URL = '';  // ex. 'https://xxxxx.sibforms.com/serve/MUIFAxxxxxxx'
+  var BREVO_FIELDS = { email: 'EMAIL', name: 'NOM', school: 'ECOLE', origin: 'ORIGINE' };
+
   var API_BASE = 'https://api.madrassanet.com'; // production
   // Pour les tests locaux, décommentez la ligne suivante :
   // var API_BASE = 'http://localhost:8080';
@@ -1178,7 +1207,39 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
   var errBox  = document.getElementById('cf-error');
   var submit  = document.getElementById('cf-submit');
 
+  // Les deux liens facultatifs ne s'affichent que s'ils sont configurés.
+  (function wireOptionalLinks() {
+    var b = document.getElementById('cf-booking');
+    var t = document.getElementById('cf-tour');
+    if (b && BOOKING_URL) { b.href = BOOKING_URL; b.target = '_blank';
+                            b.rel = 'noopener'; b.hidden = false; }
+    if (t && TOUR_VIDEO_URL) { t.href = TOUR_VIDEO_URL; t.target = '_blank';
+                               t.rel = 'noopener'; t.hidden = false; }
+  })();
+
   if (!form) return;
+
+  /**
+   * Inscrit le prospect dans Brevo pour l'accusé de réception et la séquence
+   * de relance. Volontairement « au mieux » : une panne de Brevo ne doit
+   * jamais empêcher l'affichage de la confirmation, la demande étant déjà
+   * enregistrée côté API.
+   */
+  function subscribeToBrevo(email, fullName, schoolName) {
+    if (!BREVO_FORM_URL) { return; }
+    try {
+      var fd = new FormData();
+      fd.append(BREVO_FIELDS.email, email);
+      if (fullName)   { fd.append(BREVO_FIELDS.name, fullName); }
+      if (schoolName) { fd.append(BREVO_FIELDS.school, schoolName); }
+      if (window.mnCampaignLabel) {
+        fd.append(BREVO_FIELDS.origin, window.mnCampaignLabel());
+      }
+      // Formulaire hébergé par Brevo : réponse opaque, on n'attend rien.
+      fetch(BREVO_FORM_URL, { method: 'POST', body: fd, mode: 'no-cors' })
+        .catch(function () {});
+    } catch (e) { /* sans conséquence */ }
+  }
 
   function showError(msg) {
     if (!errBox) return;
@@ -1200,6 +1261,17 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
     var schoolName = (document.getElementById('cf-school').value || '').trim();
     var phone     = (document.getElementById('cf-phone').value  || '').trim();
     var honeypot  = (document.getElementById('cf-website').value || '').trim();
+
+    // Attribution : on joint discrètement la campagne d'origine au message,
+    // afin de savoir quel contenu a produit quelle demande. Le back limite le
+    // message à 2000 caractères : on n'ajoute la ligne que si elle y tient.
+    if (window.mnCampaignLabel) {
+      var origin = window.mnCampaignLabel();
+      if (origin && origin !== 'direct') {
+        var suffix = '\n\n---\nOrigine : ' + origin;
+        if ((message + suffix).length <= 2000) { message += suffix; }
+      }
+    }
 
     // Validation côté client
     if (!fullName) { showError('Veuillez saisir votre nom.'); return; }
@@ -1230,6 +1302,8 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
       if (data.success) {
         if (body) body.style.display = 'none';
         if (success) success.style.display = 'block';
+        if (window.mnTrack) { window.mnTrack('Contact - Demande envoyee', { objet: subject }); }
+        subscribeToBrevo(email, fullName, schoolName);
       } else {
         showError(data.message || 'Une erreur est survenue. Veuillez réessayer.');
         submit.disabled = false;
