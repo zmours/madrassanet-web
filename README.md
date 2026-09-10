@@ -36,6 +36,7 @@ Le blog n'est **pas** écrit en HTML : il est généré à partir des sources Ma
 python3 tools/build-blog.py               # génère les articles, la liste, les rubriques,
                                           # le flux RSS, les sitemaps, 404.html et llms.txt
 python3 tools/build-blog.py --inventaire  # liste les articles, sans rien écrire
+python3 tools/verifier-site.py            # contrôle le site généré avant de commiter
 ```
 
 Toute modification se fait dans le `.md`, jamais dans le HTML généré, qui est écrasé à chaque

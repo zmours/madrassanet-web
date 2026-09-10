@@ -26,6 +26,7 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="Blog MadrassaNET" href="/blog/feed.xml">
   <script src="/assets/analytics.js" defer></script>
+  <script src="/assets/blog-liste.js" defer></script>
 </head>
 <body>
 <nav class="nav">
@@ -39,6 +40,21 @@
     <a href="/tarifs/">Tarifs</a>
     <a href="/blog/" aria-current="page">Blog</a>
     <a href="/#contact" class="nav-cta">Demander une démo →</a>
+  </div>
+  <div class="nav-menu">
+    <input type="checkbox" id="nav-bascule" class="nav-menu-bascule">
+    <label for="nav-bascule" class="nav-menu-bouton">
+      <span class="nav-menu-barres"></span>
+      <span class="sr-only">Ouvrir le menu</span>
+    </label>
+    <div class="nav-menu-panneau">
+      <a href="/">Accueil</a>
+      <a href="/#fonctionnalites">Fonctionnalités</a>
+      <a href="/tarifs/">Tarifs</a>
+      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="/support/">Support</a>
+      <a href="/#contact" class="nav-cta">Demander une démo →</a>
+    </div>
   </div>
 </nav>
 <header class="page-hero">
@@ -54,85 +70,106 @@
 </nav>
 <nav class="rubriques" aria-label="Rubriques du blog">
   <div class="rubriques-inner">
-    <a href="/blog/">Tout</a>
-    <a href="/blog/rubrique/conformite/">📑 Conformité</a>
-    <a href="/blog/rubrique/gestion/" class="active">🗂️ Gestion</a>
-    <a href="/blog/rubrique/outils/">🧰 Outils</a>
+    <a href="/blog/">Tout<span class="rubrique-compte">9</span></a>
+    <a href="/blog/rubrique/conformite/"><span class="rubrique-emoji">📑</span>Conformité<span class="rubrique-compte">2</span></a>
+    <a href="/blog/rubrique/gestion/" class="active"><span class="rubrique-emoji">🗂️</span>Gestion<span class="rubrique-compte">4</span></a>
+    <a href="/blog/rubrique/outils/"><span class="rubrique-emoji">🧰</span>Outils<span class="rubrique-compte">3</span></a>
   </div>
 </nav>
 
-<section class="lp-section">
+<section class="lp-section blog-liste">
   <div class="section-inner">
-    <div class="blog-grid">
-
-      <a class="blog-card" href="/blog/bulletin-scolaire-bilingue-arabe/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gestion"><defs><linearGradient id="vg-bulletin-scolaire-bilingue-arabe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#283593"/><stop offset="1" stop-color="#009688"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-bulletin-scolaire-bilingue-arabe)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">📄</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+    <div class="blog-recherche" role="search" hidden>
+      <label class="blog-recherche-champ">
+        <span class="blog-recherche-icone" aria-hidden="true"></span>
+        <input type="search" id="blog-q" autocomplete="off"
+               placeholder="Rechercher un article : RGPD, présences, ERP…"
+               aria-label="Rechercher dans tous les articles du blog">
+        <button type="button" class="blog-recherche-vider" hidden aria-label="Effacer la recherche">×</button>
+      </label>
+      <p class="blog-recherche-etat" role="status" aria-live="polite"></p>
+    </div>
+    <div class="blog-resultats" hidden></div>
+    <div class="blog-contenu">
+      <a class="blog-card blog-card--une" href="/blog/bulletin-scolaire-bilingue-arabe/">
+        <div class="blog-card-media"><svg viewBox="0 0 640 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BULLETINS — Gestion" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-une-bulletin-scolaire-bilingue-arabe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#284793"/><stop offset="0.5" stop-color="#395CAB"/><stop offset="1" stop-color="#00966F"/></linearGradient></defs><rect width="640" height="430" fill="url(#fd-vg-une-bulletin-scolaire-bilingue-arabe)"/><circle cx="588" cy="438" r="266" fill="#fff" opacity="0.06"/><circle cx="89" cy="-43" r="146" fill="#fff" opacity="0.05"/><rect x="44" y="64" width="70" height="8" rx="2" fill="#fff" fill-opacity="0.55"/><text x="44" y="124" font-family="Inter, sans-serif" font-size="26" font-weight="700" letter-spacing="4.7" fill="#fff" fill-opacity="0.72">GESTION</text><text x="44" y="292" font-family="Inter, sans-serif" font-size="75" font-weight="800" letter-spacing="-1" fill="#fff">BULLETINS</text><g transform="translate(532,116) scale(3.096)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"><rect x="-20" y="-28" width="40" height="56" rx="4"/><path d="M-20 -14h-6M-20 0h-6M-20 14h-6M-8 -12h20M-8 2h20M-8 16h12"/></g><text x="44" y="369" font-family="Inter, sans-serif" font-size="30" font-weight="500" fill="#fff" fill-opacity="0.66">Arabe &amp; français, clairs et pros</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Gestion</span>
-          <h3>Créer des bulletins scolaires clairs en arabe et français</h3>
-          <p>Bonnes pratiques pour des bulletins lisibles et professionnels en contexte bilingue.</p>
+          <div class="blog-card-badges"><span class="blog-tag">Gestion</span></div>
+          <h2>Créer des bulletins scolaires clairs en arabe et français</h2>
+          <p class="blog-card-texte">Dans une école de langue arabe ou une madrasa, le bulletin scolaire est un document sensible : il doit parler aux parents arabophones tout en restant lisible sur le plan administratif. Le vrai défi n’est pas de mettre des notes sur une page, mais de faire cohabiter deux langues et deux sens de lecture sans sacrifier la clarté.</p>
           <div class="blog-meta">
             <time datetime="2026-07-10">10 juillet 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>4 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
+      <h2 class="blog-section-titre">La suite de la rubrique</h2>
+      <div class="blog-grid">
 
       <a class="blog-card" href="/blog/gestion-paiements-familles-association/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gestion"><defs><linearGradient id="vg-gestion-paiements-familles-association" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#283593"/><stop offset="1" stop-color="#009688"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-gestion-paiements-familles-association)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">💰</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PAIEMENTS — Gestion" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-gestion-paiements-familles-association" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#284093"/><stop offset="0.5" stop-color="#3954AB"/><stop offset="1" stop-color="#009679"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-gestion-paiements-familles-association)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">GESTION</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="50" font-weight="800" letter-spacing="-1" fill="#fff">PAIEMENTS</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle r="24"/><path d="M0 -13v26M-7 -7h11a6 6 0 0 1 0 12h-11"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">Une trésorerie claire toute l&#x27;année</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Gestion</span>
+          <div class="blog-card-badges"><span class="blog-tag">Gestion</span></div>
           <h3>Gérer les paiements des familles dans une association scolaire</h3>
-          <p>Cotisations, relances, reçus : comment tenir une trésorerie claire sans y passer ses soirées.</p>
+          <p class="blog-card-texte">Cotisations, relances, reçus : comment tenir une trésorerie claire sans y passer ses soirées.</p>
           <div class="blog-meta">
             <time datetime="2026-06-23">23 juin 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>4 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 
       <a class="blog-card" href="/blog/faire-appel-sans-papier/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gestion"><defs><linearGradient id="vg-faire-appel-sans-papier" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#283593"/><stop offset="1" stop-color="#009688"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-faire-appel-sans-papier)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">📋</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PRÉSENCES — Gestion" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-faire-appel-sans-papier" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#322893"/><stop offset="0.5" stop-color="#4239AB"/><stop offset="1" stop-color="#008496"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-faire-appel-sans-papier)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">GESTION</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="50" font-weight="800" letter-spacing="-1" fill="#fff">PRÉSENCES</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="-20" y="-26" width="40" height="52" rx="4"/><path d="M-8 -26h16v8h-16z"/><path d="M-11 -6l4 4 7-8M-11 12l4 4 7-8M6 -4h8M6 14h8"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">Gagnez du temps à chaque cours</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Gestion</span>
+          <div class="blog-card-badges"><span class="blog-tag">Gestion</span></div>
           <h3>Faire l’appel sans papier : le guide pour les écoles associatives</h3>
-          <p>Le pointage papier fait perdre du temps et des données. Passez au pointage mobile en 4 étapes.</p>
+          <p class="blog-card-texte">Le pointage papier fait perdre du temps et des données. Passez au pointage mobile en 4 étapes.</p>
           <div class="blog-meta">
             <time datetime="2026-05-26">26 mai 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>3 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 
       <a class="blog-card" href="/blog/organiser-reinscriptions-ecole-coranique/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gestion"><defs><linearGradient id="vg-organiser-reinscriptions-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#283593"/><stop offset="1" stop-color="#009688"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-organiser-reinscriptions-ecole-coranique)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">🔄</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RÉINSCRIPTIONS — Gestion" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-organiser-reinscriptions-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2F2893"/><stop offset="0.5" stop-color="#3E39AB"/><stop offset="1" stop-color="#008896"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-organiser-reinscriptions-ecole-coranique)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">GESTION</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="32" font-weight="800" letter-spacing="-1" fill="#fff">RÉINSCRIPTIONS</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M-22 -4a22 22 0 0 1 37-15"/><path d="M22 4a22 22 0 0 1-37 15"/><path d="M9 -21l7 2-2 8M-9 21l-7-2 2-8"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">Une rentrée sereine, année après année</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Gestion</span>
+          <div class="blog-card-badges"><span class="blog-tag">Gestion</span></div>
           <h3>Comment bien organiser les réinscriptions de votre école coranique</h3>
-          <p>La rentrée approche ? Voici une méthode simple pour réinscrire les familles sans y passer des semaines.</p>
+          <p class="blog-card-texte">La rentrée approche ? Voici une méthode simple pour réinscrire les familles sans y passer des semaines.</p>
           <div class="blog-meta">
             <time datetime="2026-05-12">12 mai 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>2 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 
+      </div>
     </div>
   </div>
 </section>
 
+<section class="blog-suivre">
+  <div class="section-inner">
+    <div class="blog-suivre-inner">
+      <div>
+        <h2>Deux nouveaux articles par mois</h2>
+        <p>Réglementation, sécurité, gestion et outils. Suivez le blog par flux RSS : rien à
+        donner, rien à désinscrire.</p>
+      </div>
+      <a href="/blog/feed.xml" class="btn-lp outline">S’abonner au flux RSS</a>
+    </div>
+  </div>
+</section>
 <section class="lp-section alt subpage-cta">
   <div class="section-inner">
     <h2>Envie de voir MadrassaNET en action ?</h2>

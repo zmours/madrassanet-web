@@ -253,6 +253,9 @@ grep -rl "assets/analytics.js" --include="*.html" . | wc -l
 
 # 4. Le script de mesure lui-même, hors navigateur (16 contrôles)
 node tools/test-analytics.js
+
+# 5. Le site généré : JSON-LD, XML, balises, liens internes
+python3 tools/verifier-site.py
 ```
 
 > Sur `localhost`, la mesure est **volontairement inactive**

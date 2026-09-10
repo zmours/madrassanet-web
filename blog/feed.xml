@@ -23,16 +23,18 @@
   <p>Une même salle, un même samedi matin, un même groupe d’enfants : selon ce qu’on y fait, trois régimes juridiques différents peuvent s’appliquer. Aucun n’est mystérieux, mais ils n’imposent pas les mêmes obligations, et le seul moyen de savoir lequel vous concerne est de regarder <strong>la nature réelle de l’activité</strong>, pas son intitulé.</p>
   <p>C’est une question de tranquillité plus que de risque : un responsable qui sait sous quel régime il se trouve répond en cinq minutes à un courrier de la mairie ou du service départemental. Celui qui ne le sait pas découvre la règle au moment où on la lui demande.</p>
   <h2 id="trois-regimes-possibles-un-seul-local">Trois régimes possibles, un seul local</h2>
-  <table>
-    <thead>
-      <tr><th>Ce que vous organisez</th><th>Régime applicable</th><th>Déclaration ?</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Un cours de religion ou de langue arabe hebdomadaire, pour vos inscrits habituels</td><td>Hors du champ des accueils collectifs de mineurs</td><td>Non</td></tr>
-      <tr><td>Une activité de loisirs régulière : garderie, journée récréative, centre aéré, sortie, séjour</td><td>Accueil collectif de mineurs (accueil de loisirs, séjour…)</td><td>Oui, auprès du SDJES</td></tr>
-      <tr><td>Une école à temps plein, en remplacement de l’école obligatoire</td><td>Établissement d’enseignement scolaire privé hors contrat</td><td>Oui, régime propre (déclaration d’ouverture)</td></tr>
-    </tbody>
-  </table>
+  <div class="table-defilante">
+    <table>
+      <thead>
+        <tr><th>Ce que vous organisez</th><th>Régime applicable</th><th>Déclaration ?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Un cours de religion ou de langue arabe hebdomadaire, pour vos inscrits habituels</td><td>Hors du champ des accueils collectifs de mineurs</td><td>Non</td></tr>
+        <tr><td>Une activité de loisirs régulière : garderie, journée récréative, centre aéré, sortie, séjour</td><td>Accueil collectif de mineurs (accueil de loisirs, séjour…)</td><td>Oui, auprès du SDJES</td></tr>
+        <tr><td>Une école à temps plein, en remplacement de l’école obligatoire</td><td>Établissement d’enseignement scolaire privé hors contrat</td><td>Oui, régime propre (déclaration d’ouverture)</td></tr>
+      </tbody>
+    </table>
+  </div>
   <p>La suite détaille les deux premiers cas, qui concernent la grande majorité des associations, et situe le troisième pour ceux qu’il concerne.</p>
   <h2 id="le-principe-l-enseignement-religieux-regulier-est-hors-du-champ-acm">Le principe : l’enseignement religieux régulier est hors du champ ACM</h2>
   <p>Les accueils collectifs de mineurs (ACM) sont définis par l’article <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042174469">R. 227-1 du code de l’action sociale et des familles</a>, qui en dresse la liste : séjours de vacances, séjours courts, accueils de loisirs, accueils de jeunes, accueils de scoutisme. Le régime vise les accueils <strong>à caractère éducatif organisés à l’occasion des vacances, des congés ou des loisirs</strong> (article L. 227-4 du même code).</p>
@@ -57,16 +59,18 @@
   <p>La déclaration se fait auprès du <strong>service départemental à la jeunesse, à l’engagement et aux sports (SDJES)</strong>, rattaché à la direction des services départementaux de l’Éducation nationale, celle du siège social de l’organisme. Elle se déroule en deux temps : une fiche initiale déposée en amont — comptez deux mois avant le début de l’accueil, le délai variant selon le type d’accueil — puis une <strong>fiche complémentaire au plus tard huit jours avant</strong> le début du séjour ou du premier accueil de l’année scolaire.</p>
   <h3>L’encadrement</h3>
   <p>Les taux minimaux d’animateurs sont fixés par le code de l’action sociale et des familles, et diffèrent selon que l’accueil est extrascolaire ou périscolaire :</p>
-  <table>
-    <thead>
-      <tr><th>Type d’accueil</th><th>Moins de 6 ans</th><th>6 ans ou plus</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Extrascolaire (<a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006074069/LEGISCTA000006196005/">R. 227-15</a>)</td><td>1 animateur pour 8</td><td>1 animateur pour 12</td></tr>
-      <tr><td>Périscolaire, plus de 5 h (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037247312">R. 227-16</a>)</td><td>1 animateur pour 8</td><td>1 animateur pour 12</td></tr>
-      <tr><td>Périscolaire, 5 h ou moins (R. 227-16)</td><td>1 animateur pour 10</td><td>1 animateur pour 14</td></tr>
-    </tbody>
-  </table>
+  <div class="table-defilante">
+    <table>
+      <thead>
+        <tr><th>Type d’accueil</th><th>Moins de 6 ans</th><th>6 ans ou plus</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Extrascolaire (<a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006074069/LEGISCTA000006196005/">R. 227-15</a>)</td><td>1 animateur pour 8</td><td>1 animateur pour 12</td></tr>
+        <tr><td>Périscolaire, plus de 5 h (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037247312">R. 227-16</a>)</td><td>1 animateur pour 8</td><td>1 animateur pour 12</td></tr>
+        <tr><td>Périscolaire, 5 h ou moins (R. 227-16)</td><td>1 animateur pour 10</td><td>1 animateur pour 14</td></tr>
+      </tbody>
+    </table>
+  </div>
   <p>S’y ajoute une exigence de qualification (article R. 227-12) : au moins <strong>la moitié</strong> de l’effectif d’encadrement doit être titulaire du BAFA ou d’un diplôme équivalent — ou relever des agents publics listés par le texte — et les personnes sans qualification ne peuvent dépasser <strong>20 %</strong> de cet effectif, ou une personne lorsque l’effectif est de trois ou quatre. Le solde peut être composé de stagiaires en formation.</p>
   <p>Deux obligations enfin, qui ne dépendent d’aucun seuil et valent la peine d’être vérifiées aujourd’hui : un <strong>contrat d’assurance</strong> couvrant les conséquences pécuniaires de votre responsabilité civile, celle de vos préposés et celle des participants ; et la <strong>vérification des antécédents judiciaires</strong> de toute personne appelée à encadrer, avant qu’elle ne prenne ses fonctions.</p>
   <h2 id="le-cas-particulier-de-l-ecole-a-temps-plein">Le cas particulier de l’école à temps plein</h2>

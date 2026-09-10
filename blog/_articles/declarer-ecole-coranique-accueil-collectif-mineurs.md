@@ -5,6 +5,7 @@ titre_seo: Faut-il déclarer son école coranique comme accueil collectif de min
 description: Cours du samedi, garderie, sortie de fin d'année : votre activité relève-t-elle des accueils collectifs de mineurs ? Les seuils et la déclaration au SDJES.
 resume: Cours du samedi, garderie, sortie de fin d'année : où se situe la bascule, et ce qu'elle implique.
 chapeau: La réponse courte : un cours de religion hebdomadaire, qui reste un cours de religion, n'est pas un accueil collectif de mineurs et n'a pas à être déclaré. Mais il suffit d'ajouter une journée récréative, une garderie avant le cours ou un séjour d'été pour changer de régime — et cette bascule, beaucoup de responsables la franchissent sans le savoir.
+mots_cles: ACM, accueil collectif de mineurs, SDJES, déclaration, BAFA, taux d'encadrement, hors contrat
 rubrique: conformite
 auteur: equipe
 publie_le: 2026-09-10
@@ -12,6 +13,8 @@ verifie_le: 2026-09-10
 og_image: /assets/og/blog-acm.png
 og_description: Les seuils, les cas de bascule et la déclaration au SDJES, textes à l'appui.
 og_image_alt: Faut-il déclarer votre école comme accueil collectif de mineurs ?
+vignette_mot: ACM
+vignette_icone: personnes
 banniere_emoji: 📑
 banniere_titre: Statut & déclaration
 banniere_sous_titre: Votre activité relève-t-elle des ACM ?

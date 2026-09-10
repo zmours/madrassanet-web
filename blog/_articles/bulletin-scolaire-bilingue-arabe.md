@@ -5,12 +5,15 @@ titre_seo: Créer des bulletins scolaires clairs en arabe et français | Madrass
 description: Bonnes pratiques pour des bulletins scolaires bilingues arabe-français : ce qui va dans chaque langue, l'affichage de droite à gauche, moyennes et appréciations.
 resume: Bonnes pratiques pour des bulletins lisibles et professionnels en contexte bilingue.
 chapeau: Dans une école de langue arabe ou une madrasa, le bulletin scolaire est un document sensible : il doit parler aux parents arabophones tout en restant lisible sur le plan administratif. Le vrai défi n'est pas de mettre des notes sur une page, mais de faire cohabiter deux langues et deux sens de lecture sans sacrifier la clarté.
+mots_cles: bulletins, notes, moyennes, arabe, bilingue, RTL, appréciations
 rubrique: gestion
 auteur: equipe
 publie_le: 2026-07-10
 og_image: /assets/og/blog-bulletins.png
 og_description: Bonnes pratiques pour des bulletins bilingues lisibles et professionnels.
 og_image_alt: Des bulletins scolaires clairs en arabe et en français
+vignette_mot: BULLETINS
+vignette_icone: carnet
 banniere_emoji: 📄
 banniere_titre: Bulletins bilingues
 banniere_sous_titre: Arabe & français, clairs et pros

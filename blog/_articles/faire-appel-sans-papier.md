@@ -5,12 +5,15 @@ titre_seo: Faire l'appel sans papier : le guide pour les écoles associatives | 
 description: Passer du pointage papier au pointage mobile dans une école coranique ou une association : gagner du temps, fiabiliser les données, prévenir les parents.
 resume: Le pointage papier fait perdre du temps et des données. Passez au pointage mobile en 4 étapes.
 chapeau: Chaque début de cours, la même scène : la feuille d'appel qui circule, les noms qu'on coche à la va-vite, les retards qu'on oublie de noter. Le pointage papier est chronophage, peu fiable et impossible à exploiter ensuite. Une solution mobile change radicalement la donne — quelques secondes suffisent et tout est centralisé.
+mots_cles: présences, pointage, feuille d'appel, absences, retards, appel mobile
 rubrique: gestion
 auteur: equipe
 publie_le: 2026-05-26
 og_image: /assets/og/blog-appel.png
 og_description: Le pointage papier fait perdre du temps. Passez au pointage mobile en 4 étapes.
 og_image_alt: Faire l'appel sans papier dans une école associative
+vignette_mot: PRÉSENCES
+vignette_icone: liste
 banniere_emoji: 📋
 banniere_titre: L'appel sans papier
 banniere_sous_titre: Gagnez du temps à chaque cours

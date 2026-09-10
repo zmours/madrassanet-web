@@ -31,6 +31,8 @@ blog/rubrique/<r>/) : un lien relatif y serait faux une fois sur deux.
 RÈGLE — rien de ce qui est généré ne s'édite à la main. Toute correction se
 fait dans la source Markdown, puis on relance le script.
 """
+import colorsys
+import hashlib
 import html
 import json
 import os
@@ -387,6 +389,13 @@ def rendre_blocs(lignes, ctx, profondeur=0):
 
 
 def rendre_tableau(rangs):
+    """Un tableau, enveloppé dans un conteneur qui défile.
+
+    Un tableau ne rétrécit pas en dessous de la largeur de son contenu : sur un
+    téléphone, il pousse *toute la page* en défilement horizontal, et le lecteur
+    se retrouve avec un texte coupé sur le côté sans comprendre pourquoi. Le
+    conteneur encaisse le débordement à la place de la page.
+    """
     cellules = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rangs]
     if len(cellules) >= 2 and all(set(c) <= set("-: ") for c in cellules[1]):
         entete, corps = cellules[0], cellules[2:]
@@ -404,7 +413,8 @@ def rendre_tableau(rangs):
                    % "".join("<td>%s</td>" % rendre_inline(c) for c in rang))
     out.append("  </tbody>")
     out.append("</table>")
-    return "\n".join(out)
+    return ('<div class="table-defilante">\n%s\n</div>'
+            % "\n".join("  " + ligne for ligne in out))
 
 
 def rendre_conteneur(nom, attrs, corps, ctx, profondeur):
@@ -604,20 +614,47 @@ def entete(titre, description, canonical, og_image, og_type="website",
 
 
 def nav():
+    """La barre de navigation, avec son menu mobile.
+
+    Sous 768 px, la règle « .nav-links { display: none } » du site laissait les
+    pages de sous-niveau sans aucune navigation : le logo, et rien d'autre.
+
+    Le menu repose sur une case à cocher masquée et son <label>, et non sur un
+    <details> : Chrome n'a pas peint le contenu du <details> ici, alors que la
+    mise en page était juste. La case reste focalisable au clavier (déplacée
+    hors de l'écran, jamais display:none), donc le menu s'ouvre à la barre
+    d'espace comme un bouton.
+    """
+    liens = [("/", "Accueil"), ("/#fonctionnalites", "Fonctionnalités"),
+             ("/tarifs/", "Tarifs"), ("/blog/", "Blog")]
+
+    def rendu(url, libelle):
+        return '<a href="%s"%s>%s</a>' % (url, ' aria-current="page"' if url == "/blog/" else '', libelle)
+
     return """<nav class="nav">
   <a href="/" class="nav-brand">
     <span class="nav-brand-icon"><img src="/assets/logo-mark.svg" alt="" width="22" height="22"></span>
     MadrassaNET
   </a>
   <div class="nav-links">
-    <a href="/">Accueil</a>
-    <a href="/#fonctionnalites">Fonctionnalités</a>
-    <a href="/tarifs/">Tarifs</a>
-    <a href="/blog/" aria-current="page">Blog</a>
+    %(bureau)s
     <a href="/#contact" class="nav-cta">Demander une démo →</a>
   </div>
+  <div class="nav-menu">
+    <input type="checkbox" id="nav-bascule" class="nav-menu-bascule">
+    <label for="nav-bascule" class="nav-menu-bouton">
+      <span class="nav-menu-barres"></span>
+      <span class="sr-only">Ouvrir le menu</span>
+    </label>
+    <div class="nav-menu-panneau">
+      %(mobile)s
+      <a href="/support/">Support</a>
+      <a href="/#contact" class="nav-cta">Demander une démo →</a>
+    </div>
+  </div>
 </nav>
-"""
+""" % {"bureau": "\n    ".join(rendu(u, l) for u, l in liens),
+       "mobile": "\n      ".join(rendu(u, l) for u, l in liens)}
 
 
 def fil_ariane(niveaux):
@@ -693,73 +730,210 @@ def appel_bas_de_page():
 """
 
 
-def banniere_svg(a, ident):
-    """Bannière d'article : dégradé de la rubrique, émoji et titre de l'article.
+def teinte_decalee(couleur, degres):
+    """Fait tourner la teinte d'une couleur, en gardant sa luminosité.
 
-    Générée plutôt que dessinée : neuf articles écrits à la main avaient neuf
-    dégradés sans logique. Un dégradé par rubrique se reconnaît d'un article
-    à l'autre.
+    C'est ce qui empêche deux articles d'une même rubrique d'avoir exactement
+    la même image : la famille reste reconnaissable, la carte non.
+    """
+    r, v, b_ = (int(couleur[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    h, l, sat = colorsys.rgb_to_hls(r, v, b_)
+    r, v, b_ = colorsys.hls_to_rgb((h + degres / 360.0) % 1.0, l, sat)
+    return "#%02X%02X%02X" % (round(r * 255), round(v * 255), round(b_ * 255))
+
+
+def graine(slug):
+    """Nombre stable tiré du slug : la même image à chaque génération."""
+    return int(hashlib.sha1(slug.encode("utf-8")).hexdigest(), 16)
+
+
+# Icônes au trait, dessinées centrées sur (0,0) dans un carré d'environ 56.
+# Pour en ajouter une : un chemin de plus ici, puis « vignette_icone: <clé> »
+# dans l'article. Elles remplacent les émojis, dont le rendu change d'un
+# système à l'autre et qui font informel sur un sujet réglementaire.
+ICONES = {
+    "document": '<rect x="-22" y="-28" width="44" height="56" rx="4"/>'
+                '<path d="M-12 -14h24M-12 -2h24M-12 10h14"/>',
+    "carnet": '<rect x="-20" y="-28" width="40" height="56" rx="4"/>'
+              '<path d="M-20 -14h-6M-20 0h-6M-20 14h-6M-8 -12h20M-8 2h20M-8 16h12"/>',
+    "cadenas": '<rect x="-20" y="-6" width="40" height="32" rx="5"/>'
+               '<path d="M-11 -6v-11a11 11 0 0 1 22 0v11M0 6v8"/>',
+    "calendrier": '<rect x="-24" y="-20" width="48" height="46" rx="4"/>'
+                  '<path d="M-24 -6h48M-12 -20v-9M12 -20v-9"/>'
+                  '<path d="M-13 6l4 4 8-8M6 8h8"/>',
+    "liste": '<rect x="-20" y="-26" width="40" height="52" rx="4"/>'
+             '<path d="M-8 -26h16v8h-16z"/><path d="M-11 -6l4 4 7-8M-11 12l4 4 7-8M6 -4h8M6 14h8"/>',
+    "bouclier": '<path d="M0 -28 L22 -18 V4 C22 18 12 26 0 30 C-12 26 -22 18 -22 4 V-18 Z"/>'
+                '<path d="M-9 1l6 7 12-14"/>',
+    "batiment": '<path d="M-24 28V-14l24-14 24 14v42Z"/>'
+                '<path d="M-12 28v-16h24v16M-13 -6h6M7 -6h6"/>',
+    "personnes": '<circle cx="-10" cy="-14" r="9"/><circle cx="13" cy="-10" r="7"/>'
+                 '<path d="M-26 24v-6a16 16 0 0 1 32 0v6M12 24v-6a12 12 0 0 0-5-10"/>',
+    "eclair": '<path d="M4 -28 L-16 4 H-2 L-6 28 L16 -6 H2 Z"/>',
+    "monnaie": '<circle r="24"/><path d="M0 -13v26M-7 -7h11a6 6 0 0 1 0 12h-11"/>',
+    "loupe": '<circle cx="-4" cy="-4" r="17"/><path d="M9 9l15 15"/>',
+    "cycle": '<path d="M-22 -4a22 22 0 0 1 37-15"/><path d="M22 4a22 22 0 0 1-37 15"/>'
+             '<path d="M9 -21l7 2-2 8M-9 21l-7-2 2-8"/>',
+    "balance": '<path d="M0 -26v48M-18 22h36M-24 -14h48"/>'
+               '<path d="M-24 -14l-9 19h18zM24 -14l9 19h-18z"/>',
+    "tampon": '<path d="M-18 26h36v-6a8 8 0 0 0-8-8h-20a8 8 0 0 0-8 8z"/>'
+              '<path d="M-9 12V-4a9 9 0 0 1 18 0v16"/>',
+}
+
+# L'icône par défaut d'une rubrique, quand l'article n'en précise pas.
+ICONES_RUBRIQUE = {"conformite": "document", "securite": "bouclier",
+                   "gestion": "calendrier", "outils": "loupe"}
+
+
+def taille_mot(mot, largeur, maxi):
+    """Taille de police qui fait tenir le mot dans la largeur disponible.
+
+    Inter en graisse 800 occupe environ 0,62 em par caractère. Approximation
+    volontaire : elle évite d'embarquer une bibliothèque de mesure de texte
+    pour un mot par vignette.
+    """
+    if not mot:
+        return maxi
+    return max(18, min(maxi, int(largeur / (0.62 * len(mot)))))
+
+
+def mot_vignette(a):
+    return (a.get("vignette_mot") or a.get("banniere_titre")
+            or RUBRIQUES[a["rubrique"]]["nom"]).upper()
+
+
+def composition_svg(a, ident, l, h):
+    """Le dessin commun aux vignettes et aux bannières.
+
+    Le mot-clé porte l'identité de l'article, l'icône donne le sujet d'un coup
+    d'œil, la teinte tourne avec le slug. Trois articles d'une même rubrique se
+    distinguent donc par le mot, par l'icône et par la couleur — là où la
+    version précédente ne les distinguait que par un émoji.
     """
     r = RUBRIQUES[a["rubrique"]]
-    c1, c2, c3 = r["degrade"]
-    titre = a.get("banniere_titre") or r["nom"]
-    sous_titre = a.get("banniere_sous_titre") or ""
-    emoji = a.get("banniere_emoji") or r["emoji"]
-    return """<div class="article-banner">
-  <svg viewBox="0 0 1100 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="%(alt)s">
-    <defs><linearGradient id="bn-%(id)s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%(c1)s"/><stop offset="0.55" stop-color="%(c2)s"/><stop offset="1" stop-color="%(c3)s"/></linearGradient></defs>
-    <rect width="1100" height="300" fill="url(#bn-%(id)s)"/>
-    <circle cx="940" cy="70" r="150" fill="#fff" opacity="0.05"/>
-    <circle cx="170" cy="285" r="130" fill="#00BFA5" opacity="0.10"/>
-    <text x="80" y="175" font-size="110">%(emoji)s</text>
-    <text x="230" y="%(y1)d" font-family="Inter, sans-serif" font-size="40" font-weight="800" fill="#fff">%(titre)s</text>%(sous)s
-  </svg>
-</div>
-""" % {"alt": e("%s — %s" % (titre, sous_titre) if sous_titre else titre),
-       "id": ident, "c1": c1, "c2": c2, "c3": c3, "emoji": emoji,
-       "titre": e(titre), "y1": 150 if sous_titre else 170,
-       "sous": ('\n    <text x="230" y="200" font-family="Inter, sans-serif" '
-                'font-size="24" font-weight="500" fill="#80DEEA">%s</text>' % e(sous_titre)
-                if sous_titre else "")}
+    g = graine(a["slug"])
+    decalage = (g % 31) - 15
+    c1, c2, c3 = (teinte_decalee(c, decalage) for c in r["degrade"])
+
+    marge = int(l * 0.07)
+    mot = mot_vignette(a)
+    sous = a.get("banniere_sous_titre") or ""
+    icone = ICONES.get(a.get("vignette_icone") or "",
+                       ICONES[ICONES_RUBRIQUE[a["rubrique"]]])
+
+    # Le mot laisse la place à l'icône, posée en haut à droite.
+    taille_icone = h * 0.0072
+    largeur_mot = l - 2 * marge - (h * 0.30)
+    fs_mot = taille_mot(mot, largeur_mot, int(h * 0.30))
+    fs_rub = max(10, int(h * 0.062))
+    fs_sous = max(10, int(h * 0.072))
+
+    out = [
+        '<defs><linearGradient id="fd-%s" x1="0" y1="0" x2="1" y2="1">'
+        '<stop offset="0" stop-color="%s"/><stop offset="0.5" stop-color="%s"/>'
+        '<stop offset="1" stop-color="%s"/></linearGradient></defs>' % (ident, c1, c2, c3),
+        '<rect width="%d" height="%d" fill="url(#fd-%s)"/>' % (l, h, ident),
+        # Deux cercles très discrets : de la profondeur, pas un motif.
+        '<circle cx="%d" cy="%d" r="%d" fill="#fff" opacity="0.06"/>'
+        % (int(l * 0.92), int(h * 1.02), int(h * 0.62)),
+        '<circle cx="%d" cy="%d" r="%d" fill="#fff" opacity="0.05"/>'
+        % (int(l * 0.14), int(h * -0.10), int(h * 0.34)),
+        # Filet + rubrique
+        '<rect x="%d" y="%d" width="%d" height="%d" rx="2" fill="#fff" fill-opacity="0.55"/>'
+        % (marge, int(h * 0.15), int(l * 0.11), max(2, int(h * 0.02))),
+        '<text x="%d" y="%d" font-family="Inter, sans-serif" font-size="%d" font-weight="700" '
+        'letter-spacing="%.1f" fill="#fff" fill-opacity="0.72">%s</text>'
+        % (marge, int(h * 0.29), fs_rub, h * 0.011, e(r["nom"].upper())),
+        # Le mot-clé
+        '<text x="%d" y="%d" font-family="Inter, sans-serif" font-size="%d" font-weight="800" '
+        'letter-spacing="-1" fill="#fff">%s</text>'
+        % (marge, int(h * 0.68), fs_mot, e(mot)),
+        # L'icône
+        '<g transform="translate(%d,%d) scale(%.3f)" fill="none" stroke="#fff" '
+        'stroke-opacity="0.82" stroke-width="%.1f" stroke-linecap="round" '
+        'stroke-linejoin="round">%s</g>'
+        % (l - marge - int(h * 0.15), int(h * 0.27), taille_icone, 3.0 / taille_icone, icone),
+    ]
+    if sous:
+        out.append('<text x="%d" y="%d" font-family="Inter, sans-serif" font-size="%d" '
+                   'font-weight="500" fill="#fff" fill-opacity="0.66">%s</text>'
+                   % (marge, int(h * 0.86), fs_sous, e(sous)))
+    return "".join(out)
 
 
-def vignette_svg(a, ident):
+def banniere_svg(a, ident):
+    """Bannière d'article : la composition de la vignette, en large."""
+    if a.get("vignette_image"):
+        return ('<div class="article-banner article-banner--image">\n'
+                '  <img src="%s" alt="%s" loading="eager" decoding="async">\n</div>\n'
+                % (e(a["vignette_image"]), e(a.get("vignette_image_alt") or "")))
+
     r = RUBRIQUES[a["rubrique"]]
-    c1, _, c3 = r["degrade"]
-    emoji = a.get("banniere_emoji") or r["emoji"]
-    return ('<svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="%s">'
-            '<defs><linearGradient id="vg-%s" x1="0" y1="0" x2="1" y2="1">'
-            '<stop offset="0" stop-color="%s"/><stop offset="1" stop-color="%s"/></linearGradient></defs>'
-            '<rect width="400" height="180" fill="url(#vg-%s)"/>'
-            '<circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/>'
-            '<text x="40" y="108" font-size="54">%s</text>'
-            '<rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/>'
-            '<rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/>'
-            '</svg>' % (e(r["nom"]), ident, c1, c3, ident, emoji))
+    l, h = 1100, 300
+    return """<div class="article-banner" style="background:linear-gradient(135deg,%(g1)s,%(g2)s 50%%,%(g3)s)">
+  <svg viewBox="0 0 %(l)d %(h)d" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="%(alt)s" preserveAspectRatio="xMinYMid slice">%(svg)s</svg>
+</div>
+""" % {"l": l, "h": h,
+       "alt": e("%s — %s" % (mot_vignette(a), r["nom"])),
+       "g1": teinte_decalee(r["degrade"][0], (graine(a["slug"]) % 31) - 15),
+       "g2": teinte_decalee(r["degrade"][1], (graine(a["slug"]) % 31) - 15),
+       "g3": teinte_decalee(r["degrade"][2], (graine(a["slug"]) % 31) - 15),
+       "svg": composition_svg(a, "bn-" + ident, l, h)}
 
 
-def carte(a):
-    """Carte d'article, utilisée par l'index, les rubriques et la page vidéos."""
-    marqueur = ('<span class="blog-card-video" title="Cet article contient une vidéo">'
-                '▶ Vidéo</span>' if a.get("video") else "")
-    return """      <a class="blog-card" href="%(url)s">
-        <span class="blog-card-media">
-          %(svg)s
-        </span>
+def vignette_svg(a, ident, grande=False):
+    """Vignette de carte : exactement le dessin de la bannière, en plus petit."""
+    if a.get("vignette_image"):
+        return ('<img src="%s" alt="" loading="lazy" decoding="async" class="vignette-image">'
+                % e(a["vignette_image"]))
+    # La grande vignette occupe une colonne plus haute que large : un format
+    # proche évite de trop recadrer. Et le recadrage est ancré à gauche
+    # (xMin), là où se trouvent le mot-clé et la rubrique — recadrer au centre
+    # coupait le mot en deux.
+    l, h = (640, 430) if grande else (400, 200)
+    return ('<svg viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg" role="img" '
+            'aria-label="%s" preserveAspectRatio="xMinYMid slice">%s</svg>'
+            % (l, h, e("%s — %s" % (mot_vignette(a), RUBRIQUES[a["rubrique"]]["nom"])),
+               composition_svg(a, "vg-" + ident, l, h)))
+
+
+def carte(a, une=False, prefixe_id=""):
+    """Carte d'article. « une » donne la grande carte horizontale de tête.
+
+    Un blog qui publie deux fois par mois a besoin que le dernier article se
+    voie : sans mise en avant, la nouveauté se noie dans une grille uniforme et
+    le lecteur régulier ne sait pas s'il a déjà tout lu.
+    """
+    badges = ['<span class="blog-tag">%s</span>' % e(RUBRIQUES[a["rubrique"]]["nom"])]
+    if a.get("video"):
+        badges.append('<span class="badge-video">Vidéo</span>')
+    # Le badge « Nouveau » est posé côté navigateur, à partir de la date de la
+    # carte : le calculer ici figerait dans le HTML une fraîcheur qui périme,
+    # et ferait bouger toutes les pages à chaque regénération.
+
+    titre = "h2" if une else "h3"
+    texte = (a.get("chapeau") if une else None) or a.get("resume") or a["description"]
+
+    # Des <div>, pas des <span> : la carte contient un titre, et un span ne
+    # peut pas contenir de titre. Un <a>, lui, peut contenir des <div>.
+    return """      <a class="blog-card%(mod)s" href="%(url)s">
+        <div class="blog-card-media">%(svg)s</div>
         <div class="blog-card-body">
-          <span class="blog-tag">%(rubrique)s</span>%(video)s
-          <h3>%(titre)s</h3>
-          <p>%(resume)s</p>
+          <div class="blog-card-badges">%(badges)s</div>
+          <%(t)s>%(titre)s</%(t)s>
+          <p class="blog-card-texte">%(texte)s</p>
           <div class="blog-meta">
             <time datetime="%(iso)s">%(date)s</time>
+            <span class="blog-meta-sep"></span>
             <span>%(minutes)d min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
-""" % {"url": a["url"], "svg": vignette_svg(a, a["slug"]),
-       "rubrique": e(RUBRIQUES[a["rubrique"]]["nom"]), "video": marqueur,
-       "titre": rendre_inline(a["titre"]), "resume": rendre_inline(a.get("resume") or a["description"]),
+""" % {"mod": " blog-card--une" if une else "", "url": a["url"],
+       "svg": vignette_svg(a, prefixe_id + ("une-" if une else "") + a["slug"], une),
+       "badges": "".join(badges), "t": titre,
+       "titre": rendre_inline(a["titre"]), "texte": rendre_inline(texte),
        "iso": a["publie_le"], "date": date_fr(a["publie_le"]), "minutes": a["minutes"]}
 
 
@@ -907,7 +1081,7 @@ def page_article(a, tous, auteurs):
         entete(a["titre_seo"], a["description"], url, a["og_image"], "article",
                jsonld_article(a, auteur), a.get("og_titre") or a["titre"],
                a.get("og_description") or a["description"], a.get("og_image_alt"),
-               scripts=("/assets/blog.js",) if a.get("video") else ()),
+               scripts=("/assets/blog.js",)),
         nav(),
         banniere_svg(a, a["slug"]),
         fil_ariane([("Accueil", "/"), ("Blog", "/blog/"),
@@ -937,54 +1111,188 @@ def page_article(a, tous, auteurs):
 # ---------------------------------------------------------------------------
 
 def barre_rubriques(active):
-    liens = ['<a href="/blog/"%s>Tout</a>' % (' class="active"' if active == "tout" else "")]
+    """Les rubriques, avec leur nombre d'articles.
+
+    Le compteur n'est pas décoratif : il dit au lecteur si la rubrique vaut le
+    détour, et il nous dit à nous laquelle est en retard sur la répartition
+    cible de la ligne éditoriale (moitié conformité + sécurité).
+    """
+    def lien(url, libelle, cle, nombre=None):
+        actif = ' class="active"' if active == cle else ''
+        compte = '<span class="rubrique-compte">%d</span>' % nombre if nombre else ''
+        return '<a href="%s"%s>%s%s</a>' % (url, actif, libelle, compte)
+
+    liens = [lien("/blog/", "Tout", "tout", sum(COMPTEURS.values()))]
     for slug, r in RUBRIQUES.items():
         if slug not in RUBRIQUES_ACTIVES:
             continue
-        liens.append('<a href="/blog/rubrique/%s/"%s>%s %s</a>'
-                     % (slug, ' class="active"' if active == slug else "",
-                        r["emoji"], e(r["nom"])))
+        liens.append(lien("/blog/rubrique/%s/" % slug,
+                          '<span class="rubrique-emoji">%s</span>%s' % (r["emoji"], e(r["nom"])),
+                          slug, COMPTEURS.get(slug)))
     if AVEC_VIDEOS:
-        liens.append('<a href="/blog/videos/"%s>▶ Vidéos</a>'
-                     % (' class="active"' if active == "videos" else ""))
-    return ('<nav class="rubriques" aria-label="Rubriques du blog">\n  <div class="rubriques-inner">\n    %s\n  </div>\n</nav>\n'
+        liens.append(lien("/blog/videos/", '<span class="rubrique-emoji">▶</span>Vidéos',
+                          "videos", COMPTEURS.get("_videos")))
+    return ('<nav class="rubriques" aria-label="Rubriques du blog">\n'
+            '  <div class="rubriques-inner">\n    %s\n  </div>\n</nav>\n'
             % "\n    ".join(liens))
 
 
 def barre_pagination(base, page, total):
+    """Pagination numérotée : « page 2 sur 4 » ne dit pas s'il vaut la peine
+    d'aller plus loin, une suite de numéros si."""
     if total <= 1:
         return ""
-    def lien(n):
+
+    def url(n):
         return base if n == 1 else "%spage/%d/" % (base, n)
+
     out = ['<nav class="pagination" aria-label="Pagination des articles">']
-    out.append('  <a href="%s" rel="prev" class="%s">← Plus récents</a>'
-               % (lien(page - 1) if page > 1 else "#", "" if page > 1 else "desactive"))
-    out.append('  <span>Page %d sur %d</span>' % (page, total))
-    out.append('  <a href="%s" rel="next" class="%s">Plus anciens →</a>'
-               % (lien(page + 1) if page < total else "#", "" if page < total else "desactive"))
+    if page > 1:
+        out.append('  <a href="%s" rel="prev" class="pagination-fleche">← Plus récents</a>' % url(page - 1))
+    else:
+        out.append('  <span class="pagination-fleche desactive">← Plus récents</span>')
+
+    out.append('  <span class="pagination-pages">')
+    for n in range(1, total + 1):
+        if n == page:
+            out.append('    <span class="pagination-page active" aria-current="page">%d</span>' % n)
+        else:
+            out.append('    <a class="pagination-page" href="%s" aria-label="Page %d">%d</a>'
+                       % (url(n), n, n))
+    out.append('  </span>')
+
+    if page < total:
+        out.append('  <a href="%s" rel="next" class="pagination-fleche">Plus anciens →</a>' % url(page + 1))
+    else:
+        out.append('  <span class="pagination-fleche desactive">Plus anciens →</span>')
     out.append("</nav>")
     return "\n".join(out) + "\n"
+
+
+def bloc_recherche():
+    """Champ de recherche, masqué tant que le JavaScript ne l'a pas activé.
+
+    Un champ de recherche qui ne cherche pas est pire que pas de champ du tout :
+    il est donc posé avec « hidden », et c'est blog-liste.js qui le révèle. La
+    recherche porte sur tous les articles, pas seulement sur la page affichée —
+    l'index est chargé au premier caractère saisi, jamais avant.
+    """
+    return """    <div class="blog-recherche" role="search" hidden>
+      <label class="blog-recherche-champ">
+        <span class="blog-recherche-icone" aria-hidden="true"></span>
+        <input type="search" id="blog-q" autocomplete="off"
+               placeholder="Rechercher un article : RGPD, présences, ERP…"
+               aria-label="Rechercher dans tous les articles du blog">
+        <button type="button" class="blog-recherche-vider" hidden aria-label="Effacer la recherche">×</button>
+      </label>
+      <p class="blog-recherche-etat" role="status" aria-live="polite"></p>
+    </div>
+"""
+
+
+def mots_vedette(a):
+    """Le texte « de tête » : titre, résumé, description, rubrique, mots-clés.
+
+    Séparé du corps parce qu'un mot trouvé dans le titre ne vaut pas un mot
+    croisé au détour d'un paragraphe. Sans cette distinction, une recherche
+    sur « présences » classe l'article sur les présences en quatrième position.
+    """
+    return re.sub(r"\s+", " ", " ".join([
+        a["titre"], a.get("titre_court") or "", a.get("resume") or "",
+        a["description"], a.get("chapeau") or "", RUBRIQUES[a["rubrique"]]["nom"],
+        " ".join(a.get("mots_cles") or []),
+    ])).strip()
+
+
+def mots_indexes(a):
+    """Le texte sur lequel porte la recherche.
+
+    Les métadonnées seules ne suffisent pas : l'article sur le pointage ne
+    contient le mot « présences » que dans son corps, et une recherche qui ne
+    le trouve pas passe pour cassée. On indexe donc le texte complet, débarrassé
+    du balisage et des blocs SVG.
+    """
+    texte = re.sub(r"<svg.*?</svg>", " ", a["html"], flags=re.S)
+    texte = re.sub(r"<[^>]+>", " ", texte)
+    texte = html.unescape(texte)
+    return re.sub(r"\s+", " ", mots_vedette(a) + " " + texte).strip()
+
+
+def index_recherche(articles):
+    """L'index chargé par la recherche, au premier caractère saisi.
+
+    Il embarque la carte déjà rendue plutôt qu'un gabarit à reconstruire en
+    JavaScript : un second gabarit divergerait du premier au premier changement
+    de design, et personne ne s'en apercevrait avant longtemps.
+    """
+    return json.dumps({
+        "articles": [{
+            "url": a["url"],
+            "rubrique": a["rubrique"],
+            "vedette": mots_vedette(a),
+            "mots": mots_indexes(a),
+            "carte": carte(a, prefixe_id="r-"),
+        } for a in articles],
+    }, ensure_ascii=False, separators=(",", ":"))
+
+
+def bloc_suivre():
+    """Un blog qui publie régulièrement doit donner le moyen de le suivre.
+    Le flux RSS est le seul canal qui ne dépende de personne — ni d'un réseau
+    social, ni d'une liste d'adresses à constituer."""
+    return """<section class="blog-suivre">
+  <div class="section-inner">
+    <div class="blog-suivre-inner">
+      <div>
+        <h2>Deux nouveaux articles par mois</h2>
+        <p>Réglementation, sécurité, gestion et outils. Suivez le blog par flux RSS : rien à
+        donner, rien à désinscrire.</p>
+      </div>
+      <a href="/blog/feed.xml" class="btn-lp outline">S’abonner au flux RSS</a>
+    </div>
+  </div>
+</section>
+"""
 
 
 def page_liste(titre_seo, description, canonical, etiquette, h1, chapeau, articles,
                og_image, active, fil, base=None, page=1, total=1, jsonld=None,
                og_titre=None, og_description=None):
-    cartes = "\n".join(carte(a) for a in articles) or (
-        '      <p>Aucun article dans cette rubrique pour le moment.</p>')
+    # Le plus récent passe en grande carte : sur la première page seulement,
+    # sinon « à la une » ne voudrait plus rien dire.
+    une = articles[0] if (articles and page == 1) else None
+    reste = articles[1:] if une else articles
+
+    corps = []
+    if une:
+        corps.append(carte(une, une=True))
+    if reste:
+        if une:
+            corps.append('      <h2 class="blog-section-titre">%s</h2>\n'
+                         % ("Tous les articles" if active == "tout" else "La suite de la rubrique"))
+        corps.append('      <div class="blog-grid">\n\n%s\n      </div>\n'
+                     % "\n".join(carte(a) for a in reste))
+    if not articles:
+        corps.append('      <p class="blog-vide">Aucun article dans cette rubrique pour le '
+                     'moment. <a href="/blog/">Voir tous les articles</a></p>\n')
+
     return "".join([
         entete(titre_seo, description, canonical, og_image, "website", jsonld,
-               og_titre, og_description),
+               og_titre, og_description, scripts=("/assets/blog-liste.js",)),
         nav(),
         '<header class="page-hero">\n  <div class="page-hero-inner">\n'
         '    <span class="lp-hero-tag">%s</span>\n    <h1>%s</h1>\n    <p>%s</p>\n'
         "  </div>\n</header>\n\n" % (e(etiquette), rendre_inline(h1), rendre_inline(chapeau)),
         fil_ariane(fil),
         barre_rubriques(active),
-        '\n<section class="lp-section">\n  <div class="section-inner">\n    <div class="blog-grid">\n\n',
-        cartes,
-        "\n    </div>\n",
+        '\n<section class="lp-section blog-liste">\n  <div class="section-inner">\n',
+        bloc_recherche(),
+        '    <div class="blog-resultats" hidden></div>\n',
+        '    <div class="blog-contenu">\n',
+        "".join(corps),
         barre_pagination(base or "/blog/", page, total) if base else "",
-        "  </div>\n</section>\n\n",
+        "    </div>\n  </div>\n</section>\n\n",
+        bloc_suivre(),
         appel_bas_de_page(),
         pied(),
     ])
@@ -1232,6 +1540,7 @@ AVERTISSEMENTS = []
 # sinon le menu propose un 404.
 RUBRIQUES_ACTIVES = set()
 AVEC_VIDEOS = False
+COMPTEURS = {}
 
 
 def avertir(message):
@@ -1296,6 +1605,14 @@ def preparer(meta, corps, fichier, auteurs):
     if not a["og_image"].startswith("http") and not os.path.exists(chemin_og):
         avertir("%s : l'image de partage %s n'existe pas — ajoutez-la dans "
                 "tools/generate-og-images.py." % (slug, a["og_image"]))
+
+    if a.get("vignette_icone") and a["vignette_icone"] not in ICONES:
+        erreur("%s : icône « %s » inconnue. Disponibles : %s."
+               % (fichier, a["vignette_icone"], ", ".join(sorted(ICONES))))
+    if a.get("vignette_image") and not os.path.exists(
+            os.path.join(ROOT, a["vignette_image"].lstrip("/"))):
+        avertir("%s : l'image de vignette %s n'existe pas dans le dépôt."
+                % (slug, a["vignette_image"]))
 
     ctx = {"article": a, "faq": [], "sommaire": [], "video_placee": False,
            "a_sources": False, "a_transcription": False}
@@ -1400,6 +1717,15 @@ def main():
 
     articles.sort(key=lambda a: (a["publie_le"], a["slug"]), reverse=True)
 
+    vus = {}
+    for a in articles:
+        mot = mot_vignette(a)
+        if mot in vus:
+            avertir("« %s » et « %s » affichent le même mot de vignette (%s) : "
+                    "leurs cartes seront indiscernables. Préciser « vignette_mot »."
+                    % (vus[mot], a["slug"], mot))
+        vus[mot] = a["slug"]
+
     pages = []
     if os.path.isdir(SRC_PAGES):
         for nom in sorted(os.listdir(SRC_PAGES)):
@@ -1429,9 +1755,12 @@ def main():
             print("  ⚠ %s" % m)
         return
 
-    global RUBRIQUES_ACTIVES, AVEC_VIDEOS
+    global RUBRIQUES_ACTIVES, AVEC_VIDEOS, COMPTEURS
     RUBRIQUES_ACTIVES = {a["rubrique"] for a in articles}
     AVEC_VIDEOS = any(a.get("video") for a in articles)
+    COMPTEURS = {slug: sum(1 for a in articles if a["rubrique"] == slug)
+                 for slug in RUBRIQUES_ACTIVES}
+    COMPTEURS["_videos"] = sum(1 for a in articles if a.get("video"))
     for slug, r in RUBRIQUES.items():
         if slug not in RUBRIQUES_ACTIVES:
             avertir("rubrique « %s » sans aucun article : ni page ni lien de menu. "
@@ -1517,6 +1846,7 @@ def main():
 
     # Flux, sitemaps, llms.txt
     ecrits.append(ecrire("blog/feed.xml", flux_rss(articles)))
+    ecrits.append(ecrire("blog/articles.json", index_recherche(articles)))
     ecrire_sitemap(articles, pages, pages_total)
     ecrits.append("sitemap.xml (bloc BLOG)")
     sv = sitemap_video(articles)

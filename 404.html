@@ -40,6 +40,21 @@
     <a href="/blog/" aria-current="page">Blog</a>
     <a href="/#contact" class="nav-cta">Demander une démo →</a>
   </div>
+  <div class="nav-menu">
+    <input type="checkbox" id="nav-bascule" class="nav-menu-bascule">
+    <label for="nav-bascule" class="nav-menu-bouton">
+      <span class="nav-menu-barres"></span>
+      <span class="sr-only">Ouvrir le menu</span>
+    </label>
+    <div class="nav-menu-panneau">
+      <a href="/">Accueil</a>
+      <a href="/#fonctionnalites">Fonctionnalités</a>
+      <a href="/tarifs/">Tarifs</a>
+      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="/support/">Support</a>
+      <a href="/#contact" class="nav-cta">Demander une démo →</a>
+    </div>
+  </div>
 </nav>
 <section class="erreur-404">
   <div class="code">404</div>
@@ -53,10 +68,10 @@
 
 <nav class="rubriques" aria-label="Rubriques du blog">
   <div class="rubriques-inner">
-    <a href="/blog/">Tout</a>
-    <a href="/blog/rubrique/conformite/">📑 Conformité</a>
-    <a href="/blog/rubrique/gestion/">🗂️ Gestion</a>
-    <a href="/blog/rubrique/outils/">🧰 Outils</a>
+    <a href="/blog/">Tout<span class="rubrique-compte">9</span></a>
+    <a href="/blog/rubrique/conformite/"><span class="rubrique-emoji">📑</span>Conformité<span class="rubrique-compte">2</span></a>
+    <a href="/blog/rubrique/gestion/"><span class="rubrique-emoji">🗂️</span>Gestion<span class="rubrique-compte">4</span></a>
+    <a href="/blog/rubrique/outils/"><span class="rubrique-emoji">🧰</span>Outils<span class="rubrique-compte">3</span></a>
   </div>
 </nav>
 
@@ -66,50 +81,47 @@
     <div class="blog-grid">
 
       <a class="blog-card" href="/blog/declarer-ecole-coranique-accueil-collectif-mineurs/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conformité"><defs><linearGradient id="vg-declarer-ecole-coranique-accueil-collectif-mineurs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1A237E"/><stop offset="1" stop-color="#00796B"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-declarer-ecole-coranique-accueil-collectif-mineurs)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">📑</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ACM — Conformité" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-declarer-ecole-coranique-accueil-collectif-mineurs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1A287E"/><stop offset="0.5" stop-color="#30459F"/><stop offset="1" stop-color="#007965"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-declarer-ecole-coranique-accueil-collectif-mineurs)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">CONFORMITÉ</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="60" font-weight="800" letter-spacing="-1" fill="#fff">ACM</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="-10" cy="-14" r="9"/><circle cx="13" cy="-10" r="7"/><path d="M-26 24v-6a16 16 0 0 1 32 0v6M12 24v-6a12 12 0 0 0-5-10"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">Votre activité relève-t-elle des ACM ?</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Conformité</span>
+          <div class="blog-card-badges"><span class="blog-tag">Conformité</span></div>
           <h3>Faut-il déclarer son école coranique comme accueil collectif de mineurs ?</h3>
-          <p>Cours du samedi, garderie, sortie de fin d’année : où se situe la bascule, et ce qu’elle implique.</p>
+          <p class="blog-card-texte">Cours du samedi, garderie, sortie de fin d’année : où se situe la bascule, et ce qu’elle implique.</p>
           <div class="blog-meta">
             <time datetime="2026-09-10">10 septembre 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>8 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 
       <a class="blog-card" href="/blog/automatiser-gestion-ecole-coranique/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Outils"><defs><linearGradient id="vg-automatiser-gestion-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#303F9F"/><stop offset="1" stop-color="#26A69A"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-automatiser-gestion-ecole-coranique)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">⚡</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AUTOMATISER — Outils" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-automatiser-gestion-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#33309F"/><stop offset="0.5" stop-color="#413FB5"/><stop offset="1" stop-color="#269DA6"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-automatiser-gestion-ecole-coranique)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">OUTILS</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="41" font-weight="800" letter-spacing="-1" fill="#fff">AUTOMATISER</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 -28 L-16 4 H-2 L-6 28 L16 -6 H2 Z"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">10 tâches, des heures gagnées</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Outils</span>
+          <div class="blog-card-badges"><span class="blog-tag">Outils</span></div>
           <h3>Les 10 tâches à automatiser dans une école coranique</h3>
-          <p>Gagnez des heures chaque semaine en automatisant ce qui peut l’être.</p>
+          <p class="blog-card-texte">Gagnez des heures chaque semaine en automatisant ce qui peut l’être.</p>
           <div class="blog-meta">
             <time datetime="2026-07-13">13 juillet 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>3 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 
       <a class="blog-card" href="/blog/bulletin-scolaire-bilingue-arabe/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gestion"><defs><linearGradient id="vg-bulletin-scolaire-bilingue-arabe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#283593"/><stop offset="1" stop-color="#009688"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-bulletin-scolaire-bilingue-arabe)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">📄</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BULLETINS — Gestion" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-bulletin-scolaire-bilingue-arabe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#284793"/><stop offset="0.5" stop-color="#395CAB"/><stop offset="1" stop-color="#00966F"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-bulletin-scolaire-bilingue-arabe)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">GESTION</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="50" font-weight="800" letter-spacing="-1" fill="#fff">BULLETINS</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="-20" y="-28" width="40" height="56" rx="4"/><path d="M-20 -14h-6M-20 0h-6M-20 14h-6M-8 -12h20M-8 2h20M-8 16h12"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">Arabe &amp; français, clairs et pros</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Gestion</span>
+          <div class="blog-card-badges"><span class="blog-tag">Gestion</span></div>
           <h3>Créer des bulletins scolaires clairs en arabe et français</h3>
-          <p>Bonnes pratiques pour des bulletins lisibles et professionnels en contexte bilingue.</p>
+          <p class="blog-card-texte">Bonnes pratiques pour des bulletins lisibles et professionnels en contexte bilingue.</p>
           <div class="blog-meta">
             <time datetime="2026-07-10">10 juillet 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>4 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 

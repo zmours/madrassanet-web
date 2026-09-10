@@ -5,12 +5,15 @@ titre_seo: Logiciel gratuit ou payant pour école coranique : que choisir ? | Ma
 description: Un logiciel de gestion gratuit pour école coranique cache souvent des coûts et des limites. Analyse honnête pour choisir entre gratuit et payant sans se tromper.
 resume: Le « gratuit » cache souvent des coûts. Analyse honnête pour faire le bon choix.
 chapeau: Quand on gère une petite école coranique avec un budget serré, un logiciel gratuit paraît être le choix évident. C'est une intuition légitime — mais avant de trancher, il faut regarder le vrai coût total, celui qui ne figure pas sur l'étiquette. Voici une analyse honnête pour décider en connaissance de cause.
+mots_cles: logiciel gratuit, payant, open source, coût, tableur, comparatif
 rubrique: outils
 auteur: equipe
 publie_le: 2026-06-30
 og_image: /assets/og/blog-gratuit-payant.png
 og_description: Le "gratuit" cache souvent des coûts. Analyse honnête.
 og_image_alt: Logiciel gratuit ou payant pour une école coranique
+vignette_mot: GRATUIT ?
+vignette_icone: balance
 banniere_emoji: ⚖️
 banniere_titre: Gratuit ou payant ?
 banniere_sous_titre: Faire le bon calcul

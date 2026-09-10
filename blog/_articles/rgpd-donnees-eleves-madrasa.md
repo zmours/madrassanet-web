@@ -5,12 +5,15 @@ titre_seo: RGPD et données des élèves : ce que doit savoir une madrasa | Madr
 description: Une madrasa ou association scolaire traite des données personnelles d'enfants. Voici vos obligations RGPD expliquées simplement et comment vous mettre en conformité.
 resume: Vos obligations en matière de données personnelles, expliquées simplement.
 chapeau: Dès l'instant où vous notez le nom d'un enfant et le numéro de téléphone de ses parents, vous traitez des données personnelles. Et le RGPD ne concerne pas que les grandes entreprises : il s'applique aussi aux associations et aux écoles coraniques. Bonne nouvelle, l'essentiel tient dans quelques principes de bon sens.
+mots_cles: RGPD, données personnelles, CNIL, consentement, hébergement des données
 rubrique: conformite
 auteur: equipe
 publie_le: 2026-07-07
 og_image: /assets/og/blog-rgpd.png
 og_description: Vos obligations en matière de données personnelles, expliquées simplement.
 og_image_alt: RGPD et données des élèves : les obligations d'une madrasa
+vignette_mot: RGPD
+vignette_icone: cadenas
 banniere_emoji: 🔐
 banniere_titre: RGPD & données
 banniere_sous_titre: Protéger les élèves, rester en règle

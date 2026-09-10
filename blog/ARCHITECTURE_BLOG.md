@@ -65,6 +65,7 @@ blog/
   rubrique/<r>/index.html ← généré     une page par rubrique pourvue
   videos/index.html       ← généré     dès qu'un article porte une vidéo
   feed.xml                ← généré     flux RSS 2.0
+  articles.json           ← généré     index de la recherche (texte intégral)
 
 404.html                  ← généré     a besoin des mêmes nav et pied de page
 llms.txt                  ← généré     inventaire pour les assistants IA
@@ -73,6 +74,8 @@ sitemap.xml               ← MIXTE      bloc entre BLOG:DEBUT et BLOG:FIN
 robots.txt                ← MIXTE      bloc entre SITEMAPS:DEBUT et SITEMAPS:FIN
 styles.css                ← SOURCE     section « BLOG » en fin de fichier
 assets/blog.js            ← SOURCE     lecteur vidéo, chargé par les seuls articles vidéo
+assets/blog-liste.js      ← SOURCE     recherche et badge « Nouveau » des pages de liste
+tools/verifier-site.py    ← SOURCE     contrôle du site généré
 ```
 
 Les deux fichiers **mixtes** ont un bloc délimité par des marqueurs, régénéré à chaque
@@ -119,8 +122,12 @@ leur longueur, sans rien écrire.
 | `verifie_le` | | Date de vérification des sources, affichée dans le bloc Sources |
 | `og_image` | | Image de partage. Par défaut `/assets/og/blog.png`. À générer dans `tools/generate-og-images.py` |
 | `og_titre`, `og_description`, `og_image_alt` | | Variantes de partage, plus courtes que le SEO |
-| `banniere_emoji`, `banniere_titre`, `banniere_sous_titre` | | La bannière SVG. Le dégradé vient de la rubrique |
-| `mots_cles` | | `keywords` du JSON-LD, séparés par des virgules |
+| `vignette_mot` | | **Le mot en très gros** sur la vignette et la bannière : `ACM`, `RGPD`, `PRÉSENCES`. C'est lui qui identifie l'article dans la grille — le générateur avertit si deux articles affichent le même |
+| `vignette_icone` | | L'icône au trait (liste ci-dessous). Par défaut, celle de la rubrique |
+| `vignette_image` | | Une **vraie image** (capture, photo) qui remplace la vignette générée, carte et bannière comprises |
+| `banniere_sous_titre` | | La ligne sous le mot-clé |
+| `banniere_emoji`, `banniere_titre` | | Hérités de l'ancienne composition. `banniere_titre` sert encore de repli quand `vignette_mot` est absent |
+| `mots_cles` | | `keywords` du JSON-LD **et poids dans la recherche interne**. À renseigner : l'article sur le pointage ne contenait le mot « présences » nulle part dans ses métadonnées, et la recherche le classait quatrième |
 | `articles_lies` | | Trois slugs. Sinon, choisis automatiquement dans la même rubrique |
 | `sommaire` | | `non` retire le sommaire. Il n'apparaît qu'à partir de cinq sections |
 | `brouillon` | | `oui` : l'article n'est ni généré, ni listé, ni dans le flux |
@@ -203,7 +210,63 @@ de `MARKETING.md` §2 étape 2, et doit être déclaré dans Plausible pour êtr
 
 ---
 
-## 6. Ce que le script vérifie à chaque construction
+## 6. Les illustrations
+
+Vignette de carte et bannière d'article sont **le même dessin**, à deux tailles : le lecteur qui
+clique doit retrouver l'image qu'il a vue. Trois éléments les composent :
+
+| Élément | D'où il vient |
+|---|---|
+| Le **mot-clé** en très gros | `vignette_mot` — c'est l'identité visuelle de l'article |
+| L'**icône au trait** | `vignette_icone`, sinon celle de la rubrique |
+| La **teinte** | Le dégradé de la rubrique, sa teinte tournée de ±15° selon le slug |
+
+La rotation de teinte n'est pas un effet de style : sans elle, deux articles d'une même rubrique
+ont exactement la même image. Elle est calculée à partir du slug, donc stable d'une génération à
+l'autre.
+
+**Pourquoi plus d'émoji.** Le rendu d'un émoji change d'un système à l'autre, il n'est pas
+indexable, et sur un article de conformité il fait informel. Les icônes sont des tracés SVG, dans
+`ICONES` de `tools/build-blog.py` :
+
+`document`, `carnet`, `cadenas`, `calendrier`, `liste`, `bouclier`, `batiment`, `personnes`,
+`eclair`, `monnaie`, `loupe`, `cycle`, `balance`, `tampon`.
+
+Pour en ajouter une : un tracé de plus dans `ICONES`, centré sur (0,0) dans un carré d'environ 56
+unités, puis `vignette_icone: <clé>` dans l'article. Une clé inconnue arrête la génération.
+
+**Une vraie image quand elle vaut mieux.** `vignette_image: /assets/blog/appel-mobile.png` remplace
+le dessin généré, sur la carte comme sur la bannière. À utiliser dès qu'une capture du produit dit
+mieux les choses qu'un dessin — c'est aussi le seul moyen d'exister dans Google Images, qu'un SVG
+ne capte pas.
+
+---
+
+## 7. La page de liste
+
+Refondue le 10/09/2026 pour tenir la charge d'un blog qui publie deux fois par mois.
+
+| Élément | Ce qu'il résout |
+|---|---|
+| **Article à la une** | Le dernier publié prend une grande carte horizontale, sur la première page seulement. Sans mise en avant, la nouveauté se noie dans une grille uniforme et le lecteur régulier ne sait pas s'il a déjà tout lu |
+| **Badge « Nouveau »** | Posé par le navigateur sur les articles de moins de 45 jours. Calculé côté client à dessein : une fraîcheur figée dans le HTML se périme en silence, et obligerait à tout regénérer chaque semaine |
+| **Compteurs par rubrique** | Dit au lecteur si la rubrique vaut le détour, et nous dit laquelle est en retard sur la répartition cible du §2 de la ligne éditoriale |
+| **Recherche instantanée** | Porte sur **tous** les articles, pas seulement la page affichée. Sans accents ni pluriels (« écoles coraniques » trouve « école coranique »), classée par pertinence : un mot du titre pèse trois fois un mot croisé dans un paragraphe |
+| **Pagination numérotée** | « Page 2 sur 4 » ne dit pas s'il vaut la peine d'aller plus loin ; une suite de numéros, si |
+| **Bloc « Suivre le blog »** | Le flux RSS est le seul canal qui ne dépende de personne — ni d'un réseau social, ni d'une liste d'adresses à constituer |
+
+**La recherche ne coûte rien à qui ne cherche pas.** L'index (`blog/articles.json`, texte
+intégral des articles) n'est téléchargé qu'au premier caractère saisi. Le champ lui-même est
+écrit avec `hidden` et révélé par `assets/blog-liste.js` : un champ de recherche qui ne cherche
+pas est pire que pas de champ du tout, et la page reste entièrement utilisable sans JavaScript.
+
+L'index embarque la carte **déjà rendue** plutôt qu'un gabarit à reconstruire en JavaScript : un
+second gabarit divergerait du premier au premier changement de design, et personne ne s'en
+apercevrait avant longtemps.
+
+---
+
+## 8. Ce que le script vérifie à chaque construction
 
 Il ne se contente pas de générer : il relit la ligne éditoriale à votre place et affiche une liste
 de points à regarder. Il **arrête** la génération sur une erreur de structure (rubrique inconnue,
@@ -225,12 +288,18 @@ et elles sont réelles : l'article RGPD n'a pas de bloc Sources, et la rubrique 
 
 ---
 
-## 7. Vérifier avant de commiter
+## 9. Vérifier avant de commiter
 
 ```bash
 python3 tools/build-blog.py        # doit finir sans erreur
+python3 tools/verifier-site.py     # doit afficher « Aucun problème »
 python3 -m http.server 8000        # puis ouvrir http://localhost:8000/blog/
 ```
+
+`verifier-site.py` attrape ce qu'un coup d'œil ne voit pas : un JSON-LD invalide (Google le
+rejette en bloc, sans rien afficher), un XML cassé, une balise mal refermée, un titre glissé
+dans un `<span>`, une page sans `title` ou sans canonical, deux `h1`, un lien interne ou une URL
+de sitemap qui ne mène nulle part.
 
 À regarder sur un article : la bannière, le sommaire, les tableaux, le bloc Sources, les trois
 « à lire aussi », et le lecteur vidéo s'il y en a un. À regarder sur `/blog/` : la barre des
@@ -244,7 +313,7 @@ Deux points que le script ne sait pas voir :
 
 ---
 
-## 8. Ce qui reste à faire
+## 10. Ce qui reste à faire
 
 | # | Chantier | Pourquoi |
 |---|---|---|
@@ -252,5 +321,5 @@ Deux points que le script ne sait pas voir :
 | 2 | **Reprendre l'article RGPD** : bloc Sources, `verifie_le` | Un article de conformité sans source est le seul type d'article qui peut nuire à la crédibilité du reste |
 | 3 | **Écrire le premier article Sécurité** (backlog §6, sujet n° 2 : les locaux et l'ERP) | La rubrique existe dans la ligne éditoriale mais n'a aucun article, donc aucune page |
 | 4 | **Deux articles par landing** (`madrasa/`, `association-scolaire/`, `ecole-arabe/`) vers le blog | Chantier §8.2-1 du plan marketing. Aujourd'hui aucune page produit ne renvoie vers un article |
-| 5 | **Des images réelles** en tête d'article | Les bannières sont des SVG avec un émoji : elles ne remontent pas dans Google Images et le rendu de l'émoji varie selon la plateforme |
+| 5 | **Des images réelles** sur les articles produit | Le champ `vignette_image` existe (§6) ; reste à produire les captures. C'est ce qui ouvrirait le trafic Google Images, qu'un SVG ne capte pas |
 | 6 | **Un auteur nommé** sur les articles de conformité | `_auteurs.json` est prêt. C'est le signal d'expertise que Google attend sur les sujets réglementaires — mais c'est une décision, pas une configuration |

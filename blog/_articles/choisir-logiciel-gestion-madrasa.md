@@ -5,12 +5,15 @@ titre_seo: Comment choisir un logiciel de gestion pour sa madrasa (2026) | Madra
 description: Les 8 critères pour choisir un logiciel de gestion adapté à une madrasa : arabe et RTL, cours du week-end, gestion par familles, mobile, RGPD et prix.
 resume: Les 8 critères à vérifier avant de choisir un outil de gestion adapté à une madrasa.
 chapeau: De plus en plus d'outils de gestion scolaire arrivent sur le marché, et il est tentant de se laisser séduire par le premier venu. Mais peu sont réellement pensés pour la réalité d'une madrasa : cours le week-end, enseignement de l'arabe, familles nombreuses, bénévoles. Voici les huit critères qui vous permettront de trancher sans vous tromper.
+mots_cles: logiciel de gestion, critères de choix, madrasa, comparatif, multilingue
 rubrique: outils
 auteur: equipe
 publie_le: 2026-06-09
 og_image: /assets/og/blog-choisir.png
 og_description: Les 8 critères à vérifier avant de choisir votre outil de gestion.
 og_image_alt: Choisir un logiciel de gestion pour sa madrasa
+vignette_mot: 8 CRITÈRES
+vignette_icone: loupe
 banniere_emoji: 🔍
 banniere_titre: Bien choisir
 banniere_sous_titre: 8 critères pour votre madrasa

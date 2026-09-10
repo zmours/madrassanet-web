@@ -26,6 +26,7 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="Blog MadrassaNET" href="/blog/feed.xml">
   <script src="/assets/analytics.js" defer></script>
+  <script src="/assets/blog-liste.js" defer></script>
 </head>
 <body>
 <nav class="nav">
@@ -39,6 +40,21 @@
     <a href="/tarifs/">Tarifs</a>
     <a href="/blog/" aria-current="page">Blog</a>
     <a href="/#contact" class="nav-cta">Demander une démo →</a>
+  </div>
+  <div class="nav-menu">
+    <input type="checkbox" id="nav-bascule" class="nav-menu-bascule">
+    <label for="nav-bascule" class="nav-menu-bouton">
+      <span class="nav-menu-barres"></span>
+      <span class="sr-only">Ouvrir le menu</span>
+    </label>
+    <div class="nav-menu-panneau">
+      <a href="/">Accueil</a>
+      <a href="/#fonctionnalites">Fonctionnalités</a>
+      <a href="/tarifs/">Tarifs</a>
+      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="/support/">Support</a>
+      <a href="/#contact" class="nav-cta">Demander une démo →</a>
+    </div>
   </div>
 </nav>
 <header class="page-hero">
@@ -54,69 +70,91 @@
 </nav>
 <nav class="rubriques" aria-label="Rubriques du blog">
   <div class="rubriques-inner">
-    <a href="/blog/">Tout</a>
-    <a href="/blog/rubrique/conformite/">📑 Conformité</a>
-    <a href="/blog/rubrique/gestion/">🗂️ Gestion</a>
-    <a href="/blog/rubrique/outils/" class="active">🧰 Outils</a>
+    <a href="/blog/">Tout<span class="rubrique-compte">9</span></a>
+    <a href="/blog/rubrique/conformite/"><span class="rubrique-emoji">📑</span>Conformité<span class="rubrique-compte">2</span></a>
+    <a href="/blog/rubrique/gestion/"><span class="rubrique-emoji">🗂️</span>Gestion<span class="rubrique-compte">4</span></a>
+    <a href="/blog/rubrique/outils/" class="active"><span class="rubrique-emoji">🧰</span>Outils<span class="rubrique-compte">3</span></a>
   </div>
 </nav>
 
-<section class="lp-section">
+<section class="lp-section blog-liste">
   <div class="section-inner">
-    <div class="blog-grid">
-
-      <a class="blog-card" href="/blog/automatiser-gestion-ecole-coranique/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Outils"><defs><linearGradient id="vg-automatiser-gestion-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#303F9F"/><stop offset="1" stop-color="#26A69A"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-automatiser-gestion-ecole-coranique)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">⚡</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+    <div class="blog-recherche" role="search" hidden>
+      <label class="blog-recherche-champ">
+        <span class="blog-recherche-icone" aria-hidden="true"></span>
+        <input type="search" id="blog-q" autocomplete="off"
+               placeholder="Rechercher un article : RGPD, présences, ERP…"
+               aria-label="Rechercher dans tous les articles du blog">
+        <button type="button" class="blog-recherche-vider" hidden aria-label="Effacer la recherche">×</button>
+      </label>
+      <p class="blog-recherche-etat" role="status" aria-live="polite"></p>
+    </div>
+    <div class="blog-resultats" hidden></div>
+    <div class="blog-contenu">
+      <a class="blog-card blog-card--une" href="/blog/automatiser-gestion-ecole-coranique/">
+        <div class="blog-card-media"><svg viewBox="0 0 640 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AUTOMATISER — Outils" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-une-automatiser-gestion-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#33309F"/><stop offset="0.5" stop-color="#413FB5"/><stop offset="1" stop-color="#269DA6"/></linearGradient></defs><rect width="640" height="430" fill="url(#fd-vg-une-automatiser-gestion-ecole-coranique)"/><circle cx="588" cy="438" r="266" fill="#fff" opacity="0.06"/><circle cx="89" cy="-43" r="146" fill="#fff" opacity="0.05"/><rect x="44" y="64" width="70" height="8" rx="2" fill="#fff" fill-opacity="0.55"/><text x="44" y="124" font-family="Inter, sans-serif" font-size="26" font-weight="700" letter-spacing="4.7" fill="#fff" fill-opacity="0.72">OUTILS</text><text x="44" y="292" font-family="Inter, sans-serif" font-size="62" font-weight="800" letter-spacing="-1" fill="#fff">AUTOMATISER</text><g transform="translate(532,116) scale(3.096)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"><path d="M4 -28 L-16 4 H-2 L-6 28 L16 -6 H2 Z"/></g><text x="44" y="369" font-family="Inter, sans-serif" font-size="30" font-weight="500" fill="#fff" fill-opacity="0.66">10 tâches, des heures gagnées</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Outils</span>
-          <h3>Les 10 tâches à automatiser dans une école coranique</h3>
-          <p>Gagnez des heures chaque semaine en automatisant ce qui peut l’être.</p>
+          <div class="blog-card-badges"><span class="blog-tag">Outils</span></div>
+          <h2>Les 10 tâches à automatiser dans une école coranique</h2>
+          <p class="blog-card-texte">Dans une école coranique, l’équipe est souvent bénévole et toujours débordée : les mêmes tâches reviennent chaque semaine et grignotent un temps précieux. Or beaucoup d’entre elles sont répétitives et prévisibles — donc automatisables. En confiant ces tâches à un outil, vous libérez des heures pour l’essentiel : l’enseignement et le lien avec les familles.</p>
           <div class="blog-meta">
             <time datetime="2026-07-13">13 juillet 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>3 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
+      <h2 class="blog-section-titre">La suite de la rubrique</h2>
+      <div class="blog-grid">
 
       <a class="blog-card" href="/blog/logiciel-gratuit-ou-payant-ecole-coranique/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Outils"><defs><linearGradient id="vg-logiciel-gratuit-ou-payant-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#303F9F"/><stop offset="1" stop-color="#26A69A"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-logiciel-gratuit-ou-payant-ecole-coranique)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">⚖️</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GRATUIT ? — Outils" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-logiciel-gratuit-ou-payant-ecole-coranique" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#30539F"/><stop offset="0.5" stop-color="#3F67B5"/><stop offset="1" stop-color="#26A683"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-logiciel-gratuit-ou-payant-ecole-coranique)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">OUTILS</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="50" font-weight="800" letter-spacing="-1" fill="#fff">GRATUIT ?</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M0 -26v48M-18 22h36M-24 -14h48"/><path d="M-24 -14l-9 19h18zM24 -14l9 19h-18z"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">Faire le bon calcul</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Outils</span>
+          <div class="blog-card-badges"><span class="blog-tag">Outils</span></div>
           <h3>Logiciel gratuit ou payant pour école coranique : que choisir ?</h3>
-          <p>Le « gratuit » cache souvent des coûts. Analyse honnête pour faire le bon choix.</p>
+          <p class="blog-card-texte">Le « gratuit » cache souvent des coûts. Analyse honnête pour faire le bon choix.</p>
           <div class="blog-meta">
             <time datetime="2026-06-30">30 juin 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>4 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 
       <a class="blog-card" href="/blog/choisir-logiciel-gestion-madrasa/">
-        <span class="blog-card-media">
-          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Outils"><defs><linearGradient id="vg-choisir-logiciel-gestion-madrasa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#303F9F"/><stop offset="1" stop-color="#26A69A"/></linearGradient></defs><rect width="400" height="180" fill="url(#vg-choisir-logiciel-gestion-madrasa)"/><circle cx="335" cy="45" r="72" fill="#fff" opacity="0.06"/><text x="40" y="108" font-size="54">🔍</text><rect x="120" y="80" width="150" height="12" rx="6" fill="#fff" opacity="0.85"/><rect x="120" y="102" width="105" height="10" rx="5" fill="#fff" opacity="0.5"/></svg>
-        </span>
+        <div class="blog-card-media"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="8 CRITÈRES — Outils" preserveAspectRatio="xMinYMid slice"><defs><linearGradient id="fd-vg-choisir-logiciel-gestion-madrasa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#305B9F"/><stop offset="0.5" stop-color="#3F6EB5"/><stop offset="1" stop-color="#26A67A"/></linearGradient></defs><rect width="400" height="200" fill="url(#fd-vg-choisir-logiciel-gestion-madrasa)"/><circle cx="368" cy="204" r="124" fill="#fff" opacity="0.06"/><circle cx="56" cy="-20" r="68" fill="#fff" opacity="0.05"/><rect x="28" y="30" width="44" height="4" rx="2" fill="#fff" fill-opacity="0.55"/><text x="28" y="57" font-family="Inter, sans-serif" font-size="12" font-weight="700" letter-spacing="2.2" fill="#fff" fill-opacity="0.72">OUTILS</text><text x="28" y="136" font-family="Inter, sans-serif" font-size="45" font-weight="800" letter-spacing="-1" fill="#fff">8 CRITÈRES</text><g transform="translate(342,54) scale(1.440)" fill="none" stroke="#fff" stroke-opacity="0.82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="-4" cy="-4" r="17"/><path d="M9 9l15 15"/></g><text x="28" y="172" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#fff" fill-opacity="0.66">8 critères pour votre madrasa</text></svg></div>
         <div class="blog-card-body">
-          <span class="blog-tag">Outils</span>
+          <div class="blog-card-badges"><span class="blog-tag">Outils</span></div>
           <h3>Comment choisir un logiciel de gestion pour sa madrasa (2026)</h3>
-          <p>Les 8 critères à vérifier avant de choisir un outil de gestion adapté à une madrasa.</p>
+          <p class="blog-card-texte">Les 8 critères à vérifier avant de choisir un outil de gestion adapté à une madrasa.</p>
           <div class="blog-meta">
             <time datetime="2026-06-09">9 juin 2026</time>
+            <span class="blog-meta-sep"></span>
             <span>4 min de lecture</span>
           </div>
-          <div class="blog-read">Lire l'article →</div>
+          <span class="blog-read">Lire l'article →</span>
         </div>
       </a>
 
+      </div>
     </div>
   </div>
 </section>
 
+<section class="blog-suivre">
+  <div class="section-inner">
+    <div class="blog-suivre-inner">
+      <div>
+        <h2>Deux nouveaux articles par mois</h2>
+        <p>Réglementation, sécurité, gestion et outils. Suivez le blog par flux RSS : rien à
+        donner, rien à désinscrire.</p>
+      </div>
+      <a href="/blog/feed.xml" class="btn-lp outline">S’abonner au flux RSS</a>
+    </div>
+  </div>
+</section>
 <section class="lp-section alt subpage-cta">
   <div class="section-inner">
     <h2>Envie de voir MadrassaNET en action ?</h2>

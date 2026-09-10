@@ -5,6 +5,7 @@ titre_seo: Comment organiser les réinscriptions de votre école coranique | Mad
 description: Réinscrire les familles d'une école coranique sans y passer des semaines : préparer la campagne, relancer, faire passer les élèves d'année en un clic.
 resume: La rentrée approche ? Voici une méthode simple pour réinscrire les familles sans y passer des semaines.
 chapeau: Chaque année, la période des réinscriptions revient — et avec elle, son lot de listes à recopier, de familles à relancer et de paiements à suivre. Voici une méthode claire pour transformer ce marathon administratif en une formalité de quelques jours.
+mots_cles: réinscriptions, rentrée, campagne d'inscription, passage de classe
 rubrique: gestion
 auteur: equipe
 publie_le: 2026-05-12
@@ -12,6 +13,8 @@ og_image: /assets/og/blog-reinscriptions.png
 og_titre: Comment organiser les réinscriptions de votre école coranique
 og_description: Une méthode simple pour réinscrire les familles sans y passer des semaines.
 og_image_alt: Organiser les réinscriptions d'une école coranique
+vignette_mot: RÉINSCRIPTIONS
+vignette_icone: cycle
 banniere_emoji: 🔄
 banniere_titre: Réinscriptions
 banniere_sous_titre: Une rentrée sereine, année après année

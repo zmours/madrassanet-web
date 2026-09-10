@@ -5,12 +5,15 @@ titre_seo: Gérer les paiements des familles dans une association scolaire | Mad
 description: Cotisations, relances, reçus et impayés : méthode pour gérer sereinement les paiements des familles d'une association scolaire ou d'une école coranique.
 resume: Cotisations, relances, reçus : comment tenir une trésorerie claire sans y passer ses soirées.
 chapeau: Suivre à la main qui a payé sa cotisation, qui doit encore régler une sortie et qui a un impayé qui traîne depuis deux mois relève vite du casse-tête. Dans une association gérée par des bénévoles, ces informations se dispersent entre cahiers, tableurs et mémoire de chacun. Voici une méthode pour garder une trésorerie claire sans y passer ses soirées.
+mots_cles: paiements, cotisations, impayés, relances, reçus, trésorerie
 rubrique: gestion
 auteur: equipe
 publie_le: 2026-06-23
 og_image: /assets/og/blog-paiements.png
 og_description: Tenir une trésorerie claire sans y passer ses soirées.
 og_image_alt: Gérer les paiements des familles dans une association scolaire
+vignette_mot: PAIEMENTS
+vignette_icone: monnaie
 banniere_emoji: 💰
 banniere_titre: Paiements des familles
 banniere_sous_titre: Une trésorerie claire toute l'année

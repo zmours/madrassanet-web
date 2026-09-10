@@ -5,12 +5,15 @@ titre_seo: Les 10 tâches à automatiser dans une école coranique | MadrassaNET
 description: Présences, bulletins, relances, réinscriptions, paiements… Voici 10 tâches répétitives à automatiser dans une école coranique pour gagner des heures chaque semaine.
 resume: Gagnez des heures chaque semaine en automatisant ce qui peut l'être.
 chapeau: Dans une école coranique, l'équipe est souvent bénévole et toujours débordée : les mêmes tâches reviennent chaque semaine et grignotent un temps précieux. Or beaucoup d'entre elles sont répétitives et prévisibles — donc automatisables. En confiant ces tâches à un outil, vous libérez des heures pour l'essentiel : l'enseignement et le lien avec les familles.
+mots_cles: automatisation, gain de temps, tâches répétitives, relances, exports
 rubrique: outils
 auteur: equipe
 publie_le: 2026-07-13
 og_image: /assets/og/blog-automatiser.png
 og_description: Gagnez des heures chaque semaine en automatisant ce qui peut l'être.
 og_image_alt: Les 10 tâches à automatiser dans une école coranique
+vignette_mot: AUTOMATISER
+vignette_icone: eclair
 banniere_emoji: ⚡
 banniere_titre: Automatiser
 banniere_sous_titre: 10 tâches, des heures gagnées
