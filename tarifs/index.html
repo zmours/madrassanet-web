@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prix &amp; tarifs du logiciel de gestion d'école — 1€/élève/an | MadrassaNET</title>
-  <meta name="description" content="Un tarif unique et transparent : 1€ par élève et par an, tous modules inclus (présences, notes, bulletins, finances, mobile). Sans frais cachés. Découvrez les tarifs MadrassaNET.">
+  <title>Prix &amp; tarifs du logiciel de gestion d'école — gratuit ou 1€/élève/an | MadrassaNET</title>
+  <meta name="description" content="Trois niveaux clairs : gratuit pour les associations en difficulté, 1€ par élève et par an pour l’abonnement standard, et un niveau Premium avec roadmap privilégiée et support dédié. Tous modules inclus, sans frais cachés.">
   <link rel="canonical" href="https://www.madrassanet.com/tarifs/">
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="Tarifs du logiciel de gestion d'école | MadrassaNET">
-  <meta property="og:description" content="1€ par élève et par an, tous modules inclus, sans frais cachés. Le tarif le plus transparent du marché.">
+  <meta property="og:description" content="Gratuit pour les associations en difficulté, 1€ par élève et par an en standard, Premium sur mesure. Tous modules inclus, sans frais cachés.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.madrassanet.com/tarifs/">
   <meta property="og:site_name" content="MadrassaNET">
@@ -35,12 +35,29 @@
         "description": "Logiciel de gestion tout-en-un pour écoles coraniques, madrasas et associations scolaires.",
         "brand": { "@type": "Brand", "name": "MadrassaNET" },
         "offers": {
-          "@type": "Offer",
-          "price": "1",
+          "@type": "AggregateOffer",
           "priceCurrency": "EUR",
+          "lowPrice": "0",
+          "offerCount": 3,
           "url": "https://www.madrassanet.com/tarifs/",
-          "availability": "https://schema.org/InStock",
-          "description": "1€ par élève et par an, tous modules inclus. Abonnement annuel, minimum 500€/an."
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Solidarité",
+              "price": "0",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock",
+              "description": "Gratuit pour les associations en difficulté financière, sur étude de dossier. Toutes les fonctions de l'abonnement standard."
+            },
+            {
+              "@type": "Offer",
+              "name": "Standard",
+              "price": "1",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock",
+              "description": "1€ par élève et par an, tous modules inclus. Abonnement annuel, minimum 500€/an."
+            }
+          ]
         }
       }
     ]
@@ -67,8 +84,8 @@
 <header class="page-hero">
   <div class="page-hero-inner">
     <span class="lp-hero-tag">💳 Tarifs</span>
-    <h1>Un tarif simple, transparent, sans surprise</h1>
-    <p>Tous les modules inclus dès le premier euro. Pas de suppléments, pas de frais cachés, pas de mauvaise surprise en cours d'année.</p>
+    <h1>Trois niveaux, aucune surprise</h1>
+    <p>Gratuit si votre association est en difficulté, 1 € par élève et par an sinon. Tous les modules inclus dès le premier euro : pas de suppléments, pas de frais cachés, pas de mauvaise surprise en cours d’année.</p>
   </div>
 </header>
 
@@ -77,24 +94,62 @@
 </nav>
 
 <section class="lp-section">
-  <div class="section-inner" style="max-width:560px;">
-    <div class="feat-card" style="text-align:center;padding:2.5rem 2rem;">
-      <div class="lp-hero-tag" style="background:#e0f7f5;color:#00695C;border:none;">🎉 Offre de lancement</div>
-      <div style="font-size:1.2rem;color:var(--text-muted);text-decoration:line-through;margin-top:1rem;">3&nbsp;€ / élève / an</div>
-      <div style="font-size:3rem;font-weight:800;color:var(--primary);line-height:1;margin:.25rem 0;">1&nbsp;€</div>
-      <div style="color:var(--text-muted);font-weight:600;">par élève et par an</div>
-      <p style="margin:.75rem 0 1.5rem;font-size:.9rem;">Abonnement annuel · minimum 500&nbsp;€/an</p>
-      <div class="check-list" style="text-align:left;max-width:340px;margin:0 auto 1.75rem;">
-        <div class="check-item"><span class="ci-icon"></span>Tous les modules inclus (présences, notes, bulletins, planning, finance…)</div>
-        <div class="check-item"><span class="ci-icon"></span>Application mobile + interface bureau</div>
-        <div class="check-item"><span class="ci-icon"></span>Bulletins PDF illimités</div>
-        <div class="check-item"><span class="ci-icon"></span>Notifications push &amp; email</div>
-        <div class="check-item"><span class="ci-icon"></span>Multi-niveaux &amp; multi-classes</div>
-        <div class="check-item"><span class="ci-icon"></span>Gestion des droits par rôle</div>
-        <div class="check-item"><span class="ci-icon"></span>Accès multi-établissements disponible</div>
+  <div class="section-inner">
+    <div class="tiers-grid">
+
+      <!-- SOLIDARITÉ -->
+      <div class="tier-card tier-card--free">
+        <div class="tier-badge">Solidarité</div>
+        <div class="tier-for">Associations en difficulté</div>
+        <div class="tier-price">Gratuit</div>
+        <div class="tier-cond"><strong>Sur étude de dossier</strong>Expliquez-nous votre situation : nous regardons ensemble et nous ouvrons l’accès.</div>
+        <div class="check-list">
+          <div class="check-item"><span class="ci-icon"></span>Toutes les fonctions de l’abonnement standard</div>
+          <div class="check-item"><span class="ci-icon"></span>Accompagnement à la mise en place inclus</div>
+          <div class="check-item"><span class="ci-icon"></span>Mises à jour incluses</div>
+          <div class="check-item"><span class="ci-icon"></span>Aucune durée imposée, aucun engagement</div>
+        </div>
+        <a href="../index.html#contact" class="btn-lp outline">Nous expliquer votre situation →</a>
       </div>
-      <a href="../index.html#contact" class="btn-lp primary" style="width:100%;justify-content:center;">Demander un devis personnalisé →</a>
+
+      <!-- STANDARD -->
+      <div class="tier-card tier-card--std">
+        <div class="tier-badge">Le plus choisi</div>
+        <div class="tier-for">Abonnement standard</div>
+        <div class="tier-price">1&nbsp;€ <small>/ élève / an</small></div>
+        <div class="tier-cond"><strong>Abonnement annuel</strong>Minimum 500&nbsp;€/an · sans frais de mise en service.</div>
+        <div class="check-list">
+          <div class="check-item"><span class="ci-icon"></span>Tous les modules inclus (présences, notes, bulletins, planning, finance…)</div>
+          <div class="check-item"><span class="ci-icon"></span>Application mobile + interface bureau</div>
+          <div class="check-item"><span class="ci-icon"></span>Bulletins PDF illimités</div>
+          <div class="check-item"><span class="ci-icon"></span>Notifications push &amp; email</div>
+          <div class="check-item"><span class="ci-icon"></span>Multi-niveaux &amp; multi-classes</div>
+          <div class="check-item"><span class="ci-icon"></span>Gestion des droits par rôle</div>
+          <div class="check-item"><span class="ci-icon"></span>Accès multi-établissements disponible</div>
+          <div class="check-item"><span class="ci-icon"></span>Support par email, réponse sous 24&nbsp;h ouvrées</div>
+        </div>
+        <a href="../index.html#contact" class="btn-lp primary">Demander un devis →</a>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="tier-card tier-card--premium">
+        <div class="tier-badge">Premium</div>
+        <div class="tier-for">Accompagnement rapproché</div>
+        <div class="tier-price tier-price--quote">Nous contacter</div>
+        <div class="tier-cond"><strong>Tout l’abonnement standard</strong>Et, en plus, une place à la table où se décide le produit.</div>
+        <div class="check-list">
+          <div class="check-item"><span class="ci-icon"></span>Accès privilégié à la roadmap : vous savez ce qui arrive, et quand</div>
+          <div class="check-item"><span class="ci-icon"></span>Priorisation de vos demandes d’évolution</div>
+          <div class="check-item"><span class="ci-icon"></span>Support dédié : un interlocuteur unique, identifié, qui connaît votre établissement</div>
+          <div class="check-item"><span class="ci-icon"></span>Nouveautés en avant-première, avant leur mise à disposition générale</div>
+          <div class="check-item"><span class="ci-icon"></span>Point de suivi régulier avec l’équipe produit</div>
+          <div class="check-item"><span class="ci-icon"></span>Étude de vos besoins spécifiques</div>
+        </div>
+        <a href="../index.html#contact" class="btn-lp outline">Parler de vos besoins →</a>
+      </div>
+
     </div>
+    <p class="text-center" style="margin-top:1.5rem;font-size:.85rem;color:var(--text-muted);">Abonnement annuel · Tous modules inclus · Sans frais cachés</p>
   </div>
 </section>
 
@@ -110,14 +165,14 @@
           <li>Abonnements mensuels fixes, quel que soit l'effectif</li>
           <li>Modules facturés en supplément</li>
           <li>Frais de mise en service</li>
-          <li>Fonctions premium payantes</li>
+          <li>Fonctions essentielles réservées aux formules hautes</li>
         </ul>
       </div>
       <div class="gain-card">
         <h3>✅ Avec MadrassaNET</h3>
         <ul>
-          <li>1€ par élève et par an, un point c'est tout</li>
-          <li>Tous les modules inclus, sans exception</li>
+          <li>1€ par élève et par an, un point c'est tout — et gratuit pour les associations en difficulté</li>
+          <li>Tous les modules inclus, sans exception, à tous les niveaux</li>
           <li>Onboarding accompagné inclus</li>
           <li>Mises à jour et nouvelles fonctions incluses</li>
         </ul>
@@ -132,11 +187,19 @@
     <div class="faq-list">
       <details>
         <summary>Le prix dépend-il du nombre de modules utilisés ?</summary>
-        <p>Non. Tous les modules sont inclus dès le départ : présences, notes, bulletins, emplois du temps, finances, messagerie, bibliothèque… Vous payez uniquement 1€ par élève et par an.</p>
+        <p>Non. Tous les modules sont inclus dès le départ, et à tous les niveaux : présences, notes, bulletins, emplois du temps, finances, messagerie, bibliothèque… En standard, vous payez uniquement 1€ par élève et par an. Le Premium n’ouvre pas de fonctions supplémentaires : il ajoute de l’accompagnement et de l’influence sur la roadmap.</p>
+      </details>
+      <details>
+        <summary>Qui peut bénéficier du niveau Solidarité gratuit ?</summary>
+        <p>Toute association dont la situation financière ne permet pas de payer l’abonnement. L’accès est accordé après une simple étude de dossier : vous nous expliquez votre situation, nous regardons ensemble. Vous disposez alors de toutes les fonctions de l’abonnement standard, sans durée imposée. Si votre situation s’améliore un jour, nous en reparlerons — et pas avant.</p>
+      </details>
+      <details>
+        <summary>Qu’apporte le niveau Premium par rapport au standard ?</summary>
+        <p>Le Premium contient tout l’abonnement standard, et y ajoute la relation : un accès privilégié à la roadmap produit, la priorisation de vos demandes d’évolution, un support dédié assuré par un interlocuteur unique et identifié, l’accès aux nouveautés en avant-première et un point de suivi régulier avec l’équipe. Le tarif dépend de votre effectif et du niveau d’accompagnement souhaité : contactez-nous.</p>
       </details>
       <details>
         <summary>Y a-t-il un minimum de facturation ?</summary>
-        <p>Oui, l'abonnement annuel a un minimum de 500€/an, ce qui couvre les petites structures. Au-delà, le tarif reste de 1€ par élève et par an.</p>
+        <p>Oui, l'abonnement standard a un minimum de 500€/an. Au-delà, le tarif reste de 1€ par élève et par an. Si ce minimum est hors de portée pour votre association, parlons du niveau Solidarité : il est gratuit.</p>
       </details>
       <details>
         <summary>Y a-t-il des frais de mise en service ?</summary>

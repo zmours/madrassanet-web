@@ -344,10 +344,12 @@ section { padding: 88px 5%; }
 .check-item  { display: flex; align-items: flex-start; gap: .55rem; font-size: .92rem; color: var(--text); line-height: 1.5; }
 .check-item .ci-icon {
   width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
-  background: var(--grad-card);
   border-radius: 50%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
-  background-size: 11px; background-position: center; background-repeat: no-repeat;
+  /* le chevron blanc est superposé au dégradé : les deux couches doivent
+     rester dans la même déclaration background-image, sinon le dégradé
+     est écrasé et la puce devient invisible sur fond clair. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E"), var(--grad-card);
+  background-size: 11px, cover; background-position: center, center; background-repeat: no-repeat, no-repeat;
 }
 
 /* ── Roles ── */
@@ -857,12 +859,50 @@ details[open] summary::after { transform: rotate(-180deg); }
 .related-card span { font-size: .72rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
 .related-card h3 { font-size: .92rem; color: var(--text); margin-top: .4rem; line-height: 1.35; }
 
+/* ============================================================
+   NIVEAUX D'ABONNEMENT (page tarifs)
+   ============================================================ */
+.tiers-grid {
+  max-width: 1120px; margin: 2.5rem auto 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch;
+}
+.tier-card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: var(--radius-lg); padding: 2.25rem 1.6rem 1.6rem;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.tier-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.tier-card--free { border-color: #0f9d8e; background: linear-gradient(160deg,#effbf8 0%,#fff 100%); }
+.tier-card--std { border-color: var(--primary); background: linear-gradient(160deg,#f0f4ff 0%,#fff 100%); }
+.tier-card--premium { border-color: #7c5cff; background: linear-gradient(160deg,#f6f3ff 0%,#fff 100%); }
+.tier-badge {
+  position: absolute; top: -.85rem; left: 50%; transform: translateX(-50%);
+  font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  color: #fff; padding: .3rem 1rem; border-radius: 100px; white-space: nowrap;
+  background: var(--grad-card);
+}
+.tier-card--free .tier-badge { background: linear-gradient(135deg,#0f9d8e,#0b7f73); }
+.tier-card--premium .tier-badge { background: linear-gradient(135deg,#7c5cff,#5b3ddb); }
+.tier-for { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); margin-bottom: .6rem; }
+.tier-price { font-size: 2.1rem; font-weight: 800; line-height: 1; color: var(--primary); }
+.tier-price small { font-size: .85rem; font-weight: 500; color: var(--text-muted); }
+.tier-price--quote { font-size: 1.5rem; }
+.tier-card--free .tier-price { color: #0b7f73; }
+.tier-card--premium .tier-price { color: #5b3ddb; }
+.tier-cond { font-size: .82rem; color: var(--text-muted); background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.06); border-radius: var(--radius); padding: .65rem .85rem; margin: .9rem 0 1.1rem; line-height: 1.55; }
+.tier-cond strong { display: block; color: var(--text); font-weight: 700; margin-bottom: .12rem; }
+.tier-card .check-list { flex: 1; margin-bottom: 1.4rem; }
+.tier-card .check-item { font-size: .87rem; }
+.tier-card .btn-lp { width: 100%; justify-content: center; margin-top: auto; }
+
 @media (max-width: 1024px) {
   .lp-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
   .lp-hero-grid p.lead { margin-left: auto; margin-right: auto; }
   .lp-actions { justify-content: center; }
   .blog-grid { grid-template-columns: repeat(2, 1fr); }
   .related-grid { grid-template-columns: 1fr; }
+  .tiers-grid { grid-template-columns: 1fr; max-width: 460px; }
 }
 @media (max-width: 768px) {
   .lp-section { padding: 56px 4%; }

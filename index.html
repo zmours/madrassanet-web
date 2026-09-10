@@ -377,7 +377,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 .free-banner-items{display:flex;gap:10px;flex-wrap:wrap}
 .fb-item{display:flex;align-items:center;gap:6px;font-size:.81rem;font-weight:600;color:#047857;background:#fff;border-radius:100px;padding:5px 12px;border:1px solid #a7f3d0}
 .fb-item::before{content:'✓';width:16px;height:16px;background:#10b981;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0}
-.ptiers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:36px}
+.ptiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px;align-items:stretch}
 @media(max-width:1100px){.ptiers-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.ptiers-grid{grid-template-columns:1fr}}
 .ptier{background:var(--c-surface);border:2px solid var(--c-border);border-radius:var(--radius-lg);padding:28px 22px;transition:var(--t);position:relative;display:flex;flex-direction:column}
@@ -387,9 +387,17 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 .ptier-range{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--c-muted);margin-bottom:10px}
 .ptier-price{font-size:2rem;font-weight:900;color:var(--c-brand);line-height:1;margin-bottom:4px}
 .ptier-price small{font-size:.85rem;font-weight:500;color:var(--c-muted)}
-.ptier-promo{display:flex;align-items:center;gap:8px;margin:6px 0 14px;flex-wrap:wrap}
-.ptier-old{font-size:.82rem;color:var(--c-muted);text-decoration:line-through}
-.ptier-new{font-size:.76rem;font-weight:700;color:#d97706;background:#fef3c7;border-radius:100px;padding:2px 9px}
+.ptier-price--quote{font-size:1.5rem;letter-spacing:-.01em}
+.ptier--free{border-color:#0f9d8e;background:linear-gradient(160deg,#effbf8 0%,#fff 100%)}
+.ptier--free .ptier-price{color:#0b7f73}
+.ptier--free .ptier-badge{background:linear-gradient(135deg,#0f9d8e,#0b7f73)}
+.ptier--free .ptier-feats li::before{background:#d6f5ef;color:#0b7f73}
+.ptier--premium{border-color:#7c5cff;background:linear-gradient(160deg,#f6f3ff 0%,#fff 100%)}
+.ptier--premium .ptier-price{color:#5b3ddb}
+.ptier--premium .ptier-badge{background:linear-gradient(135deg,#7c5cff,#5b3ddb)}
+.ptier--premium .ptier-feats li::before{background:#ece6ff;color:#5b3ddb}
+.ptier--premium .ptier-cta{border-color:#7c5cff;color:#5b3ddb}
+.ptier--premium .ptier-cta:hover{background:#5b3ddb;color:#fff;border-color:#5b3ddb}
 .ptier-example{font-size:.82rem;color:var(--c-muted);background:var(--c-bg);border-radius:var(--radius);padding:10px 14px;margin:12px 0;line-height:1.6}
 .ptier-example strong{color:var(--c-brand);font-weight:700;display:block;margin-bottom:2px}
 .ptier-feats{list-style:none;display:flex;flex-direction:column;gap:9px;flex:1;margin-bottom:22px}
@@ -403,23 +411,6 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
 .pricing-custom p{font-size:.9rem;color:var(--c-text);margin:0}
 .pricing-custom a{white-space:nowrap;font-size:.88rem;font-weight:600;color:var(--c-brand);border:1.5px solid var(--c-brand);border-radius:100px;padding:8px 18px;transition:var(--t)}
 .pricing-custom a:hover{background:var(--c-brand);color:#fff}
-.pricing-single-card{background:var(--c-surface);border:2px solid var(--c-brand);border-radius:var(--radius-lg);padding:48px 40px;max-width:680px;margin:0 auto 36px;display:flex;flex-direction:column;gap:32px;box-shadow:var(--shadow-lg)}
-@media(max-width:600px){.pricing-single-card{padding:32px 20px}}
-.pricing-single-formula{text-align:center}
-.psf-icon{font-size:2.8rem;margin-bottom:12px}
-.psf-price{font-size:4rem;font-weight:900;color:var(--c-brand);line-height:1;margin-bottom:8px}
-.psf-price span{font-size:1.1rem;font-weight:500;color:var(--c-muted);vertical-align:top;margin-top:14px;display:inline-block;margin-left:4px}
-.psf-min{display:inline-block;background:#e8eaf6;color:var(--c-brand);font-size:.88rem;font-weight:600;border-radius:100px;padding:6px 18px;margin-top:4px}
-.pricing-single-cta{text-align:center}
-.pricing-single-note{font-size:.82rem;color:var(--c-muted);margin-top:10px}
-.psf-promo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}
-.psf-old-price{font-size:1.5rem;font-weight:700;color:var(--c-muted);text-decoration:line-through;opacity:.7}
-.psf-promo-badge{background:#dc2626;color:#fff;font-size:.75rem;font-weight:700;border-radius:100px;padding:4px 12px;white-space:nowrap}
-.promo-banner{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#fef9c3,#fef08a);border:2px solid #facc15;border-radius:var(--radius-lg);padding:18px 24px;margin-bottom:28px;flex-wrap:wrap}
-.promo-banner-icon{font-size:2rem;flex-shrink:0}
-.promo-banner-content{display:flex;flex-direction:column;gap:3px;font-size:.9rem;color:#713f12}
-.promo-banner-content strong{font-weight:800;font-size:.95rem}
-.promo-banner-content em{font-style:normal;text-decoration:line-through;opacity:.7}
 
 /* ──────────────────────────────────────────
    CONTACT SECTION
@@ -535,7 +526,7 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
     <div class="trust-divider"></div>
     <div class="trust-item"><div class="trust-num">4</div><div class="trust-label">Rôles dédiés<br>Admin · Prof · Parent · Élève</div></div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><div class="trust-num">1€</div><div class="trust-label">Par élève par an<br>Tarif unique transparent</div></div>
+    <div class="trust-item"><div class="trust-num">1€</div><div class="trust-label">Par élève par an<br>Gratuit pour les assos en difficulté</div></div>
   </div>
 </div>
 
@@ -888,28 +879,34 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
   <div class="container">
     <div class="section-header">
       <span class="section-eyebrow badge">💳 Tarifs</span>
-      <h2 class="section-title">Une formule simple et transparente</h2>
-      <p class="section-sub">Un tarif unique, tous modules inclus. Pas de mauvaise surprise.</p>
+      <h2 class="section-title">Des tarifs simples et transparents</h2>
+      <p class="section-sub">Trois niveaux, tous les modules inclus dès le premier euro. Pas de mauvaise surprise.</p>
     </div>
 
-    <!-- BANNIÈRE PROMO -->
-    <div class="promo-banner">
-      <div class="promo-banner-icon">🎉</div>
-      <div class="promo-banner-content">
-        <strong>Offre de lancement &mdash; En ce moment</strong>
-        <span>1€/élève/an <em>au lieu de 3€</em> &mdash; Profitez-en avant la fin de l&rsquo;offre !</span>
-      </div>
-    </div>
+    <!-- TROIS NIVEAUX -->
+    <div class="ptiers-grid">
 
-    <!-- FORMULE UNIQUE -->
-    <div class="pricing-single-card">
-      <div class="pricing-single-formula">
-        <div class="psf-icon">🎓</div>
-        <div class="psf-promo-row"><span class="psf-old-price">3€</span> <span class="psf-promo-badge">🎉 Offre de lancement</span></div>
-        <div class="psf-price">1€ <span>/ élève / an</span></div>
-        <div class="psf-min">Abonnement annuel · minimum 500&nbsp;€/an</div>
+      <!-- SOLIDARITÉ -->
+      <div class="ptier ptier--free">
+        <div class="ptier-badge">Solidarité</div>
+        <div class="ptier-range">Associations en difficulté</div>
+        <div class="ptier-price">Gratuit</div>
+        <div class="ptier-example"><strong>Sur étude de dossier</strong>Expliquez-nous votre situation : nous regardons ensemble et nous ouvrons l&rsquo;accès.</div>
+        <ul class="ptier-feats">
+          <li>Toutes les fonctions de l&rsquo;abonnement Standard</li>
+          <li>Accompagnement à la mise en place inclus</li>
+          <li>Mises à jour incluses</li>
+          <li>Aucune durée imposée, aucun engagement</li>
+        </ul>
+        <a href="#contact" class="ptier-cta">Nous expliquer votre situation</a>
       </div>
-      <div class="pricing-single-features">
+
+      <!-- STANDARD -->
+      <div class="ptier ptier--popular">
+        <div class="ptier-badge">Le plus choisi</div>
+        <div class="ptier-range">Abonnement standard</div>
+        <div class="ptier-price">1&nbsp;€ <small>/ élève / an</small></div>
+        <div class="ptier-example"><strong>Abonnement annuel</strong>Minimum 500&nbsp;€/an · sans frais de mise en service.</div>
         <ul class="ptier-feats">
           <li>Tous les modules inclus (présences, notes, bulletins, planning, finance…)</li>
           <li>Application mobile + bureau</li>
@@ -918,15 +915,31 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
           <li>Multi-niveaux &amp; multi-classes</li>
           <li>Gestion des droits par rôle (Admin, Enseignant, Parent, Élève)</li>
           <li>Accès multi-établissements disponible</li>
+          <li>Support par email, réponse sous 24&nbsp;h ouvrées</li>
         </ul>
+        <a href="#contact" class="ptier-cta ptier-cta--fill">Demander un devis</a>
       </div>
-      <div class="pricing-single-cta">
-        <a href="#contact" class="ptier-cta ptier-cta--fill">Nous contacter pour plus de détails</a>
-        <p class="pricing-single-note">Contactez-nous pour obtenir un devis personnalisé selon votre situation.</p>
+
+      <!-- PREMIUM -->
+      <div class="ptier ptier--premium">
+        <div class="ptier-badge">Premium</div>
+        <div class="ptier-range">Accompagnement rapproché</div>
+        <div class="ptier-price ptier-price--quote">Nous contacter</div>
+        <div class="ptier-example"><strong>Tout l&rsquo;abonnement Standard</strong>Et, en plus, une place à la table où se décide le produit.</div>
+        <ul class="ptier-feats">
+          <li>Accès privilégié à la roadmap : vous savez ce qui arrive, et quand</li>
+          <li>Priorisation de vos demandes d&rsquo;évolution</li>
+          <li>Support dédié : un interlocuteur unique, identifié, qui connaît votre établissement</li>
+          <li>Nouveautés en avant-première, avant leur mise à disposition générale</li>
+          <li>Point de suivi régulier avec l&rsquo;équipe produit</li>
+          <li>Étude de vos besoins spécifiques</li>
+        </ul>
+        <a href="#contact" class="ptier-cta">Parler de vos besoins</a>
       </div>
+
     </div>
 
-    <p class="pricing-note">Abonnement annuel · Tous modules inclus · Sans frais cachés</p>
+    <p class="pricing-note">Abonnement annuel · Tous modules inclus · Sans frais cachés · <a href="tarifs/index.html">Détail des tarifs</a></p>
   </div>
 </section>
 
@@ -962,6 +975,11 @@ h1,h2,h3,h4{line-height:1.25;font-weight:800}
         <input type="checkbox" id="faq5">
         <label class="faq-label" for="faq5">Comment se déroule la mise en place initiale ?<span class="faq-arrow">▾</span></label>
         <div class="faq-body">Nous vous accompagnons de A à Z. Après votre inscription, vous bénéficiez d'une session d'onboarding pour configurer votre établissement (logo, classes, matières, enseignants) et importer vos élèves. La plupart de nos clients sont opérationnels en moins d'une journée.</div>
+      </div>
+      <div class="faq-item">
+        <input type="checkbox" id="faq7">
+        <label class="faq-label" for="faq7">Notre association n&rsquo;a pas les moyens de payer. Que faire ?<span class="faq-arrow">▾</span></label>
+        <div class="faq-body">Nous avons prévu un niveau Solidarité : gratuit, avec toutes les fonctions de l&rsquo;abonnement Standard, pour les associations en difficulté financière. L&rsquo;accès est accordé après une simple étude de dossier : contactez-nous, expliquez-nous votre situation, et nous regardons ensemble. Aucun outil de gestion ne devrait rester hors de portée d&rsquo;une structure qui fait vivre l&rsquo;éducation de ses élèves.</div>
       </div>
       <div class="faq-item">
         <input type="checkbox" id="faq6">
