@@ -1085,3 +1085,58 @@ details[open] summary::after { transform: rotate(-180deg); }
   .video-embed-icon::after { border-width: 10px 0 10px 17px; }
   .article-sources { padding: 1.2rem 1.1rem; }
 }
+
+/* ============================================================
+   BANDEAU DE CONSENTEMENT — injecté par assets/analytics.js
+   Ne s'affiche que pour les outils de mesure qui déposent des
+   cookies (GA4). Avec Umami ou Plausible, il n'existe pas.
+   ============================================================ */
+.bandeau-consentement {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--surface); border-top: 1px solid var(--border);
+  box-shadow: 0 -8px 30px rgba(28,35,64,.12);
+  animation: bandeau-monte .28s ease-out;
+}
+@keyframes bandeau-monte { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.bandeau-consentement-inner {
+  max-width: 1100px; margin: 0 auto; padding: 1.1rem 5%;
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+}
+.bandeau-consentement p {
+  flex: 1; min-width: 260px; margin: 0;
+  font-size: .87rem; line-height: 1.6; color: var(--text-muted);
+}
+.bandeau-consentement strong { color: var(--text); font-weight: 600; }
+.bandeau-consentement a { color: var(--primary); font-weight: 500; }
+.bandeau-consentement-actions { display: flex; gap: .6rem; flex-shrink: 0; }
+
+/* Les deux boutons ont la même taille et la même lisibilité : refuser doit
+   être aussi simple qu'accepter, c'est une exigence, pas une préférence. */
+.btn-consentement {
+  font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer;
+  padding: .62rem 1.5rem; border-radius: 50px; min-width: 118px;
+  transition: background var(--ease), border-color var(--ease), transform var(--ease);
+}
+.btn-consentement.refus {
+  background: var(--surface); color: var(--text) !important;
+  border: 1.5px solid var(--border);
+}
+.btn-consentement.refus:hover { background: var(--bg); border-color: var(--text-muted); }
+.btn-consentement.accord {
+  background: var(--grad-card); color: #fff !important; border: 1.5px solid transparent;
+}
+.btn-consentement.accord:hover { transform: translateY(-1px); }
+.btn-consentement:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* Lien de révocation, ajouté au pied de page par le script. */
+.footer-bottom .lien-consentement {
+  color: rgba(255,255,255,.8); font-size: .82rem; text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-bottom .lien-consentement:hover { color: #fff; }
+
+@media (max-width: 640px) {
+  .bandeau-consentement-inner { padding: 1rem 4%; gap: .9rem; }
+  .bandeau-consentement-actions { width: 100%; }
+  .btn-consentement { flex: 1; }
+}

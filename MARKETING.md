@@ -6,11 +6,46 @@ brancher côté comptes SaaS.
 
 ---
 
+## ⏳ TODO — la mesure est allumée, il reste le relevé de départ
+
+**Mise à jour du 10/09/2026.** L'attente décidée le 07/09/2026 est levée : l'outil est choisi
+(**Umami Cloud** — gratuit, sans cookie donc sans bandeau, et même logiciel que la future
+instance auto-hébergée), le site est créé et son identifiant est en place dans
+`CONFIG.umamiWebsiteId`. **La mesure compte dès le prochain déploiement.**
+
+Le jour de la bascule vers une instance propre, seule `CONFIG.umamiScript` change ; ni les
+pages, ni les objectifs, ni les attributs `data-track` ne bougent.
+
+- [x] ~~Choisir l'outil de mesure~~ → **Umami Cloud**, le 10/09/2026
+- [x] ~~Créer le site et coller l'identifiant~~ → fait le 10/09/2026
+- [ ] **Vérifier que les trois objectifs remontent** dans l'onglet *Events* d'Umami, aux noms
+      exacts du §2 étape 2 (envoyer le formulaire, télécharger un modèle, cliquer sur la prise
+      de rendez-vous **depuis un vrai navigateur**, pas depuis `localhost` où la mesure est
+      volontairement inactive).
+- [ ] **Search Console** : propriété, `sitemap.xml`, et **relever les positions actuelles des
+      12 requêtes cibles**. → §2 étape 3
+      ⚠️ Ce relevé est le point zéro. Il est perdu pour de bon si on ne le fait pas :
+      chaque semaine d'attente est une semaine d'historique qui n'existera jamais.
+- [ ] **Renseigner les 3 constantes** de `index.html` : `BOOKING_URL` (cal.com, gratuit,
+      5 min), `TOUR_VIDEO_URL` (après le lot 1), `BREVO_FORM_URL`. → §4
+
+**Ce que ce report coûte, pour le savoir :** l'arbitrage prévu en fin de semaine 4 du plan
+(§13) — « le SEO rapporte-t-il déjà, faut-il écrire plus d'articles ou pousser YouTube ? » —
+reste sans réponse tant que la mesure n'est pas allumée. Les lots suivants avancent donc à
+l'estime plutôt que sur des chiffres. Ce n'est pas bloquant, c'est juste moins précis.
+
+**Ce que ce report ne coûte pas :** rien n'est cassé, aucun lien mort n'est publié (les
+boutons non configurés restent masqués), et les trois ressources téléchargeables fonctionnent
+déjà.
+
+---
+
 ## 1. Ce qui est en place
 
 | Élément | Fichier | État |
 |---|---|---|
-| Mesure d'audience centralisée | [`assets/analytics.js`](assets/analytics.js) | Posée sur **les 23 pages**, inactive tant que le compte n'existe pas |
+| Mesure d'audience centralisée | [`assets/analytics.js`](assets/analytics.js) | Posée sur **toutes les pages**, **active** (Umami Cloud, depuis le 10/09/2026) |
+| Consentement (bandeau + révocation) | idem | Prêt, et **inutile avec Umami** : il ne s'affiche que pour un outil à cookies |
 | Trois objectifs de conversion | idem | Branchés |
 | Conservation de la campagne d'origine (UTM) | idem | Branchée |
 | Attribution rattachée aux demandes de contact | `index.html` | Branchée, **sans modification du back** |
@@ -29,22 +64,44 @@ jusqu'à ce que ces étapes soient faites.
 
 ### Étape 1 — Créer le compte
 
-**Recommandé : Plausible** (~9 €/mois) — aucun cookie posé, donc **aucun bandeau de
-consentement à afficher**. Sur un site qui vend la conformité RGPD aux écoles, c'est cohérent.
+**Umami Cloud** (décision du 10/09/2026), pour trois raisons : gratuit jusqu'à
+100 000 événements par mois, aucun cookie donc **aucun bandeau de consentement**, et c'est le
+**même logiciel** que la version auto-hébergée — la migration vers sa propre instance ne demandera
+pas de réinstrumenter le site.
 
-1. Créer un compte sur plausible.io
-2. Ajouter le site avec le domaine **`madrassanet.com`** (sans le `www.`)
-3. Vérifier que `CONFIG.domain` dans `assets/analytics.js` correspond bien
+1. Créer un compte sur [cloud.umami.is](https://cloud.umami.is/)
+2. **Add website**, domaine `www.madrassanet.com`
+3. Copier le *Website ID* et le coller dans `CONFIG.umamiWebsiteId` (`assets/analytics.js`)
+4. Recharger une page du site : la visite doit apparaître dans le tableau de bord
 
-**Variante gratuite : GA4.** Dans `assets/analytics.js`, mettre
-`provider: 'ga4'` et renseigner `ga4MeasurementId`. ⚠️ GA4 pose des cookies :
-il faut alors ajouter un bandeau de consentement et compléter `privacy/`.
+✅ **Fait le 10/09/2026** — identifiant `bf12a351-…` en place. Rien d'autre à faire : le script
+est déjà sur toutes les pages et sait quoi envoyer.
+
+**Le jour où l'on héberge sa propre instance** : remplacer `CONFIG.umamiScript` par l'URL du
+script de l'instance (par exemple `https://stats.madrassanet.com/script.js`) et l'identifiant du
+site. Aucune autre ligne à toucher.
+
+**Les autres options, et ce qu'elles coûtent.** `assets/analytics.js` accepte `plausible`
+(~9 €/mois, sans cookie) et `ga4` (gratuit) — une ligne à changer dans les deux cas.
+
+> ⚠️ **Ce que GA4 coûte vraiment.** Pas d'abonnement, mais des cookies : le bandeau de
+> consentement s'affiche alors automatiquement (le code le gère, `privacy/` §10 le prévoit), et
+> **entre 30 et 50 % des visiteurs refusent** — les chiffres sont amputés d'autant. Sur un site
+> qui vend la conformité RGPD à des écoles, demander l'autorisation d'envoyer les visiteurs chez
+> Google est aussi un signal. À garder pour le jour où Google Ads devient utile.
+>
+> **Si vous basculez sur GA4, une chose à ne pas oublier** : `privacy/` §10.2 affirme aujourd'hui
+> que le site ne dépose aucun cookie. C'est vrai avec Umami ; ce serait faux avec GA4. Cette
+> phrase-là doit être corrigée en même temps que `CONFIG.provider`, et la configuration GA4 doit
+> être passée en conservation 14 mois, Google signals désactivé (le code le demande déjà via
+> `allow_google_signals: false`).
 
 ### Étape 2 — Déclarer les trois objectifs
 
-Dans Plausible : **Site settings → Goals → Add goal → Custom event**, avec ces noms
-**exactement** (ils sont écrits en clair dans le code, sans accents pour rester compatibles
-avec GA4) :
+Dans Umami, les événements personnalisés apparaissent seuls dans **Events** dès qu'ils se
+produisent : il n'y a rien à déclarer à l'avance. Ce qui suit est la liste de ce que le code
+envoie — à retrouver telle quelle dans le tableau de bord (et à déclarer comme objectifs si l'on
+passe un jour à Plausible ou GA4). Les noms sont sans accents pour rester compatibles avec GA4 :
 
 | Nom de l'objectif | Se déclenche quand | Propriété jointe |
 |---|---|---|
@@ -52,8 +109,10 @@ avec GA4) :
 | `Ressource - Telechargement` | Une ressource est téléchargée | `fichier` |
 | `Demo - Rendez-vous` | Clic sur le bouton de prise de rendez-vous | — |
 
-Deux objectifs secondaires existent aussi : `Video - Visite guidee`,
-`Demo - Demande depuis ressources` et `Ressource - Depuis confirmation`.
+Objectifs secondaires : `Video - Visite guidee`, `Demo - Demande depuis ressources`,
+`Ressource - Depuis confirmation`, et depuis le 10/09/2026 **`Video - Lecture`** — émis par le
+lecteur des articles de blog, avec l'identifiant de la vidéo et le slug de l'article
+(cf. `blog/ARCHITECTURE_BLOG.md` §5).
 
 ### Étape 3 — Search Console
 
@@ -189,11 +248,17 @@ for f in feuille-presence-trimestre.pdf checklist-rentree-ecole-associative.pdf 
   curl -s -o /dev/null -w "$f %{http_code}\n" "http://localhost:8899/templates/files/$f"
 done
 
-# 3. Le script de mesure est bien inclus partout (doit afficher 23)
+# 3. Le script de mesure est bien inclus partout (doit afficher 29)
 grep -rl "assets/analytics.js" --include="*.html" . | wc -l
+
+# 4. Le script de mesure lui-même, hors navigateur (16 contrôles)
+node tools/test-analytics.js
 ```
 
 > Sur `localhost`, la mesure est **volontairement inactive**
 > (`CONFIG.ignoreLocalhost`) : les objectifs sont alors écrits dans la console du
-> navigateur avec le préfixe `[analytics inactif]`, ce qui permet de vérifier le
+> navigateur avec le préfixe `[mesure inactive]`, ce qui permet de vérifier le
 > déclenchement sans polluer les statistiques.
+
+Le nombre de pages augmente à chaque article publié : `python3 tools/build-blog.py` pose le
+script sur les pages qu'il génère, il n'y a jamais à l'ajouter à la main.
