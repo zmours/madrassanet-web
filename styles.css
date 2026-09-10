@@ -863,8 +863,8 @@ details[open] summary::after { transform: rotate(-180deg); }
    NIVEAUX D'ABONNEMENT (page tarifs)
    ============================================================ */
 .tiers-grid {
-  max-width: 1120px; margin: 2.5rem auto 0;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch;
+  max-width: 760px; margin: 2.5rem auto 0;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; align-items: stretch;
 }
 .tier-card {
   position: relative; display: flex; flex-direction: column;
@@ -873,7 +873,6 @@ details[open] summary::after { transform: rotate(-180deg); }
   transition: transform var(--ease), box-shadow var(--ease);
 }
 .tier-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.tier-card--free { border-color: #0f9d8e; background: linear-gradient(160deg,#effbf8 0%,#fff 100%); }
 .tier-card--std { border-color: var(--primary); background: linear-gradient(160deg,#f0f4ff 0%,#fff 100%); }
 .tier-card--premium { border-color: #7c5cff; background: linear-gradient(160deg,#f6f3ff 0%,#fff 100%); }
 .tier-badge {
@@ -888,6 +887,10 @@ details[open] summary::after { transform: rotate(-180deg); }
 .tier-price { font-size: 2.1rem; font-weight: 800; line-height: 1; color: var(--primary); }
 .tier-price small { font-size: .85rem; font-weight: 500; color: var(--text-muted); }
 .tier-price--quote { font-size: 1.5rem; }
+.tier-price sup { font-size: .42em; font-weight: 700; vertical-align: super; margin-left: 1px; }
+.tiers-footnote { max-width: 620px; margin: 1.5rem auto 0; text-align: center;
+  font-size: .82rem; line-height: 1.65; color: var(--text-muted); }
+.tiers-footnote sup { font-weight: 700; color: var(--primary); }
 .tier-card--free .tier-price { color: #0b7f73; }
 .tier-card--premium .tier-price { color: #5b3ddb; }
 .tier-cond { font-size: .82rem; color: var(--text-muted); background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.06); border-radius: var(--radius); padding: .65rem .85rem; margin: .9rem 0 1.1rem; line-height: 1.55; }

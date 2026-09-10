@@ -81,6 +81,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.madrassanet.com/blog/declarer-ecole-coranique-accueil-collectif-mineurs/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.madrassanet.com/blog/rgpd-donnees-eleves-madrasa/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
