@@ -49,56 +49,99 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Blog -->
+  <!-- Blog — bloc régénéré par tools/build-blog.py, ne pas éditer à la main -->
+  <!-- BLOG:DEBUT -->
   <url>
     <loc>https://www.madrassanet.com/blog/</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.madrassanet.com/blog/organiser-reinscriptions-ecole-coranique/</loc>
-    <changefreq>yearly</changefreq>
+    <loc>https://www.madrassanet.com/blog/rubrique/conformite/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.madrassanet.com/blog/faire-appel-sans-papier/</loc>
-    <changefreq>yearly</changefreq>
+    <loc>https://www.madrassanet.com/blog/rubrique/gestion/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.madrassanet.com/blog/choisir-logiciel-gestion-madrasa/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.madrassanet.com/blog/gestion-paiements-familles-association/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.madrassanet.com/blog/logiciel-gratuit-ou-payant-ecole-coranique/</loc>
-    <changefreq>yearly</changefreq>
+    <loc>https://www.madrassanet.com/blog/rubrique/outils/</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.madrassanet.com/blog/declarer-ecole-coranique-accueil-collectif-mineurs/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.madrassanet.com/blog/automatiser-gestion-ecole-coranique/</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.madrassanet.com/blog/bulletin-scolaire-bilingue-arabe/</loc>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.madrassanet.com/blog/rgpd-donnees-eleves-madrasa/</loc>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.madrassanet.com/blog/bulletin-scolaire-bilingue-arabe/</loc>
-    <changefreq>yearly</changefreq>
+    <loc>https://www.madrassanet.com/blog/logiciel-gratuit-ou-payant-ecole-coranique/</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.madrassanet.com/blog/automatiser-gestion-ecole-coranique/</loc>
-    <changefreq>yearly</changefreq>
+    <loc>https://www.madrassanet.com/blog/gestion-paiements-familles-association/</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.madrassanet.com/blog/choisir-logiciel-gestion-madrasa/</loc>
+    <lastmod>2026-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.madrassanet.com/blog/faire-appel-sans-papier/</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.madrassanet.com/blog/organiser-reinscriptions-ecole-coranique/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.madrassanet.com/blog/redaction/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+<!-- BLOG:FIN -->
+
+  <!-- Modèles à télécharger -->
+  <url>
+    <loc>https://www.madrassanet.com/templates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <!-- Pages institutionnelles -->

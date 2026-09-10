@@ -4,5 +4,7 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemaps — bloc régénéré par tools/build-blog.py, ne pas éditer à la main
+# SITEMAPS:DEBUT
 Sitemap: https://www.madrassanet.com/sitemap.xml
+# SITEMAPS:FIN

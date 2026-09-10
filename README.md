@@ -18,10 +18,33 @@ madrassanet-web/
 │   └── index.html          ← Centre d'aide & FAQ
 ├── delete-account/
 │   └── index.html          ← Procédure de suppression de compte
-└── templates/
-    └── index.html          ← Modèles Excel à télécharger
-    └── files/              ← Placer ici les .xlsx et .pdf
+├── templates/
+│   ├── index.html          ← Modèles Excel à télécharger
+│   └── files/              ← Placer ici les .xlsx et .pdf
+└── blog/                   ← GÉNÉRÉ, voir ci-dessous
+    ├── _articles/*.md      ← les sources des articles
+    ├── _pages/*.md         ← les pages du blog hors flux
+    └── _auteurs.json       ← les signatures
 ```
+
+## Le blog
+
+Le blog n'est **pas** écrit en HTML : il est généré à partir des sources Markdown de
+`blog/_articles/` par un script sans aucune dépendance.
+
+```bash
+python3 tools/build-blog.py               # génère les articles, la liste, les rubriques,
+                                          # le flux RSS, les sitemaps, 404.html et llms.txt
+python3 tools/build-blog.py --inventaire  # liste les articles, sans rien écrire
+```
+
+Toute modification se fait dans le `.md`, jamais dans le HTML généré, qui est écrasé à chaque
+construction. La sortie est commitée : GitHub Pages sert la branche telle quelle.
+
+- [`blog/ARCHITECTURE_BLOG.md`](blog/ARCHITECTURE_BLOG.md) — la mécanique : sources, métadonnées,
+  blocs Markdown, publication d'une vidéo, vérifications
+- [`blog/LIGNE_EDITORIALE.md`](blog/LIGNE_EDITORIALE.md) — ce qu'on écrit, les rubriques, le
+  backlog des sujets
 
 ## URLs pour les stores
 

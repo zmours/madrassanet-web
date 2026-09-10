@@ -1,0 +1,43 @@
+# MadrassaNET
+
+> La solution complète de gestion scolaire pour écoles coraniques, madrasas et associations
+
+MadrassaNET est un logiciel de gestion scolaire pour écoles coraniques, madrasas, écoles de langue arabe et associations scolaires. Tarif public : 1 € par élève et par an. Interface française et arabe, bulletins bilingues, présences, paiements, réinscriptions.
+
+## Pages principales
+
+- [Accueil](https://www.madrassanet.com/): présentation du produit et formulaire de contact
+- [Tarifs](https://www.madrassanet.com/tarifs/): les trois niveaux d'abonnement, gratuité pour les associations en difficulté
+- [Gestion de madrasa](https://www.madrassanet.com/madrasa/): la solution pour une madrasa
+- [Association scolaire](https://www.madrassanet.com/association-scolaire/): la solution pour une association loi 1901
+- [École de langue arabe](https://www.madrassanet.com/ecole-arabe/): la solution pour une école de langue
+- [Modèles à télécharger](https://www.madrassanet.com/templates/): feuilles d'appel, bulletins, modèles de gestion
+- [Support](https://www.madrassanet.com/support/): centre d'aide et questions fréquentes
+
+## Blog
+
+Un média pratique pour les écoles associatives et les structures éducatives : réglementation, sécurité, accueil des enfants, gestion quotidienne et outils numériques.
+
+### Conformité
+
+- [Faut-il déclarer son école coranique comme accueil collectif de mineurs ?](https://www.madrassanet.com/blog/declarer-ecole-coranique-accueil-collectif-mineurs/): Cours du samedi, garderie, sortie de fin d'année : votre activité relève-t-elle des accueils collectifs de mineurs ? Les seuils et la déclaration au SDJES.
+- [RGPD et données des élèves : ce que doit savoir une madrasa](https://www.madrassanet.com/blog/rgpd-donnees-eleves-madrasa/): Une madrasa ou association scolaire traite des données personnelles d'enfants. Voici vos obligations RGPD expliquées simplement et comment vous mettre en conformité.
+
+### Gestion
+
+- [Créer des bulletins scolaires clairs en arabe et français](https://www.madrassanet.com/blog/bulletin-scolaire-bilingue-arabe/): Bonnes pratiques pour des bulletins scolaires bilingues arabe-français : ce qui va dans chaque langue, l'affichage de droite à gauche, moyennes et appréciations.
+- [Gérer les paiements des familles dans une association scolaire](https://www.madrassanet.com/blog/gestion-paiements-familles-association/): Cotisations, relances, reçus et impayés : méthode pour gérer sereinement les paiements des familles d'une association scolaire ou d'une école coranique.
+- [Faire l'appel sans papier : le guide pour les écoles associatives](https://www.madrassanet.com/blog/faire-appel-sans-papier/): Passer du pointage papier au pointage mobile dans une école coranique ou une association : gagner du temps, fiabiliser les données, prévenir les parents.
+- [Comment bien organiser les réinscriptions de votre école coranique](https://www.madrassanet.com/blog/organiser-reinscriptions-ecole-coranique/): Réinscrire les familles d'une école coranique sans y passer des semaines : préparer la campagne, relancer, faire passer les élèves d'année en un clic.
+
+### Outils
+
+- [Les 10 tâches à automatiser dans une école coranique](https://www.madrassanet.com/blog/automatiser-gestion-ecole-coranique/): Présences, bulletins, relances, réinscriptions, paiements… Voici 10 tâches répétitives à automatiser dans une école coranique pour gagner des heures chaque semaine.
+- [Logiciel gratuit ou payant pour école coranique : que choisir ?](https://www.madrassanet.com/blog/logiciel-gratuit-ou-payant-ecole-coranique/): Un logiciel de gestion gratuit pour école coranique cache souvent des coûts et des limites. Analyse honnête pour choisir entre gratuit et payant sans se tromper.
+- [Comment choisir un logiciel de gestion pour sa madrasa (2026)](https://www.madrassanet.com/blog/choisir-logiciel-gestion-madrasa/): Les 8 critères pour choisir un logiciel de gestion adapté à une madrasa : arabe et RTL, cours du week-end, gestion par familles, mobile, RGPD et prix.
+
+## Mentions
+
+- Les articles de conformité citent leurs sources publiques et ne constituent pas un conseil juridique.
+- [La rédaction et ses sources](https://www.madrassanet.com/blog/redaction/)
+- [Flux RSS du blog](https://www.madrassanet.com/blog/feed.xml)

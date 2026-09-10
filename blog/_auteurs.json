@@ -1,0 +1,31 @@
+{
+  "_lisez_moi": [
+    "Les signatures des articles. La clé est la valeur du champ « auteur: » dans",
+    "blog/_articles/*.md ; « equipe » est la valeur par défaut.",
+    "",
+    "Un auteur NOMMÉ (type « Person », avec un rôle et une biographie) vaut mieux",
+    "qu'une signature collective sur les articles de conformité : c'est le signal",
+    "d'expertise que Google attend sur les sujets réglementaires, et celui qu'un",
+    "lecteur cherche avant de suivre un conseil. Pour en ajouter un, copier le",
+    "modèle « exemple-personne » ci-dessous sous une nouvelle clé, compléter, puis",
+    "mettre « auteur: <clé> » dans l'article. Ne jamais inventer une identité.",
+    "",
+    "Les clés commençant par « _ » sont ignorées par le générateur."
+  ],
+
+  "equipe": {
+    "nom": "L'équipe MadrassaNET",
+    "type": "Organization",
+    "url": "/blog/redaction/",
+    "role": "Rédaction MadrassaNET",
+    "bio": "Les articles signés par la rédaction sont écrits à partir des textes officiels cités en fin d'article, et relus par l'équipe qui accompagne les écoles au quotidien."
+  },
+
+  "_exemple-personne": {
+    "nom": "Prénom Nom",
+    "type": "Person",
+    "url": "/blog/redaction/",
+    "role": "Ce qui rend cette personne légitime sur le sujet",
+    "bio": "Deux phrases : le parcours, et le lien concret avec les écoles associatives."
+  }
+}

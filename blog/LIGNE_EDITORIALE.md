@@ -38,9 +38,12 @@ le §8 (SEO) et reprend les personas du §2.1.
 
 ## 2. Les quatre rubriques
 
-Les rubriques sont les `blog-tag` affichés sur les cartes. Les quatre nouvelles remplacent les
-étiquettes hétérogènes actuelles (`École coranique`, `Présences`, `Productivité`…) au fil des
-republications ; les anciens articles peuvent être re-étiquetés sans être réécrits.
+Les rubriques sont les `blog-tag` affichés sur les cartes, et chacune a sa page
+(`/blog/rubrique/<slug>/`). Le re-étiquetage des huit anciens articles a été fait le 10/09/2026 :
+les étiquettes hétérogènes (`École coranique`, `Présences`, `Productivité`, `Guide d'achat`,
+`Comparatif`, `Bulletins`, `Finances`) ont été réparties entre `Gestion` et `Outils`, sans
+réécrire les textes. Une rubrique sans aucun article n'apparaît dans aucun menu : la rubrique
+**Sécurité** attend donc son premier article.
 
 | Rubrique | Ce qu'elle couvre | Persona visé |
 |---|---|---|
@@ -100,24 +103,39 @@ renforcés. Deux réflexes :
 
 ---
 
-## 5. Publier un article — les fichiers à toucher
+## 5. Publier un article
 
-Aucune génération, aucun CMS : chaque article est un dossier avec un `index.html`.
+Le blog est généré à partir de sources Markdown : un article est un fichier
+`blog/_articles/<slug>.md`, et **le HTML ne s'écrit ni ne se modifie à la main**. La mécanique est
+documentée dans [`ARCHITECTURE_BLOG.md`](./ARCHITECTURE_BLOG.md) ; du point de vue éditorial, il
+n'y a plus que deux gestes :
 
-1. `blog/<slug>/index.html` — copier la structure d'un article existant. À adapter : `title`,
-   `meta description`, `canonical`, les trois blocs `og:`, le `BreadcrumbList` (3 niveaux), le
-   `Article` du JSON-LD (`headline`, `datePublished`, `dateModified`), la bannière SVG, le
-   `blog-tag`, le `h1`, l'`article-meta` (date + temps de lecture), l'`article-lead`.
-2. `blog/index.html` — ajouter la carte `blog-card` **en tête de grille** (les plus récents
-   d'abord), avec un dégradé et un émoji distincts des cartes voisines.
-3. `sitemap.xml` — une entrée `<url>`, `changefreq: monthly`, `priority: 0.6` comme les autres
-   articles.
-4. **Maillage** : trois `related-card` en fin d'article, et au moins un article existant modifié
-   pour pointer vers le nouveau. Un article sans lien entrant ne sera pas lu.
+```bash
+# 1. écrire l'article
+cp blog/_articles/faire-appel-sans-papier.md blog/_articles/mon-article.md
 
-Conventions : slug en minuscules sans accent, contenant la requête cible ; `lang="fr"` ;
-`article-meta` avec la date en français (« 10 septembre 2026 ») ; temps de lecture réaliste
-(≈ 200 mots/minute).
+# 2. générer
+python3 tools/build-blog.py
+```
+
+Le nom du fichier donne l'URL. La carte en page de liste, la page de rubrique, la pagination, les
+trois « à lire aussi », le flux RSS, le sitemap et `llms.txt` suivent tout seuls : **il n'y a plus
+de maillage à tenir à la main**, ce qui était la raison pour laquelle aucun ancien article ne
+pointait vers les deux derniers publiés.
+
+Ce que la rédaction doit encore décider article par article :
+
+- la **rubrique** (une des quatre du §2) et le **chapeau** qui dit en trois lignes si le lecteur
+  est concerné ;
+- la **meta description**, entre 70 et 165 caractères, avec la requête cible ;
+- l'emplacement du bloc `::: cta` — une seule fois, là où l'administration réclame une preuve ;
+- sur un article de conformité ou de sécurité : le bloc `::: sources`, la date `verifie_le` et la
+  mention « ceci n'est pas un conseil juridique ». Le générateur avertit quand l'un des trois
+  manque, mais il ne peut pas les écrire.
+
+Conventions inchangées : slug en minuscules sans accent contenant la requête cible ; typographie
+française appliquée automatiquement (écrire avec une apostrophe droite) ; temps de lecture calculé
+à 200 mots/minute, plus jamais saisi à la main.
 
 ---
 
