@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IKS en ligne</title>
+<!-- Page de démonstration privée, envoyée à un prospect : jamais indexée, jamais liée depuis le site. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="canonical" href="https://www.madrassanet.com/demo/55504922-e601-4e5d-ad4b-b040ead96061/">
+<meta name="description" content="Proposition pour Inventor Kid's Skills : une école de code 100 % en ligne pour les 8-17 ans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Recursive:slnt,wght,CASL,MONO@-15..0,300..900,0..1,0..1&display=swap">
+<style>
+/* Mise en page : une seule colonne de lecture, chaque acteur (parent, élève, enseignant, direction)
+   ouvre une « séance » numérotée ; la vidéo du parcours d'abord, les écrans ensuite. */
+:root {
+  --fond: #F4F6FA;          /* papier légèrement bleuté */
+  --surface: #FFFFFF;
+  --encre: #141A2E;         /* bleu nuit des salles */
+  --doux: #59617A;
+  --filet: #DCE1EC;
+  --orange: #E86F0C;        /* l'orange des blocs Scratch, en accent */
+  --orange-fond: #FFF1E3;
+  --bleu: #2F5FC4;          /* le bleu Python, pour les liens */
+  --nuit: #1B2140;          /* bandeau du direct */
+  --nuit-texte: #E8EBF7;
+  --ombre: 0 1px 2px rgb(20 26 46 / .06), 0 8px 24px rgb(20 26 46 / .08);
+  --titre: "Recursive", "Trebuchet MS", system-ui, sans-serif;
+  --texte: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --code: "Recursive", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #0F1322; --surface: #171C30; --encre: #E7EAF4; --doux: #A1A8BF; --filet: #2A3150;
+    --orange: #FF9A45; --orange-fond: #2E2117; --bleu: #8DB0FF; --nuit: #0A0D1A; --nuit-texte: #E8EBF7;
+    --ombre: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --fond: #0F1322; --surface: #171C30; --encre: #E7EAF4; --doux: #A1A8BF; --filet: #2A3150;
+  --orange: #FF9A45; --orange-fond: #2E2117; --bleu: #8DB0FF; --nuit: #0A0D1A; --nuit-texte: #E8EBF7;
+  --ombre: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fond); color: var(--encre);
+  font-family: var(--texte); font-size: 1.0625rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 72rem; margin: 0 auto; padding-block: 2rem 4rem; display: grid; gap: 4.5rem; }
+h1, h2, h3 { font-family: var(--titre); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.05; font-variation-settings: "CASL" 1, "wght" 800; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; font-variation-settings: "CASL" .6, "wght" 750; }
+h3 { font-size: 1.15rem; font-variation-settings: "CASL" .3, "wght" 700; }
+p { margin: 0; max-width: 65ch; }
+a { color: var(--bleu); }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 4px; }
+.etiquette {
+  font-family: var(--code); font-variation-settings: "MONO" 1, "wght" 600;
+  font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--doux);
+}
+
+/* En-tête */
+.entete { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid var(--filet); padding-bottom: 1rem; }
+.entete strong { font-family: var(--titre); font-variation-settings: "CASL" 1, "wght" 750; font-size: 1.1rem; }
+
+/* Ouverture */
+.ouverture { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2.5rem; align-items: center; }
+.ouverture .texte { display: grid; gap: 1.25rem; min-width: 0; }
+.ouverture .chapo { font-size: 1.2rem; color: var(--doux); }
+.ouverture .surligne { background: linear-gradient(transparent 62%, var(--orange-fond) 62%); }
+.direct { position: relative; border-radius: 14px; overflow: hidden; background: var(--nuit); box-shadow: var(--ombre); }
+.direct video { display: block; width: 100%; height: auto; }
+.direct .pastille { position: absolute; top: 12px; left: 12px; display: inline-flex; align-items: center; gap: .45rem;
+  background: rgb(10 13 26 / .78); color: var(--nuit-texte); border-radius: 999px; padding: .3rem .75rem;
+  font-family: var(--code); font-variation-settings: "MONO" 1, "wght" 600; font-size: .78rem; letter-spacing: .04em; }
+.direct .pastille::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; background: #FF4D4D; }
+.liens { display: flex; flex-wrap: wrap; gap: .5rem; }
+.liens a { text-decoration: none; color: var(--encre); border: 1px solid var(--filet); background: var(--surface);
+  border-radius: 999px; padding: .35rem .9rem; font-size: .95rem; }
+.liens a:hover { border-color: var(--orange); }
+
+/* Le contenu de la démo, en ligne de programme */
+.programme { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--filet);
+  border: 1px solid var(--filet); border-radius: 14px; overflow: hidden; }
+.parcours { background: var(--surface); padding: 1.1rem 1.2rem; display: grid; gap: .5rem; align-content: start; min-width: 0; }
+.parcours h3 { display: flex; justify-content: space-between; gap: .5rem; align-items: baseline; }
+.parcours h3 span { font-family: var(--code); font-variation-settings: "MONO" 1, "wght" 500; font-size: .8rem; color: var(--doux); white-space: nowrap; }
+.parcours ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .15rem; font-size: .95rem; }
+.parcours .prix { font-family: var(--code); font-variation-settings: "MONO" 1; font-size: .85rem; color: var(--doux); }
+.chiffres { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; font-size: .95rem; color: var(--doux); }
+.chiffres b { color: var(--encre); font-family: var(--code); font-variation-settings: "MONO" 1, "wght" 700; }
+
+/* Séances (sections par acteur) */
+.seance { display: grid; gap: 1.5rem; }
+.seance > header { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .25rem 1rem; align-items: baseline; }
+.seance .num { grid-row: span 2; font-family: var(--code); font-variation-settings: "MONO" 1, "wght" 700;
+  font-size: .85rem; color: var(--orange); border: 1.5px solid var(--orange); border-radius: 8px; padding: .15rem .5rem; }
+.seance > header p { color: var(--doux); }
+.duo { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 1.5rem; align-items: start; }
+.lecteur { border-radius: 12px; overflow: hidden; background: var(--nuit); box-shadow: var(--ombre); }
+.lecteur video { display: block; width: 100%; height: auto; }
+.points { display: grid; gap: .9rem; margin: 0; padding: 0; list-style: none; min-width: 0; }
+.points li { display: grid; gap: .15rem; padding-left: 1.1rem; border-left: 2px solid var(--filet); }
+.points li b { font-family: var(--titre); font-variation-settings: "CASL" .3, "wght" 700; }
+.ecrans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.ecrans.deux { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+figure { margin: 0; display: grid; gap: .45rem; min-width: 0; }
+figure button { all: unset; cursor: zoom-in; display: block; border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--filet); background: var(--surface); box-shadow: var(--ombre); }
+figure button:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+figure img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; }
+figcaption { font-size: .9rem; color: var(--doux); }
+.telephones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; max-width: 46rem; }
+.telephones figure button { border-radius: 26px; border: 6px solid var(--encre); }
+.telephones img { aspect-ratio: 9 / 19.5; }
+
+/* Mise en place */
+.miseenplace { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2.5rem; }
+.miseenplace div { display: grid; gap: .3rem; padding-top: .9rem; border-top: 1px solid var(--filet); }
+.encadre { background: var(--orange-fond); border-radius: 14px; padding: 1.25rem 1.4rem; display: grid; gap: .6rem; }
+.encadre ul { margin: 0; padding-left: 1.2rem; display: grid; gap: .35rem; }
+.suite { background: var(--nuit); color: var(--nuit-texte); border-radius: 16px; padding: 2rem; display: grid; gap: 1rem; }
+.suite h2 { color: var(--nuit-texte); }
+.suite p { color: var(--nuit-texte); opacity: .85; }
+.pied { font-size: .85rem; color: var(--doux); border-top: 1px solid var(--filet); padding-top: 1rem; display: grid; gap: .3rem; }
+
+/* Agrandissement d'un écran */
+dialog { border: 0; padding: 0; background: transparent; max-width: min(96vw, 1600px); max-height: 94vh; }
+dialog::backdrop { background: rgb(10 13 26 / .82); }
+dialog img { display: block; max-width: 100%; max-height: 88vh; border-radius: 10px; margin: 0 auto; }
+dialog p { color: #E8EBF7; text-align: center; margin: .6rem auto 0; font-size: .95rem; }
+dialog button { position: absolute; top: 8px; right: 8px; background: rgb(10 13 26 / .85); color: #fff; border: 0;
+  border-radius: 999px; width: 2.4rem; height: 2.4rem; font-size: 1.3rem; cursor: pointer; }
+
+@media (max-width: 960px) {
+  .ouverture, .duo { grid-template-columns: minmax(0, 1fr); }
+  .programme { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ecrans { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .page { gap: 3.25rem; padding-block: 1.25rem 3rem; }
+  .programme, .ecrans, .ecrans.deux, .miseenplace { grid-template-columns: minmax(0, 1fr); }
+  .telephones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .suite { padding: 1.4rem; }
+  .direct .pastille { font-size: .68rem; top: 8px; left: 8px; padding: .2rem .6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+</head>
+<body>
+<main class="page">
+  <header class="entete">
+    <strong>Inventor Kid's Skills, en ligne</strong>
+    <span class="etiquette">Proposition · octobre 2026</span>
+  </header>
+
+  <section class="ouverture" aria-labelledby="titre">
+    <div class="texte">
+      <span class="etiquette">École de code 100 % en ligne · 8 à 17 ans</span>
+      <h1 id="titre">Vos cours de code, en direct et <span class="surligne">à distance</span>, de l'inscription au projet final.</h1>
+      <p class="chapo">Les parents inscrivent et paient en ligne. Les élèves suivent leurs séances en direct depuis chez eux, revoient les rediffusions et rendent leurs projets. Vos enseignants préparent, animent et corrigent au même endroit.</p>
+      <nav class="liens" aria-label="Aller à">
+        <a href="#parents">Les parents</a>
+        <a href="#eleves">Les élèves</a>
+        <a href="#direct">Le cours en direct</a>
+        <a href="#enseignants">Les enseignants</a>
+        <a href="#telephone">Sur téléphone</a>
+        <a href="#miseenplace">Mise en place</a>
+      </nav>
+    </div>
+    <div class="direct">
+      <video src="media/3-cours-en-direct.mp4" poster="media/3-cours-en-direct-affiche.jpg" autoplay muted loop playsinline aria-label="Un élève dans un cours en direct : l'enseignant code en Python, l'élève lève la main"></video>
+      <span class="pastille">En direct · Python : les bases</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="titre-programme" style="display:grid;gap:1.25rem">
+    <span class="etiquette">L'école de démonstration</span>
+    <h2 id="titre-programme">Un catalogue de 12 cours en 4 parcours, préparé pour vous montrer la plateforme</h2>
+    <p>Chaque cours a son programme de 14 séances, sa fiche, son enseignant, ses supports et ses devoirs. Les dix premières séances ont eu lieu et la plupart sont enregistrées ; quatre cours démarrent dans dix jours et sont ouverts à l'inscription.</p>
+    <div class="programme">
+      <div class="parcours"><h3>Scratch <span>8–12 ans</span></h3>
+        <ol><li>Premiers pas</li><li>Créer ses jeux</li><li>Algorithmes</li></ol><span class="prix">149 € le cours</span></div>
+      <div class="parcours"><h3>Python <span>11–17 ans</span></h3>
+        <ol><li>Les bases</li><li>Jeux vidéo</li><li>Projets</li></ol><span class="prix">179 € le cours</span></div>
+      <div class="parcours"><h3>Web et applis <span>12–16 ans</span></h3>
+        <ol><li>Mon premier site web</li><li>JavaScript interactif</li><li>Applis mobiles</li></ol><span class="prix">179 € le cours</span></div>
+      <div class="parcours"><h3>Numérique et IA <span>10–17 ans</span></h3>
+        <ol><li>Objets connectés micro:bit</li><li>Intelligence artificielle</li><li>Cybersécurité</li></ol><span class="prix">169 € le cours</span></div>
+    </div>
+    <div class="chiffres">
+      <span><b>14</b> séances d'une heure par cours</span>
+      <span><b>2</b> séances par semaine</span>
+      <span><b>10</b> élèves par groupe</span>
+      <span>prix et horaires réglés par l'école</span>
+    </div>
+  </section>
+
+  <section class="seance" id="parents" aria-labelledby="t-parents">
+    <header><span class="num">1</span><h2 id="t-parents">Les parents choisissent un cours et paient en ligne</h2>
+      <p>Un catalogue à vos couleurs, une fiche complète par cours, le paiement par carte sur votre propre compte Stripe.</p></header>
+    <div class="duo">
+      <div class="lecteur"><video src="media/1-parent-inscrit.mp4" poster="media/1-parent-inscrit-affiche.jpg" controls muted playsinline preload="metadata" aria-label="Vidéo : un parent parcourt le catalogue et inscrit son enfant"></video></div>
+      <ul class="points">
+        <li><b>Un espace famille</b><span>Le parent voit ses enfants, leurs cours, et entre dans l'espace de chacun.</span></li>
+        <li><b>Des fiches qui vendent</b><span>Présentation, programme séance par séance, prérequis, profil de l'enseignant, questions fréquentes.</span></li>
+        <li><b>L'inscription au bon enfant</b><span>Le parent choisit l'enfant, paie, et l'inscription se crée à la confirmation du paiement.</span></li>
+        <li><b>L'argent va à l'école</b><span>Le paiement passe par votre compte Stripe : carte, Apple Pay, et les moyens que vous activez.</span></li>
+      </ul>
+    </div>
+    <div class="ecrans">
+      <figure><button type="button" data-zoom><img src="media/02-catalogue.jpg" alt="Catalogue des cours avec couvertures, catégories et âges" loading="lazy"></button><figcaption>Le catalogue, filtrable par parcours.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/03-fiche-cours.jpg" alt="Fiche du cours Python : projets" loading="lazy"></button><figcaption>La fiche d'un cours qui démarre bientôt.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/03d-paiement-stripe.jpg" alt="Page de paiement Stripe en mode test, 179 euros" loading="lazy"></button><figcaption>Le paiement, ici en mode test.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="seance" id="eleves" aria-labelledby="t-eleves">
+    <header><span class="num">2</span><h2 id="t-eleves">Les élèves suivent leur cours, séance après séance</h2>
+      <p>Tout est rangé par cours : la prochaine séance, les supports, les rediffusions, les devoirs.</p></header>
+    <div class="duo">
+      <div class="lecteur"><video src="media/2-eleve-suit-son-cours.mp4" poster="media/2-eleve-suit-son-cours-affiche.jpg" controls muted playsinline preload="metadata" aria-label="Vidéo : un élève ouvre son cours, revoit une séance et consulte ses devoirs"></video></div>
+      <ul class="points">
+        <li><b>Un accueil qui dit quoi faire</b><span>Le cours en direct à rejoindre, la semaine, les rediffusions à reprendre, les devoirs à rendre.</span></li>
+        <li><b>L'espace du cours</b><span>Séances passées et à venir, présence, nombre de supports, rediffusion d'un clic.</span></li>
+        <li><b>Les rediffusions</b><span>La séance manquée se revoit dans l'espace de l'élève, avec son programme et ses supports.</span></li>
+        <li><b>Les projets à rendre</b><span>L'élève dépose son projet en archive zip ; l'enseignant le corrige, le note et laisse une appréciation.</span></li>
+      </ul>
+    </div>
+    <div class="ecrans">
+      <figure><button type="button" data-zoom><img src="media/04-eleve-accueil.jpg" alt="Accueil de l'élève avec le cours en direct" loading="lazy"></button><figcaption>L'accueil, pendant un cours en direct.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/05-eleve-espace-cours.jpg" alt="Espace du cours Python : les bases" loading="lazy"></button><figcaption>L'espace du cours et son avancée.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/07-rediffusion.jpg" alt="Lecteur de rediffusion avec la liste des séances" loading="lazy"></button><figcaption>Une séance enregistrée.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="seance" id="direct" aria-labelledby="t-direct">
+    <header><span class="num">3</span><h2 id="t-direct">Le cours en direct, dans la plateforme</h2>
+      <p>Pas de lien de visioconférence à envoyer : l'élève entre en salle depuis son espace, s'il est inscrit au cours.</p></header>
+    <div class="ecrans deux">
+      <figure><button type="button" data-zoom><img src="media/06-salle-eleve.jpg" alt="La salle vue par l'élève : le code de l'enseignant en grand" loading="lazy"></button><figcaption>Côté élève : l'écran de l'enseignant, la conversation, la main levée.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/11-salle-prof.jpg" alt="La salle vue par l'enseignant avec la liste de la classe" loading="lazy"></button><figcaption>Côté enseignant : la classe, l'appel, les micros, le partage d'écran.</figcaption></figure>
+    </div>
+    <ul class="points">
+      <li><b>Pensé pour coder ensemble</b><span>Partage d'écran pour l'enseignant, et pour les élèves si l'enseignant l'autorise ; conversation, sondage, main levée, réactions.</span></li>
+      <li><b>L'appel depuis la salle</b><span>L'enseignant voit qui est en ligne, fait l'appel sans quitter le cours, et retrouve ensuite les absents à relancer.</span></li>
+      <li><b>Enregistrée pour ceux qui ont manqué</b><span>La direction arme l'enregistrement par cours ; la rediffusion arrive dans l'espace des élèves.</span></li>
+    </ul>
+  </section>
+
+  <section class="seance" id="enseignants" aria-labelledby="t-enseignants">
+    <header><span class="num">4</span><h2 id="t-enseignants">Les enseignants préparent, animent et corrigent</h2>
+      <p>Une journée, une liste de cours, une file de copies : l'enseignant n'a qu'un endroit à ouvrir.</p></header>
+    <div class="duo">
+      <div class="lecteur"><video src="media/4-enseignant.mp4" poster="media/4-enseignant-affiche.jpg" controls muted playsinline preload="metadata" aria-label="Vidéo : un enseignant ouvre sa journée, son cours et ses copies à corriger"></video></div>
+      <ul class="points">
+        <li><b>Aujourd'hui</b><span>La prochaine séance avec ce qui est prêt (supports, enregistrement, nouveaux inscrits), la journée, les copies.</span></li>
+        <li><b>La page du cours</b><span>Séances, présence, rediffusions, supports, devoirs, apprenants à relancer.</span></li>
+        <li><b>Sa fiche de cours</b><span>L'enseignant rédige la présentation et le programme ; la direction garde la main sur le prix et les places.</span></li>
+      </ul>
+    </div>
+    <div class="ecrans">
+      <figure><button type="button" data-zoom><img src="media/09-prof-aujourdhui.jpg" alt="Tableau de bord de l'enseignant" loading="lazy"></button><figcaption>La journée de l'enseignant.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/10-prof-cours.jpg" alt="Page du cours côté enseignant" loading="lazy"></button><figcaption>Le suivi d'un cours.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/13-prof-fiche.jpg" alt="Édition de la fiche du cours" loading="lazy"></button><figcaption>L'édition de la fiche.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="seance" id="telephone" aria-labelledby="t-telephone">
+    <header><span class="num">5</span><h2 id="t-telephone">Sur téléphone et tablette</h2>
+      <p>Le même espace en version mobile, et l'application MadrassaNET pour iPhone et Android, où les familles retrouvent votre école. L'achat d'un cours se fait sur le web.</p></header>
+    <div class="telephones">
+      <figure><button type="button" data-zoom><img src="media/15-mobile-eleve.jpg" alt="Accueil de l'élève sur téléphone" loading="lazy"></button><figcaption>L'accueil de l'élève.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/16-mobile-cours.jpg" alt="Un cours sur téléphone" loading="lazy"></button><figcaption>Un cours.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/17-mobile-parent.jpg" alt="Espace parent sur téléphone" loading="lazy"></button><figcaption>L'espace parent.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="seance" id="direction" aria-labelledby="t-direction">
+    <header><span class="num">6</span><h2 id="t-direction">La direction garde la vue d'ensemble</h2>
+      <p>Cours, groupes, enseignants, élèves, familles et inscriptions se gèrent depuis l'espace de gestion, qui sert aussi aux écoles sur place.</p></header>
+    <div class="ecrans deux">
+      <figure><button type="button" data-zoom><img src="media/14b-direction-cours.jpg" alt="Liste des cours par parcours côté direction" loading="lazy"></button><figcaption>Les cours, rangés par parcours.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/12-prof-correction.jpg" alt="Liste des devoirs avec le nombre de rendus" loading="lazy"></button><figcaption>Les devoirs et leurs rendus.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="miseenplace" aria-labelledby="t-miseenplace" style="display:grid;gap:1.5rem">
+    <span class="etiquette">Ce que nous mettons en place avec vous</span>
+    <h2 id="t-miseenplace">Votre école, à votre nom</h2>
+    <div class="miseenplace">
+      <div><h3>Votre identité</h3><p>Le nom et le logo d'Inventor Kid's Skills dans l'espace des familles, des élèves et des enseignants.</p></div>
+      <div><h3>Vos cours</h3><p>Nous créons avec vous les premiers cours, leurs fiches et leurs créneaux, à partir de vos programmes actuels.</p></div>
+      <div><h3>Vos paiements</h3><p>Branchement de votre compte Stripe : les familles paient l'école directement, sans intermédiaire.</p></div>
+      <div><h3>Vos équipes</h3><p>Comptes des enseignants, prise en main de la salle en direct et de la correction des projets.</p></div>
+    </div>
+    <div class="encadre">
+      <h3>À savoir avant de démarrer</h3>
+      <ul>
+        <li>Les fichiers de code (.py, .sb3, .html) se déposent aujourd'hui en archive zip. Le dépôt direct est à l'étude.</li>
+        <li>Les examens en ligne sous forme de quiz sont en préparation ; les devoirs notés existent déjà.</li>
+        <li>L'application mobile ne vend pas de cours : les familles s'inscrivent et paient sur le web.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="suite" aria-labelledby="t-suite">
+    <h2 id="t-suite">Voir la plateforme en vrai, avec vos cours</h2>
+    <p>Une démonstration en direct de 30 minutes : nous ouvrons l'école de démonstration, côté parent, élève et enseignant, et nous regardons ensemble comment y placer vos parcours. Répondez simplement au message qui accompagnait cette page pour fixer un créneau.</p>
+  </section>
+
+  <footer class="pied">
+    <span>Captures et vidéos réalisées le 17 octobre 2026 sur une école de démonstration : les noms d'élèves, de parents et d'enseignants sont fictifs.</span>
+    <span>Plateforme éditée par <a href="/">MadrassaNET</a>.</span>
+  </footer>
+</main>
+
+<dialog id="zoom" aria-label="Écran agrandi">
+  <button type="button" id="fermer" aria-label="Fermer">×</button>
+  <img id="zoom-img" alt="">
+  <p id="zoom-legende"></p>
+</dialog>
+
+<script>
+  const boite = document.getElementById('zoom');
+  const image = document.getElementById('zoom-img');
+  const legende = document.getElementById('zoom-legende');
+  document.querySelectorAll('[data-zoom]').forEach((bouton) => {
+    bouton.addEventListener('click', () => {
+      const img = bouton.querySelector('img');
+      image.src = img.src; image.alt = img.alt;
+      legende.textContent = bouton.closest('figure').querySelector('figcaption')?.textContent || '';
+      if (typeof boite.showModal === 'function') boite.showModal();
+    });
+  });
+  document.getElementById('fermer').addEventListener('click', () => boite.close());
+  boite.addEventListener('click', (e) => { if (e.target === boite) boite.close(); });
+</script>
+
+</body>
+</html>

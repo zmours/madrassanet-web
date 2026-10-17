@@ -47,6 +47,22 @@ construction. La sortie est commitée : GitHub Pages sert la branche telle quell
 - [`blog/LIGNE_EDITORIALE.md`](blog/LIGNE_EDITORIALE.md) — ce qu'on écrit, les rubriques, le
   backlog des sujets
 
+## Démonstrations privées (`demo/`)
+
+Une page par prospect, dans `demo/<uuid>/` : un identifiant aléatoire (`python3 -c "import uuid; print(uuid.uuid4())"`)
+plutôt qu'un nom, pour que l'adresse ne se devine pas. La page est autonome (`index.html` + `media/`) et :
+
+- porte `<meta name="robots" content="noindex, nofollow, noarchive">` et son propre `canonical` ;
+- n'est liée depuis aucune page, ni déclarée dans `sitemap.xml` ou `llms.txt` ;
+- n'embarque pas la mesure d'audience ;
+- ne montre que des données de démonstration (noms fictifs).
+
+Ce n'est pas une protection : le dépôt est public, l'adresse se lit dans l'historique Git. N'y mettre rien de confidentiel.
+
+| Répertoire | Prospect | Date | Source |
+|---|---|---|---|
+| `demo/55504922-e601-4e5d-ad4b-b040ead96061/` | Inventor Kid's Skills (école de code, 8-17 ans) | 17/10/2026 | issue madrassanet #701, captures de l'école de démonstration IKS |
+
 ## URLs pour les stores
 
 | Store | Champ | URL |
