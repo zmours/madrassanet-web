@@ -122,6 +122,17 @@ figcaption { font-size: .9rem; color: var(--doux); }
 .telephones figure button { border-radius: 26px; border: 6px solid var(--encre); }
 .telephones img { aspect-ratio: 9 / 19.5; }
 
+/* Feuille de route : l'ordre est celui de la livraison prévue */
+.feuille { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; counter-reset: etape; }
+.feuille li { counter-increment: etape; background: var(--surface); border: 1px solid var(--filet); border-radius: 14px;
+  padding: 1.1rem 1.25rem; display: grid; gap: .45rem; align-content: start; min-width: 0; }
+.feuille h3::before { content: counter(etape) ". "; color: var(--orange); }
+.etat { justify-self: start; font-family: var(--code); font-variation-settings: "MONO" 1, "wght" 600; font-size: .74rem;
+  letter-spacing: .05em; text-transform: uppercase; border-radius: 999px; padding: .15rem .6rem; }
+.etat.bientot { background: var(--orange-fond); color: var(--orange); }
+.etat.prevu { background: var(--fond); color: var(--doux); border: 1px solid var(--filet); }
+.code { font-family: var(--code); font-variation-settings: "MONO" 1; font-size: .95em; }
+
 /* Mise en place */
 .miseenplace { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2.5rem; }
 .miseenplace div { display: grid; gap: .3rem; padding-top: .9rem; border-top: 1px solid var(--filet); }
@@ -147,7 +158,7 @@ dialog button { position: absolute; top: 8px; right: 8px; background: rgb(10 13 
 }
 @media (max-width: 600px) {
   .page { gap: 3.25rem; padding-block: 1.25rem 3rem; }
-  .programme, .ecrans, .ecrans.deux, .miseenplace { grid-template-columns: minmax(0, 1fr); }
+  .programme, .ecrans, .ecrans.deux, .miseenplace, .feuille { grid-template-columns: minmax(0, 1fr); }
   .telephones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .suite { padding: 1.4rem; }
   .direct .pastille { font-size: .68rem; top: 8px; left: 8px; padding: .2rem .6rem; }
@@ -167,13 +178,14 @@ dialog button { position: absolute; top: 8px; right: 8px; background: rgb(10 13 
     <div class="texte">
       <span class="etiquette">École de code 100 % en ligne · 8 à 17 ans</span>
       <h1 id="titre">Vos cours de code, en direct et <span class="surligne">à distance</span>, de l'inscription au projet final.</h1>
-      <p class="chapo">Les parents inscrivent et paient en ligne. Les élèves suivent leurs séances en direct depuis chez eux, revoient les rediffusions et rendent leurs projets. Vos enseignants préparent, animent et corrigent au même endroit.</p>
+      <p class="chapo">Les parents découvrent vos cours et inscrivent leurs enfants. Les élèves suivent leurs séances en direct depuis chez eux, sans rien installer, revoient les rediffusions et rendent leurs projets. Vos enseignants préparent, animent et corrigent au même endroit, sur votre propre adresse.</p>
       <nav class="liens" aria-label="Aller à">
         <a href="#parents">Les parents</a>
         <a href="#eleves">Les élèves</a>
         <a href="#direct">Le cours en direct</a>
         <a href="#enseignants">Les enseignants</a>
         <a href="#telephone">Sur téléphone</a>
+        <a href="#feuille">Ce que nous construisons</a>
         <a href="#miseenplace">Mise en place</a>
       </nav>
     </div>
@@ -189,38 +201,38 @@ dialog button { position: absolute; top: 8px; right: 8px; background: rgb(10 13 
     <p>Chaque cours a son programme de 14 séances, sa fiche, son enseignant, ses supports et ses devoirs. Les dix premières séances ont eu lieu et la plupart sont enregistrées ; quatre cours démarrent dans dix jours et sont ouverts à l'inscription.</p>
     <div class="programme">
       <div class="parcours"><h3>Scratch <span>8–12 ans</span></h3>
-        <ol><li>Premiers pas</li><li>Créer ses jeux</li><li>Algorithmes</li></ol><span class="prix">149 € le cours</span></div>
+        <ol><li>Premiers pas</li><li>Créer ses jeux</li><li>Algorithmes</li></ol><span class="prix">1 200 DH le cours</span></div>
       <div class="parcours"><h3>Python <span>11–17 ans</span></h3>
-        <ol><li>Les bases</li><li>Jeux vidéo</li><li>Projets</li></ol><span class="prix">179 € le cours</span></div>
+        <ol><li>Les bases</li><li>Jeux vidéo</li><li>Projets</li></ol><span class="prix">1 500 DH le cours</span></div>
       <div class="parcours"><h3>Web et applis <span>12–16 ans</span></h3>
-        <ol><li>Mon premier site web</li><li>JavaScript interactif</li><li>Applis mobiles</li></ol><span class="prix">179 € le cours</span></div>
+        <ol><li>Mon premier site web</li><li>JavaScript interactif</li><li>Applis mobiles</li></ol><span class="prix">1 500 DH le cours</span></div>
       <div class="parcours"><h3>Numérique et IA <span>10–17 ans</span></h3>
-        <ol><li>Objets connectés micro:bit</li><li>Intelligence artificielle</li><li>Cybersécurité</li></ol><span class="prix">169 € le cours</span></div>
+        <ol><li>Objets connectés micro:bit</li><li>Intelligence artificielle</li><li>Cybersécurité</li></ol><span class="prix">1 350 DH le cours</span></div>
     </div>
     <div class="chiffres">
       <span><b>14</b> séances d'une heure par cours</span>
       <span><b>2</b> séances par semaine</span>
       <span><b>10</b> élèves par groupe</span>
-      <span>prix et horaires réglés par l'école</span>
+      <span>prix, horaires et effectifs réglés par l'école</span>
     </div>
   </section>
 
   <section class="seance" id="parents" aria-labelledby="t-parents">
-    <header><span class="num">1</span><h2 id="t-parents">Les parents choisissent un cours et paient en ligne</h2>
-      <p>Un catalogue à vos couleurs, une fiche complète par cours, le paiement par carte sur votre propre compte Stripe.</p></header>
+    <header><span class="num">1</span><h2 id="t-parents">Les parents choisissent un cours pour leur enfant</h2>
+      <p>Un catalogue à votre nom, une fiche complète par cours, un espace famille pour suivre chaque enfant.</p></header>
     <div class="duo">
       <div class="lecteur"><video src="media/1-parent-inscrit.mp4" poster="media/1-parent-inscrit-affiche.jpg" controls muted playsinline preload="metadata" aria-label="Vidéo : un parent parcourt le catalogue et inscrit son enfant"></video></div>
       <ul class="points">
         <li><b>Un espace famille</b><span>Le parent voit ses enfants, leurs cours, et entre dans l'espace de chacun.</span></li>
         <li><b>Des fiches qui vendent</b><span>Présentation, programme séance par séance, prérequis, profil de l'enseignant, questions fréquentes.</span></li>
-        <li><b>L'inscription au bon enfant</b><span>Le parent choisit l'enfant, paie, et l'inscription se crée à la confirmation du paiement.</span></li>
-        <li><b>L'argent va à l'école</b><span>Le paiement passe par votre compte Stripe : carte, Apple Pay, et les moyens que vous activez.</span></li>
+        <li><b>L'inscription au bon enfant</b><span>Sur la fiche, le parent choisit pour lequel de ses enfants il inscrit.</span></li>
+        <li><b>Le règlement par virement</b><span>Le parent réserve la place et reçoit votre RIB avec une référence ; votre équipe valide à réception, la plateforme relance les retards. <em>Prochaine étape, voir plus bas.</em></span></li>
       </ul>
     </div>
     <div class="ecrans">
       <figure><button type="button" data-zoom><img src="media/02-catalogue.jpg" alt="Catalogue des cours avec couvertures, catégories et âges" loading="lazy"></button><figcaption>Le catalogue, filtrable par parcours.</figcaption></figure>
       <figure><button type="button" data-zoom><img src="media/03-fiche-cours.jpg" alt="Fiche du cours Python : projets" loading="lazy"></button><figcaption>La fiche d'un cours qui démarre bientôt.</figcaption></figure>
-      <figure><button type="button" data-zoom><img src="media/03d-paiement-stripe.jpg" alt="Page de paiement Stripe en mode test, 179 euros" loading="lazy"></button><figcaption>Le paiement, ici en mode test.</figcaption></figure>
+      <figure><button type="button" data-zoom><img src="media/01-parent-accueil.jpg" alt="Espace famille avec deux enfants inscrits" loading="lazy"></button><figcaption>L'espace famille : un accès à l'espace de chaque enfant.</figcaption></figure>
     </div>
   </section>
 
@@ -244,16 +256,17 @@ dialog button { position: absolute; top: 8px; right: 8px; background: rgb(10 13 
   </section>
 
   <section class="seance" id="direct" aria-labelledby="t-direct">
-    <header><span class="num">3</span><h2 id="t-direct">Le cours en direct, dans la plateforme</h2>
-      <p>Pas de lien de visioconférence à envoyer : l'élève entre en salle depuis son espace, s'il est inscrit au cours.</p></header>
+    <header><span class="num">3</span><h2 id="t-direct">Le cours en direct, plus simple qu'une visioconférence</h2>
+      <p>Rien à installer sur ordinateur, aucun lien à envoyer ni mot de passe de réunion : l'élève entre en salle depuis son espace, seulement s'il est inscrit au cours.</p></header>
     <div class="ecrans deux">
       <figure><button type="button" data-zoom><img src="media/06-salle-eleve.jpg" alt="La salle vue par l'élève : le code de l'enseignant en grand" loading="lazy"></button><figcaption>Côté élève : l'écran de l'enseignant, la conversation, la main levée.</figcaption></figure>
       <figure><button type="button" data-zoom><img src="media/11-salle-prof.jpg" alt="La salle vue par l'enseignant avec la liste de la classe" loading="lazy"></button><figcaption>Côté enseignant : la classe, l'appel, les micros, le partage d'écran.</figcaption></figure>
     </div>
     <ul class="points">
+      <li><b>Prêt avant d'entrer</b><span>Un écran de vérification teste le micro, la caméra et le haut-parleur ; les élèves attendent en salle d'attente et entrent dès que l'enseignant ouvre.</span></li>
       <li><b>Pensé pour coder ensemble</b><span>Partage d'écran pour l'enseignant, et pour les élèves si l'enseignant l'autorise ; conversation, sondage, main levée, réactions.</span></li>
       <li><b>L'appel depuis la salle</b><span>L'enseignant voit qui est en ligne, fait l'appel sans quitter le cours, et retrouve ensuite les absents à relancer.</span></li>
-      <li><b>Enregistrée pour ceux qui ont manqué</b><span>La direction arme l'enregistrement par cours ; la rediffusion arrive dans l'espace des élèves.</span></li>
+      <li><b>Enregistrée pour ceux qui ont manqué</b><span>L'enregistrement capte l'écran partagé et la voix de l'enseignant, jamais les élèves. Il se lance aujourd'hui d'un clic ; il démarrera seul sur les cours que vous choisissez (voir plus bas). La rediffusion arrive dans l'espace des élèves.</span></li>
     </ul>
   </section>
 
@@ -277,7 +290,7 @@ dialog button { position: absolute; top: 8px; right: 8px; background: rgb(10 13 
 
   <section class="seance" id="telephone" aria-labelledby="t-telephone">
     <header><span class="num">5</span><h2 id="t-telephone">Sur téléphone et tablette</h2>
-      <p>Le même espace en version mobile, et l'application MadrassaNET pour iPhone et Android, où les familles retrouvent votre école. L'achat d'un cours se fait sur le web.</p></header>
+      <p>Le même espace en version mobile, et l'application MadrassaNET pour iPhone et Android, où les familles retrouvent votre école. L'inscription à un cours se fait sur le web.</p></header>
     <div class="telephones">
       <figure><button type="button" data-zoom><img src="media/15-mobile-eleve.jpg" alt="Accueil de l'élève sur téléphone" loading="lazy"></button><figcaption>L'accueil de l'élève.</figcaption></figure>
       <figure><button type="button" data-zoom><img src="media/16-mobile-cours.jpg" alt="Un cours sur téléphone" loading="lazy"></button><figcaption>Un cours.</figcaption></figure>
@@ -294,21 +307,38 @@ dialog button { position: absolute; top: 8px; right: 8px; background: rgb(10 13 
     </div>
   </section>
 
+  <section id="feuille" aria-labelledby="t-feuille" style="display:grid;gap:1.5rem">
+    <span class="etiquette">Ce que nous construisons pour vous</span>
+    <h2 id="t-feuille">Vos demandes, et où nous en sommes</h2>
+    <ol class="feuille">
+      <li><span class="etat bientot">Prochaine étape</span><h3>Le règlement par virement, et son suivi</h3>
+        <p>Le parent réserve la place et reçoit votre RIB avec une référence unique. Votre équipe voit les réservations en attente et valide chaque virement reçu : l'élève est alors inscrit. Les réservations non réglées sont relancées automatiquement, puis libérées.</p></li>
+      <li><span class="etat bientot">Prochaine étape</span><h3>L'enregistrement automatique des séances</h3>
+        <p>Sur les cours que vous choisissez, l'enregistrement démarre à l'ouverture de la salle et suit le partage d'écran de l'enseignant, sans qu'il ait à y penser. Écran et voix de l'enseignant ; jamais l'image ni la voix des élèves.</p></li>
+      <li><span class="etat prevu">Prévu</span><h3>Un partage d'écran net pour lire le code</h3>
+        <p>Des réglages de qualité adaptés au code : texte lisible en direct comme dans les rediffusions.</p></li>
+      <li><span class="etat prevu">Prévu</span><h3>Votre école sur Minassa</h3>
+        <p>Minassa rassemblera les cours des écoles en ligne pour leur donner plus de visibilité. Vos cours y seront présentés, et les familles arriveront sur votre fiche pour s'inscrire chez vous : vous restez l'école, vous encaissez.</p></li>
+    </ol>
+  </section>
+
   <section id="miseenplace" aria-labelledby="t-miseenplace" style="display:grid;gap:1.5rem">
     <span class="etiquette">Ce que nous mettons en place avec vous</span>
     <h2 id="t-miseenplace">Votre école, à votre nom</h2>
     <div class="miseenplace">
+      <div><h3>Votre adresse</h3><p>Toute la plateforme sur votre propre domaine, par exemple <span class="code">cours.iks.ma</span> : nous le branchons et le sécurisons (HTTPS) pour vous.</p></div>
       <div><h3>Votre identité</h3><p>Le nom et le logo d'Inventor Kid's Skills dans l'espace des familles, des élèves et des enseignants.</p></div>
       <div><h3>Vos cours</h3><p>Nous créons avec vous les premiers cours, leurs fiches et leurs créneaux, à partir de vos programmes actuels.</p></div>
-      <div><h3>Vos paiements</h3><p>Branchement de votre compte Stripe : les familles paient l'école directement, sans intermédiaire.</p></div>
+      <div><h3>Vos paiements</h3><p>Vos tarifs en dirhams et votre RIB : les familles règlent l'école directement, par virement, sans intermédiaire.</p></div>
       <div><h3>Vos équipes</h3><p>Comptes des enseignants, prise en main de la salle en direct et de la correction des projets.</p></div>
+      <div><h3>Vos élèves</h3><p>Import de vos familles et de vos élèves actuels, pour qu'ils retrouvent leurs cours dès le premier jour.</p></div>
     </div>
     <div class="encadre">
       <h3>À savoir avant de démarrer</h3>
       <ul>
         <li>Les fichiers de code (.py, .sb3, .html) se déposent aujourd'hui en archive zip. Le dépôt direct est à l'étude.</li>
         <li>Les examens en ligne sous forme de quiz sont en préparation ; les devoirs notés existent déjà.</li>
-        <li>L'application mobile ne vend pas de cours : les familles s'inscrivent et paient sur le web.</li>
+        <li>L'application mobile sert à suivre les cours : l'inscription se fait sur le web.</li>
       </ul>
     </div>
   </section>
