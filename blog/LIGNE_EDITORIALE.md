@@ -36,7 +36,11 @@ le §8 (SEO) et reprend les personas du §2.1.
 
 ---
 
-## 2. Les quatre rubriques
+## 2. Les cinq rubriques
+
+> **30/10/2026 — rubrique « École en ligne » ajoutée** (issue #918), avec le repositionnement de
+> la vitrine : 60 % école en ligne, 40 % gestion de l'école. Elle n'apparaît dans les menus qu'à
+> son premier article publié ; ses sujets sont en tête du backlog (§6, n° 13 à 18).
 
 Les rubriques sont les `blog-tag` affichés sur les cartes, et chacune a sa page
 (`/blog/rubrique/<slug>/`). Le re-étiquetage des huit anciens articles a été fait le 10/09/2026 :
@@ -47,6 +51,7 @@ réécrire les textes. Une rubrique sans aucun article n'apparaît dans aucun me
 
 | Rubrique | Ce qu'elle couvre | Persona visé |
 |---|---|---|
+| **École en ligne** | Lancer des cours à distance, outils du direct, inscriptions et paiement en ligne, enregistrement des séances, suivi des élèves à distance | Porteur de projet, directeur |
 | **Conformité** | Statut juridique de l'activité, déclarations, contrôles, RGPD, assurances, subventions | Président / directeur |
 | **Sécurité** | Locaux (ERP), évacuation, encadrement, protection des mineurs, urgences | Président / directeur |
 | **Gestion** | Inscriptions, présences, paiements, bulletins, réinscriptions, trésorerie | Trésorier / secrétaire |
@@ -158,6 +163,12 @@ qu'on cherche à occuper ; elle doit apparaître dans le `title`, le `h1` et le 
 | 10 | Contrat d'engagement républicain : ce que ça change pour une subvention | Conformité | `contrat engagement républicain association subvention` | à écrire |
 | 11 | Alternative à Excel pour gérer ses élèves | Outils | `alternative Excel gestion élèves` | prévu au plan §8.1 |
 | 12 | Gérer les adhérents d'une association loi 1901 | Gestion | `logiciel gestion association loi 1901 adhérents` | prévu au plan §8.1 |
+| 13 | Créer son école en ligne : les sept briques à prévoir avant le premier cours | École en ligne | `créer une école en ligne` | à écrire — **prioritaire** |
+| 14 | Visioconférence ou classe virtuelle intégrée : que choisir pour ses cours en ligne ? | École en ligne | `classe virtuelle pour cours en ligne` | à écrire |
+| 15 | Encaisser les inscriptions d'une association en ligne : carte, virement, relances | École en ligne | `paiement en ligne inscription association` | à écrire |
+| 16 | Organiser du soutien scolaire en ligne : groupes, horaires et suivi des parents | École en ligne | `organiser soutien scolaire en ligne` | à écrire |
+| 17 | Enregistrer ses cours en ligne quand les élèves sont mineurs : ce que dit le RGPD | École en ligne | `enregistrer cours en ligne mineurs RGPD` | à écrire (sources à citer, §4.2) |
+| 18 | Cours d'arabe ou de Coran en ligne : réussir le passage à distance | École en ligne | `cours arabe en ligne association` | à écrire |
 
 Les huit articles existants restent en ligne et alimentent les rubriques **Gestion** et **Outils**.
 Deux méritent une mise à jour une fois la rubrique Conformité installée : `rgpd-donnees-eleves-madrasa`

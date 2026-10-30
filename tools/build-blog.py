@@ -48,9 +48,34 @@ OUT_BLOG = os.path.join(ROOT, "blog")
 
 SITE = "https://www.madrassanet.com"
 MARQUE = "MadrassaNET"
-PITCH = ("La solution complète de gestion scolaire pour écoles coraniques, "
-         "madrasas et associations.")
+PITCH = ("La plateforme des écoles en ligne, des associations et des centres de "
+         "soutien scolaire, avec toute la gestion de l'école intégrée.")
 PAR_PAGE = 9
+
+# Version des images de partage : WhatsApp et Facebook gardent l'ancienne image
+# en cache tant que son adresse ne change pas. À changer à chaque nouvelle
+# génération par tools/generate-og-images.py.
+OG_VERSION = "20261030"
+
+# Les pages écrites à la main dont le script pose le menu et le pied de page
+# (voir harmoniser_pages), avec l'entrée du menu à marquer comme active.
+PAGES_A_LA_MAIN = [
+    ("ecole-en-ligne/index.html", "/ecole-en-ligne/"),
+    ("soutien-scolaire/index.html", None),
+    ("association-scolaire/index.html", None),
+    ("madrasa/index.html", None),
+    ("ecole-arabe/index.html", None),
+    ("tarifs/index.html", "/tarifs/"),
+    ("fonctionnalites/bulletins/index.html", None),
+    ("fonctionnalites/presences/index.html", None),
+    ("fonctionnalites/finances/index.html", None),
+    ("support/index.html", "/support/"),
+    ("legal/index.html", None),
+    ("privacy/index.html", None),
+    ("terms/index.html", None),
+    ("delete-account/index.html", None),
+    ("templates/index.html", None),
+]
 MOTS_PAR_MINUTE = 200
 
 # Le positionnement du blog, arrêté dans LIGNE_EDITORIALE.md §1. Une seule
@@ -60,9 +85,25 @@ POSITIONNEMENT = ("Un média pratique pour les écoles associatives et les struc
                   "quotidienne et outils numériques.")
 
 # Les quatre rubriques de LIGNE_EDITORIALE.md §2. L'ordre est celui d'affichage.
-# « degrade » sert aux bannières et aux vignettes : une identité visuelle par
-# rubrique, plutôt qu'un dégradé au hasard par article.
+# « accent » colore les vignettes, les bannières et l'étiquette de la rubrique
+# sur fond nuit (refonte du 30/10/2026) : une identité par rubrique, plutôt
+# qu'une couleur au hasard par article. « degrade » ne sert plus qu'à l'ancien
+# rendu et peut disparaître.
 RUBRIQUES = {
+    # Ajoutée le 30/10/2026 avec le repositionnement de la vitrine (#918). Elle
+    # n'a ni page ni lien de menu tant qu'aucun article ne lui est rattaché.
+    "ecole-en-ligne": {
+        "nom": "École en ligne",
+        "titre": "Créer et faire vivre une école en ligne : cours en direct, inscriptions, suivi",
+        "description": ("Lancer des cours à distance, choisir ses outils, encaisser les "
+                        "inscriptions, enregistrer les séances et suivre les élèves : les "
+                        "guides pour les écoles et associations qui enseignent en ligne."),
+        "chapeau": ("Enseigner à distance sans empiler les outils : ce qu'il faut prévoir, "
+                    "ce que dit la règle, et comment s'organiser semaine après semaine."),
+        "emoji": "🎥",
+        "degrade": ("#0A1030", "#2F3BB0", "#0A7C70"),
+        "accent": "#F6B93B",
+    },
     "conformite": {
         "nom": "Conformité",
         "titre": "Conformité des écoles associatives : statut, déclarations, contrôles",
@@ -73,6 +114,7 @@ RUBRIQUES = {
                     "à qui, et quels documents produire le jour où on vous les demande."),
         "emoji": "📑",
         "degrade": ("#1A237E", "#303F9F", "#00796B"),
+        "accent": "#8F9BFF",
     },
     "securite": {
         "nom": "Sécurité",
@@ -84,6 +126,7 @@ RUBRIQUES = {
                     "Voici ce que la sécurité demande, dans l'ordre où l'on peut s'en occuper."),
         "emoji": "🛡️",
         "degrade": ("#00695C", "#00897B", "#3949AB"),
+        "accent": "#FF8A65",
     },
     "gestion": {
         "nom": "Gestion",
@@ -94,6 +137,7 @@ RUBRIQUES = {
                     "quand l'équipe est bénévole et que la rentrée arrive."),
         "emoji": "🗂️",
         "degrade": ("#283593", "#3949AB", "#009688"),
+        "accent": "#3DD6C3",
     },
     "outils": {
         "nom": "Outils",
@@ -104,6 +148,7 @@ RUBRIQUES = {
                     "y compris quand la réponse est « votre tableur suffit »."),
         "emoji": "🧰",
         "degrade": ("#303F9F", "#3F51B5", "#26A69A"),
+        "accent": "#C59BFF",
     },
 }
 
@@ -576,6 +621,8 @@ def entete(titre, description, canonical, og_image, og_type="website",
         ld = ('  <script type="application/ld+json">\n%s\n  </script>\n'
               % json.dumps(jsonld, ensure_ascii=False, indent=2))
     image = og_image if og_image.startswith("http") else SITE + og_image
+    if "?" not in image:
+        image += "?v=" + OG_VERSION
     alt = alt_image or og_titre or titre
     return """<!DOCTYPE html>
 <html lang="fr">
@@ -613,8 +660,12 @@ def entete(titre, description, canonical, og_image, og_type="website",
        "scripts": "".join('  <script src="%s" defer></script>\n' % src for src in scripts)}
 
 
-def nav():
+def nav(courant="/blog/"):
     """La barre de navigation, avec son menu mobile.
+
+    Elle sert à tout le site, pas seulement au blog : harmoniser_pages() la
+    pose aussi dans les pages écrites à la main. « courant » est l'adresse de
+    l'entrée à marquer comme page active.
 
     Sous 768 px, la règle « .nav-links { display: none } » du site laissait les
     pages de sous-niveau sans aucune navigation : le logo, et rien d'autre.
@@ -625,11 +676,14 @@ def nav():
     hors de l'écran, jamais display:none), donc le menu s'ouvre à la barre
     d'espace comme un bouton.
     """
-    liens = [("/", "Accueil"), ("/#fonctionnalites", "Fonctionnalités"),
-             ("/tarifs/", "Tarifs"), ("/blog/", "Blog")]
+    # Les mêmes entrées que le menu de l'accueil (index.html), pour qu'on ne
+    # change pas de site en passant de l'un à l'autre.
+    liens = [("/ecole-en-ligne/", "École en ligne"), ("/#fonctionnalites", "Fonctionnalités"),
+             ("/#usages", "Pour qui"), ("/tarifs/", "Tarifs"), ("/blog/", "Blog"),
+             ("/support/", "Support")]
 
     def rendu(url, libelle):
-        return '<a href="%s"%s>%s</a>' % (url, ' aria-current="page"' if url == "/blog/" else '', libelle)
+        return '<a href="%s"%s>%s</a>' % (url, ' aria-current="page"' if url == courant else '', libelle)
 
     return """<nav class="nav">
   <a href="/" class="nav-brand">
@@ -638,7 +692,7 @@ def nav():
   </a>
   <div class="nav-links">
     %(bureau)s
-    <a href="/#contact" class="nav-cta">Demander une démo →</a>
+    <a href="/?objet=demo#contact" class="nav-cta">Demander une démo →</a>
   </div>
   <div class="nav-menu">
     <input type="checkbox" id="nav-bascule" class="nav-menu-bascule">
@@ -648,8 +702,7 @@ def nav():
     </label>
     <div class="nav-menu-panneau">
       %(mobile)s
-      <a href="/support/">Support</a>
-      <a href="/#contact" class="nav-cta">Demander une démo →</a>
+      <a href="/?objet=demo#contact" class="nav-cta">Demander une démo →</a>
     </div>
   </div>
 </nav>
@@ -670,6 +723,11 @@ def fil_ariane(niveaux):
 
 
 def pied():
+    return pied_html() + "\n</body>\n</html>\n"
+
+
+def pied_html():
+    """Le pied de page seul, commun à tout le site (voir harmoniser_pages)."""
     return """<footer class="footer">
   <div class="footer-inner">
     <div class="footer-grid">
@@ -678,10 +736,12 @@ def pied():
         <p>%(pitch)s</p>
       </div>
       <div class="footer-col">
-        <h4>Solutions</h4>
+        <h4>Pour qui</h4>
         <ul>
-          <li><a href="/madrasa/">Gestion de madrasa</a></li>
+          <li><a href="/ecole-en-ligne/">École en ligne</a></li>
+          <li><a href="/soutien-scolaire/">Soutien scolaire</a></li>
           <li><a href="/association-scolaire/">Association scolaire</a></li>
+          <li><a href="/madrasa/">Gestion de madrasa</a></li>
           <li><a href="/ecole-arabe/">École de langue arabe</a></li>
         </ul>
       </div>
@@ -695,39 +755,69 @@ def pied():
         <h4>Ressources</h4>
         <ul>
           <li><a href="/tarifs/">Tarifs</a></li>
-          <li><a href="/templates/">Modèles à télécharger</a></li>
-          <li><a href="/support/">Support</a></li>
-          <li><a href="/blog/feed.xml">Flux RSS</a></li>
+          <li><a href="/support/">Centre d'aide</a></li>
+          <li><a href="/blog/redaction/">La rédaction et nos sources</a></li>
+          <li><a href="/?objet=demo#contact">Demander une démo</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 MadrassaNET. Tous droits réservés.</span>
-      <a href="/blog/redaction/" style="color:rgba(255,255,255,.8)">La rédaction et nos sources</a>
+      <span>© 2026 MadrassaNET. Tous droits réservés.</span>
+      <span class="footer-legal"><a href="/privacy/">Confidentialité</a> · <a href="/terms/">Conditions d'utilisation</a> · <a href="/legal/">Mentions légales</a></span>
     </div>
   </div>
 </footer>
-
-</body>
-</html>
 """ % {"pitch": PITCH,
        "rubriques": "\n".join(
            '          <li><a href="/blog/rubrique/%s/">%s</a></li>' % (slug, r["nom"])
            for slug, r in RUBRIQUES.items() if slug in RUBRIQUES_ACTIVES)}
 
 
-def appel_bas_de_page():
-    return """<section class="lp-section alt subpage-cta">
+# L'appel en bas de page dépend de ce que le lecteur vient de lire. Le bouton
+# mène au formulaire de l'accueil avec l'objet déjà choisi : « ?objet= » est lu
+# par le script de index.html (clés : demo, tarifs, renseignements).
+APPELS = {
+    "ecole-en-ligne": ("Envie d'ouvrir votre école en ligne ?",
+                       "Cours en direct, rediffusions, inscriptions et paiement en ligne : "
+                       "voyez la plateforme sur une école de démonstration.",
+                       "demo", "Demander une démo"),
+    "gestion": ("Et si la gestion de l'école tenait dans un seul outil ?",
+                "Inscriptions, appel, bulletins et paiements des familles : voyez "
+                "MadrassaNET sur une école comme la vôtre.",
+                "demo", "Demander une démo"),
+    "outils": ("Comparez sur pièces",
+               "Une démonstration de trente minutes sur une école fictive, avec vos "
+               "questions : vous jugez sur ce que vous voyez.",
+               "demo", "Demander une démo"),
+    "conformite": ("Une question sur votre école ?",
+                   "Écrivez-nous : nous répondons sous 24 h ouvrées, et nous vous "
+                   "montrons comment MadrassaNET vous aide à vous mettre en règle.",
+                   "renseignements", "Poser votre question"),
+    "securite": ("Une question sur votre école ?",
+                 "Écrivez-nous : nous répondons sous 24 h ouvrées.",
+                 "renseignements", "Poser votre question"),
+}
+APPEL_DEFAUT = ("Envie de voir MadrassaNET en action ?",
+                "Une démonstration gratuite, adaptée à votre école : en ligne, sur place, "
+                "ou les deux.", "demo", "Demander une démo")
+
+
+def appel_bas_de_page(rubrique=None):
+    titre, texte, objet, bouton = APPELS.get(rubrique, APPEL_DEFAUT)
+    # Pas de classe « alt » ici : son fond clair l'emportait sur le fond nuit de
+    # .subpage-cta (deux classes contre une) et rendait le texte blanc illisible.
+    return """<section class="lp-section subpage-cta">
   <div class="section-inner">
-    <h2>Envie de voir MadrassaNET en action ?</h2>
-    <p>Demandez une démonstration gratuite, adaptée à votre école coranique, madrasa ou association.</p>
+    <h2>%(titre)s</h2>
+    <p>%(texte)s</p>
     <div class="lp-actions" style="justify-content:center;">
-      <a href="/#contact" class="btn-lp primary">📩 Nous contacter</a>
+      <a href="/?objet=%(objet)s#contact" class="btn-lp primary" data-track="Blog - Appel bas de page" data-track-rubrique="%(rubrique)s">%(bouton)s</a>
       <a href="/tarifs/" class="btn-lp ghost">Voir les tarifs</a>
     </div>
   </div>
 </section>
-"""
+""" % {"titre": e(titre), "texte": e(texte), "objet": objet, "bouton": e(bouton),
+       "rubrique": e(rubrique or "tout")}
 
 
 def teinte_decalee(couleur, degres):
@@ -803,17 +893,17 @@ def mot_vignette(a):
 
 
 def composition_svg(a, ident, l, h):
-    """Le dessin commun aux vignettes et aux bannières.
+    """Le dessin commun aux vignettes de carte et au visuel d'article.
 
-    Le mot-clé porte l'identité de l'article, l'icône donne le sujet d'un coup
-    d'œil, la teinte tourne avec le slug. Trois articles d'une même rubrique se
-    distinguent donc par le mot, par l'icône et par la couleur — là où la
-    version précédente ne les distinguait que par un émoji.
+    Refonte du 30/10/2026 : fond nuit, halo et icône dans la couleur d'accent
+    de la rubrique, mot-clé en blanc. Le mot porte l'identité de l'article,
+    l'icône le sujet, et la teinte de l'accent tourne légèrement avec le slug :
+    deux articles d'une même rubrique restent de la même famille sans avoir
+    exactement la même image.
     """
     r = RUBRIQUES[a["rubrique"]]
     g = graine(a["slug"])
-    decalage = (g % 31) - 15
-    c1, c2, c3 = (teinte_decalee(c, decalage) for c in r["degrade"])
+    accent = teinte_decalee(r["accent"], (g % 25) - 12)
 
     marge = int(l * 0.07)
     mot = mot_vignette(a)
@@ -821,64 +911,52 @@ def composition_svg(a, ident, l, h):
     icone = ICONES.get(a.get("vignette_icone") or "",
                        ICONES[ICONES_RUBRIQUE[a["rubrique"]]])
 
-    # Le mot laisse la place à l'icône, posée en haut à droite.
-    taille_icone = h * 0.0072
-    largeur_mot = l - 2 * marge - (h * 0.30)
-    fs_mot = taille_mot(mot, largeur_mot, int(h * 0.30))
-    fs_rub = max(10, int(h * 0.062))
-    fs_sous = max(10, int(h * 0.072))
+    # L'icône vit dans un disque en haut à droite, entouré de deux orbites.
+    rayon = h * 0.16
+    cx, cy = l - marge - rayon, h * 0.30
+    echelle = rayon / 40.0
+    largeur_mot = l - 2 * marge
+    fs_mot = taille_mot(mot, largeur_mot, int(h * 0.27))
+    fs_rub = max(10, int(h * 0.055))
+    fs_sous = max(10, int(h * 0.068))
 
     out = [
-        '<defs><linearGradient id="fd-%s" x1="0" y1="0" x2="1" y2="1">'
-        '<stop offset="0" stop-color="%s"/><stop offset="0.5" stop-color="%s"/>'
-        '<stop offset="1" stop-color="%s"/></linearGradient></defs>' % (ident, c1, c2, c3),
+        '<defs>'
+        '<linearGradient id="fd-%(i)s" x1="0" y1="0" x2="1" y2="1">'
+        '<stop offset="0" stop-color="#0A1030"/><stop offset="1" stop-color="#18215A"/>'
+        '</linearGradient>'
+        '<radialGradient id="ha-%(i)s" cx="0.5" cy="0.5" r="0.5">'
+        '<stop offset="0" stop-color="%(c)s" stop-opacity="0.38"/>'
+        '<stop offset="1" stop-color="%(c)s" stop-opacity="0"/>'
+        '</radialGradient></defs>' % {"i": ident, "c": accent},
         '<rect width="%d" height="%d" fill="url(#fd-%s)"/>' % (l, h, ident),
-        # Deux cercles très discrets : de la profondeur, pas un motif.
-        '<circle cx="%d" cy="%d" r="%d" fill="#fff" opacity="0.06"/>'
-        % (int(l * 0.92), int(h * 1.02), int(h * 0.62)),
-        '<circle cx="%d" cy="%d" r="%d" fill="#fff" opacity="0.05"/>'
-        % (int(l * 0.14), int(h * -0.10), int(h * 0.34)),
-        # Filet + rubrique
-        '<rect x="%d" y="%d" width="%d" height="%d" rx="2" fill="#fff" fill-opacity="0.55"/>'
-        % (marge, int(h * 0.15), int(l * 0.11), max(2, int(h * 0.02))),
-        '<text x="%d" y="%d" font-family="Inter, sans-serif" font-size="%d" font-weight="700" '
-        'letter-spacing="%.1f" fill="#fff" fill-opacity="0.72">%s</text>'
-        % (marge, int(h * 0.29), fs_rub, h * 0.011, e(r["nom"].upper())),
+        '<circle cx="%d" cy="%d" r="%d" fill="url(#ha-%s)"/>' % (cx, cy, int(h * 0.95), ident),
+        # Les orbites : de la profondeur, pas un motif.
+        '<circle cx="%d" cy="%d" r="%d" fill="none" stroke="%s" stroke-opacity="0.22" stroke-width="1.2"/>'
+        % (cx, cy, int(rayon * 1.75), accent),
+        '<circle cx="%d" cy="%d" r="%d" fill="none" stroke="%s" stroke-opacity="0.12" stroke-width="1.2"/>'
+        % (cx, cy, int(rayon * 2.6), accent),
+        '<circle cx="%d" cy="%d" r="%d" fill="%s" fill-opacity="0.14" stroke="%s" stroke-opacity="0.5"/>'
+        % (cx, cy, int(rayon), accent, accent),
+        '<g transform="translate(%d,%d) scale(%.3f)" fill="none" stroke="%s" '
+        'stroke-width="%.1f" stroke-linecap="round" stroke-linejoin="round">%s</g>'
+        % (cx, cy, echelle, accent, 2.6 / echelle, icone),
+        # La rubrique, précédée d'une pastille
+        '<circle cx="%d" cy="%d" r="%d" fill="%s"/>'
+        % (marge + int(fs_rub * 0.35), int(h * 0.20) - int(fs_rub * 0.33), max(3, int(fs_rub * 0.32)), accent),
+        '<text x="%d" y="%d" font-family="Instrument Sans, Helvetica, sans-serif" font-size="%d" '
+        'font-weight="700" letter-spacing="%.1f" fill="%s">%s</text>'
+        % (marge + int(fs_rub * 1.1), int(h * 0.20), fs_rub, fs_rub * 0.14, accent, e(r["nom"].upper())),
         # Le mot-clé
-        '<text x="%d" y="%d" font-family="Inter, sans-serif" font-size="%d" font-weight="800" '
-        'letter-spacing="-1" fill="#fff">%s</text>'
-        % (marge, int(h * 0.68), fs_mot, e(mot)),
-        # L'icône
-        '<g transform="translate(%d,%d) scale(%.3f)" fill="none" stroke="#fff" '
-        'stroke-opacity="0.82" stroke-width="%.1f" stroke-linecap="round" '
-        'stroke-linejoin="round">%s</g>'
-        % (l - marge - int(h * 0.15), int(h * 0.27), taille_icone, 3.0 / taille_icone, icone),
+        '<text x="%d" y="%d" font-family="Bricolage Grotesque, Avenir Next, sans-serif" '
+        'font-size="%d" font-weight="800" letter-spacing="-1" fill="#EEF0FB">%s</text>'
+        % (marge, int(h * 0.74), fs_mot, e(mot)),
     ]
     if sous:
-        out.append('<text x="%d" y="%d" font-family="Inter, sans-serif" font-size="%d" '
-                   'font-weight="500" fill="#fff" fill-opacity="0.66">%s</text>'
-                   % (marge, int(h * 0.86), fs_sous, e(sous)))
+        out.append('<text x="%d" y="%d" font-family="Instrument Sans, Helvetica, sans-serif" '
+                   'font-size="%d" font-weight="500" fill="#A7AED3">%s</text>'
+                   % (marge, int(h * 0.88), fs_sous, e(sous)))
     return "".join(out)
-
-
-def banniere_svg(a, ident):
-    """Bannière d'article : la composition de la vignette, en large."""
-    if a.get("vignette_image"):
-        return ('<div class="article-banner article-banner--image">\n'
-                '  <img src="%s" alt="%s" loading="eager" decoding="async">\n</div>\n'
-                % (e(a["vignette_image"]), e(a.get("vignette_image_alt") or "")))
-
-    r = RUBRIQUES[a["rubrique"]]
-    l, h = 1100, 300
-    return """<div class="article-banner" style="background:linear-gradient(135deg,%(g1)s,%(g2)s 50%%,%(g3)s)">
-  <svg viewBox="0 0 %(l)d %(h)d" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="%(alt)s" preserveAspectRatio="xMinYMid slice">%(svg)s</svg>
-</div>
-""" % {"l": l, "h": h,
-       "alt": e("%s — %s" % (mot_vignette(a), r["nom"])),
-       "g1": teinte_decalee(r["degrade"][0], (graine(a["slug"]) % 31) - 15),
-       "g2": teinte_decalee(r["degrade"][1], (graine(a["slug"]) % 31) - 15),
-       "g3": teinte_decalee(r["degrade"][2], (graine(a["slug"]) % 31) - 15),
-       "svg": composition_svg(a, "bn-" + ident, l, h)}
 
 
 def vignette_svg(a, ident, grande=False):
@@ -916,7 +994,7 @@ def carte(a, une=False, prefixe_id=""):
 
     # Des <div>, pas des <span> : la carte contient un titre, et un span ne
     # peut pas contenir de titre. Un <a>, lui, peut contenir des <div>.
-    return """      <a class="blog-card%(mod)s" href="%(url)s">
+    return """      <a class="blog-card%(mod)s" href="%(url)s" style="--accent:%(accent)s">
         <div class="blog-card-media">%(svg)s</div>
         <div class="blog-card-body">
           <div class="blog-card-badges">%(badges)s</div>
@@ -931,6 +1009,7 @@ def carte(a, une=False, prefixe_id=""):
         </div>
       </a>
 """ % {"mod": " blog-card--une" if une else "", "url": a["url"],
+       "accent": RUBRIQUES[a["rubrique"]]["accent"],
        "svg": vignette_svg(a, prefixe_id + ("une-" if une else "") + a["slug"], une),
        "badges": "".join(badges), "t": titre,
        "titre": rendre_inline(a["titre"]), "texte": rendre_inline(texte),
@@ -1050,6 +1129,9 @@ def jsonld_article(a, auteur):
 
 
 def page_article(a, tous, auteurs):
+    """Refonte du 30/10/2026 : un en-tête nuit qui porte le titre et le visuel
+    de l'article, puis une colonne de lecture, le sommaire collant à côté sur
+    grand écran (au-dessus du texte sur téléphone)."""
     auteur = auteurs[a["auteur"]]
     rubrique = RUBRIQUES[a["rubrique"]]
     url = SITE + a["url"]
@@ -1066,14 +1148,16 @@ def page_article(a, tous, auteurs):
 
     sommaire = ""
     if a["sommaire"] and len(a["titres"]) >= 5:
-        liens = "\n".join('    <li><a href="#%s">%s</a></li>' % (i, rendre_inline(t))
+        liens = "\n".join('      <li><a href="#%s">%s</a></li>' % (i, rendre_inline(t))
                           for i, t in a["titres"])
-        sommaire = ('<nav class="article-sommaire" aria-label="Sommaire">\n'
-                    '  <h2>Dans cet article</h2>\n  <ol>\n%s\n  </ol>\n</nav>\n' % liens)
+        sommaire = ('  <aside class="article-aside">\n'
+                    '    <nav class="article-sommaire" aria-label="Sommaire">\n'
+                    '      <h2>Dans cet article</h2>\n      <ol>\n%s\n      </ol>\n'
+                    '    </nav>\n  </aside>\n' % liens)
 
     lies = "\n".join(
-        '      <a class="related-card" href="%s"><span>%s</span><h3>%s</h3></a>'
-        % (x["url"], e(RUBRIQUES[x["rubrique"]]["nom"]),
+        '      <a class="related-card" href="%s" style="--accent:%s"><span>%s</span><h3>%s</h3></a>'
+        % (x["url"], RUBRIQUES[x["rubrique"]]["accent"], e(RUBRIQUES[x["rubrique"]]["nom"]),
            rendre_inline(x.get("titre_court") or x["titre"]))
         for x in choisir_lies(a, tous))
 
@@ -1083,25 +1167,30 @@ def page_article(a, tous, auteurs):
                a.get("og_description") or a["description"], a.get("og_image_alt"),
                scripts=("/assets/blog.js",)),
         nav(),
-        banniere_svg(a, a["slug"]),
+        '<header class="article-hero" style="--accent:%s">\n' % rubrique["accent"],
+        '  <div class="article-hero-inner">\n',
+        '    <div class="article-hero-texte">\n',
         fil_ariane([("Accueil", "/"), ("Blog", "/blog/"),
                     (rubrique["nom"], "/blog/rubrique/%s/" % a["rubrique"]),
                     (a.get("titre_court") or a["titre"], None)]),
-        '\n<article>\n',
-        '  <div class="article-head">\n',
-        '    <a class="blog-tag" href="/blog/rubrique/%s/">%s</a>\n' % (a["rubrique"], e(rubrique["nom"])),
-        "    <h1>%s</h1>\n" % rendre_inline(a["titre"]),
-        '    <div class="article-meta">\n      %s\n    </div>\n'
+        '      <a class="blog-tag" href="/blog/rubrique/%s/">%s</a>\n' % (a["rubrique"], e(rubrique["nom"])),
+        "      <h1>%s</h1>\n" % rendre_inline(a["titre"]),
+        '      <div class="article-meta">\n        %s\n      </div>\n'
         % '<span class="dot"></span>'.join(meta),
-        '    <p class="article-lead">%s</p>\n' % rendre_inline(a["chapeau"]),
-        "  </div>\n\n",
-        '  <div class="prose">\n',
+        "    </div>\n",
+        '    <div class="article-hero-visuel">%s</div>\n' % vignette_svg(a, "hero-" + a["slug"], True),
+        "  </div>\n</header>\n\n",
+        '<div class="article-corps%s">\n' % ("" if sommaire else " sans-sommaire"),
         sommaire,
+        '  <article>\n',
+        '    <p class="article-lead">%s</p>\n' % rendre_inline(a["chapeau"]),
+        '    <div class="prose">\n',
         a["html"],
-        "\n  </div>\n\n",
-        '  <div class="article-related">\n    <h2>À lire aussi</h2>\n'
-        '    <div class="related-grid">\n%s\n    </div>\n  </div>\n' % lies,
-        "</article>\n\n",
+        "\n    </div>\n",
+        '    <div class="article-related">\n      <h2>À lire aussi</h2>\n'
+        '      <div class="related-grid">\n%s\n      </div>\n    </div>\n' % lies,
+        "  </article>\n</div>\n\n",
+        appel_bas_de_page(a["rubrique"]),
         pied(),
     ])
 
@@ -1127,10 +1216,11 @@ def barre_rubriques(active):
         if slug not in RUBRIQUES_ACTIVES:
             continue
         liens.append(lien("/blog/rubrique/%s/" % slug,
-                          '<span class="rubrique-emoji">%s</span>%s' % (r["emoji"], e(r["nom"])),
+                          '<span class="rubrique-point" style="background:%s"></span>%s'
+                          % (r["accent"], e(r["nom"])),
                           slug, COMPTEURS.get(slug)))
     if AVEC_VIDEOS:
-        liens.append(lien("/blog/videos/", '<span class="rubrique-emoji">▶</span>Vidéos',
+        liens.append(lien("/blog/videos/", 'Vidéos',
                           "videos", COMPTEURS.get("_videos")))
     return ('<nav class="rubriques" aria-label="Rubriques du blog">\n'
             '  <div class="rubriques-inner">\n    %s\n  </div>\n</nav>\n'
@@ -1236,25 +1326,6 @@ def index_recherche(articles):
     }, ensure_ascii=False, separators=(",", ":"))
 
 
-def bloc_suivre():
-    """Un blog qui publie régulièrement doit donner le moyen de le suivre.
-    Le flux RSS est le seul canal qui ne dépende de personne — ni d'un réseau
-    social, ni d'une liste d'adresses à constituer."""
-    return """<section class="blog-suivre">
-  <div class="section-inner">
-    <div class="blog-suivre-inner">
-      <div>
-        <h2>Deux nouveaux articles par mois</h2>
-        <p>Réglementation, sécurité, gestion et outils. Suivez le blog par flux RSS : rien à
-        donner, rien à désinscrire.</p>
-      </div>
-      <a href="/blog/feed.xml" class="btn-lp outline">S’abonner au flux RSS</a>
-    </div>
-  </div>
-</section>
-"""
-
-
 def page_liste(titre_seo, description, canonical, etiquette, h1, chapeau, articles,
                og_image, active, fil, base=None, page=1, total=1, jsonld=None,
                og_titre=None, og_description=None):
@@ -1280,20 +1351,22 @@ def page_liste(titre_seo, description, canonical, etiquette, h1, chapeau, articl
         entete(titre_seo, description, canonical, og_image, "website", jsonld,
                og_titre, og_description, scripts=("/assets/blog-liste.js",)),
         nav(),
-        '<header class="page-hero">\n  <div class="page-hero-inner">\n'
-        '    <span class="lp-hero-tag">%s</span>\n    <h1>%s</h1>\n    <p>%s</p>\n'
-        "  </div>\n</header>\n\n" % (e(etiquette), rendre_inline(h1), rendre_inline(chapeau)),
+        # L'en-tête porte la recherche : c'est le premier geste de qui revient
+        # chercher un article, il n'a pas à descendre pour la trouver.
+        '<header class="blog-hero">\n  <div class="blog-hero-inner">\n',
         fil_ariane(fil),
+        '    <span class="blog-hero-etiquette">%s</span>\n    <h1>%s</h1>\n    <p>%s</p>\n'
+        % (e(etiquette), rendre_inline(h1), rendre_inline(chapeau)),
+        bloc_recherche(),
+        "  </div>\n</header>\n\n",
         barre_rubriques(active),
         '\n<section class="lp-section blog-liste">\n  <div class="section-inner">\n',
-        bloc_recherche(),
         '    <div class="blog-resultats" hidden></div>\n',
         '    <div class="blog-contenu">\n',
         "".join(corps),
         barre_pagination(base or "/blog/", page, total) if base else "",
         "    </div>\n  </div>\n</section>\n\n",
-        bloc_suivre(),
-        appel_bas_de_page(),
+        appel_bas_de_page(active),
         pied(),
     ])
 
@@ -1309,12 +1382,13 @@ def page_generique(p, corps_html):
                 "isPartOf": {"@type": "Blog", "name": "Blog MadrassaNET",
                              "url": SITE + "/blog/"}}),
         nav(),
-        '<header class="page-hero">\n  <div class="page-hero-inner">\n'
-        '    <span class="lp-hero-tag">%s</span>\n    <h1>%s</h1>\n    <p>%s</p>\n'
-        "  </div>\n</header>\n\n" % (e(p.get("etiquette", "📌 Le blog")),
-                                     rendre_inline(p["titre"]), rendre_inline(p["chapeau"])),
+        '<header class="blog-hero">\n  <div class="blog-hero-inner">\n',
         fil_ariane([("Accueil", "/"), ("Blog", "/blog/"), (p["titre_court"], None)]),
-        '\n<div class="prose">\n', corps_html, "\n</div>\n\n",
+        '    <span class="blog-hero-etiquette">%s</span>\n    <h1>%s</h1>\n    <p>%s</p>\n'
+        % (e(p.get("etiquette", "Le blog")), rendre_inline(p["titre"]), rendre_inline(p["chapeau"])),
+        "  </div>\n</header>\n\n",
+        '<div class="article-corps sans-sommaire">\n  <article>\n    <div class="prose">\n',
+        corps_html, "\n    </div>\n  </article>\n</div>\n\n",
         appel_bas_de_page(),
         pied(),
     ])
@@ -1370,6 +1444,56 @@ def ecrire_robots(avec_video):
     with open(chemin, "w", encoding="utf-8") as f:
         f.write("%s%s\n%s\n%s%s" % (contenu.split(debut)[0], debut,
                                      "\n".join(lignes), fin, contenu.split(fin)[1]))
+
+
+def harmoniser_pages():
+    """Le menu et le pied de page des pages écrites à la main (30/10/2026).
+
+    Chacune avait sa copie, et les copies avaient divergé : liens différents,
+    menu mobile absent, pages mortes encore citées. Le script remplace
+    désormais ce qui se trouve entre les marqueurs NAV et PIED par la version
+    commune, comme pour robots.txt ou le bloc d'articles de l'accueil. Le
+    reste de la page ne lui appartient pas.
+    """
+    for chemin, courant in PAGES_A_LA_MAIN:
+        complet = os.path.join(ROOT, chemin)
+        with open(complet, encoding="utf-8") as f:
+            contenu = f.read()
+        for debut, fin, bloc in (("<!-- NAV:DEBUT -->", "<!-- NAV:FIN -->", nav(courant)),
+                                 ("<!-- PIED:DEBUT -->", "<!-- PIED:FIN -->", pied_html())):
+            if debut not in contenu or fin not in contenu:
+                erreur("%s doit contenir les marqueurs %s et %s." % (chemin, debut, fin))
+            contenu = (contenu.split(debut)[0] + debut + "\n" + bloc + fin
+                       + contenu.split(fin)[1])
+        with open(complet, "w", encoding="utf-8") as f:
+            f.write(contenu)
+
+
+def ecrire_bloc_accueil(articles):
+    """Les trois derniers articles sur l'accueil (#917), entre marqueurs.
+
+    index.html est écrit à la main ; le script n'y touche qu'entre ses deux
+    marqueurs, comme pour robots.txt et sitemap.xml. Les cartes suivent les
+    classes .posts / .post de l'accueil."""
+    chemin = os.path.join(ROOT, "index.html")
+    with open(chemin, encoding="utf-8") as f:
+        contenu = f.read()
+    debut, fin = "<!-- BLOG-ACCUEIL:DEBUT -->", "<!-- BLOG-ACCUEIL:FIN -->"
+    if debut not in contenu or fin not in contenu:
+        erreur("index.html doit contenir les marqueurs %s et %s." % (debut, fin))
+    cartes = []
+    for a in articles[:3]:
+        cartes.append(
+            '      <a class="post" href="%s">\n'
+            '        <span class="eyebrow">%s</span>\n'
+            '        <h3>%s</h3>\n'
+            '        <p>%s</p>\n'
+            '        <span class="lire">Lire l\'article →</span>\n'
+            '      </a>' % (a["url"], e(RUBRIQUES[a["rubrique"]]["nom"]),
+                            rendre_inline(a["titre"]), e(a["description"])))
+    bloc = '\n    <div class="posts">\n%s\n    </div>\n    ' % "\n".join(cartes)
+    with open(chemin, "w", encoding="utf-8") as f:
+        f.write(contenu.split(debut)[0] + debut + bloc + fin + contenu.split(fin)[1])
 
 
 def absolutiser(html_article):
@@ -1497,18 +1621,38 @@ def fichier_llms(articles):
     """llms.txt — chantier §8.2-5 du plan marketing. Une part croissante des
     « quel logiciel pour gérer une école coranique ? » se pose à un assistant,
     qui ne lira pas le JavaScript de la page : autant lui donner le plan."""
+    # Le positionnement suit l'accueil (#916) : l'école en ligne d'abord, la
+    # gestion de l'école intégrée ensuite. Ne rien affirmer ici que le produit
+    # ne fasse pas : un assistant le répétera tel quel.
     lignes = ["# MadrassaNET", "", "> %s" % PITCH.rstrip("."), "",
-              "MadrassaNET est un logiciel de gestion scolaire pour écoles coraniques, "
-              "madrasas, écoles de langue arabe et associations scolaires. Tarif public : "
-              "1 € par élève et par an. Interface française et arabe, bulletins bilingues, "
-              "présences, paiements, réinscriptions.", "",
+              "MadrassaNET est une plateforme pour faire vivre une école en ligne : "
+              "classe en direct dans le navigateur (sans installation), enregistrement des "
+              "cours et rediffusions réservées aux élèves inscrits, catalogue de cours au nom "
+              "de l'école, inscription et paiement en ligne par carte bancaire ou virement "
+              "sur le compte de l'école, sans commission, devoirs rendus et corrigés en ligne.",
+              "",
+              "La gestion de l'école est intégrée : élèves et familles, inscriptions et "
+              "réinscriptions, appel sur mobile avec notification des absences aux familles, "
+              "notes, moyennes et bulletins PDF en français ou en arabe, droits d'accès par "
+              "rôle. Une école sur place peut l'utiliser sans jamais faire cours en ligne.",
+              "",
+              "- Pour qui : écoles 100 % en ligne, associations éducatives, centres de soutien "
+              "scolaire, écoles coraniques et madrasas, écoles de langue, cours pour adultes.",
+              "- Où : web, application iPhone et Android ; interface en français, anglais et "
+              "arabe (de droite à gauche) ; données hébergées en France.",
+              "- Domaine personnalisé : la plateforme peut être servie sur l'adresse de "
+              "l'école, avec son nom et son logo.",
+              "- Tarifs : gestion de l'école sur place, 1 € par élève et par an (minimum 500 € "
+              "par an) ; école en ligne, sur devis ; gratuité possible pour les associations en "
+              "difficulté.", "",
               "## Pages principales", "",
-              "- [Accueil](%s/): présentation du produit et formulaire de contact" % SITE,
-              "- [Tarifs](%s/tarifs/): les trois niveaux d'abonnement, gratuité pour les associations en difficulté" % SITE,
+              "- [Accueil](%s/): présentation de la plateforme et formulaire de contact" % SITE,
+              "- [École en ligne](%s/ecole-en-ligne/): ouvrir une école 100 %% en ligne, à son nom" % SITE,
+              "- [Soutien scolaire](%s/soutien-scolaire/): cours de soutien en groupes, en ligne ou en salle" % SITE,
+              "- [Tarifs](%s/tarifs/): les niveaux d'abonnement, gratuité pour les associations en difficulté" % SITE,
               "- [Gestion de madrasa](%s/madrasa/): la solution pour une madrasa" % SITE,
               "- [Association scolaire](%s/association-scolaire/): la solution pour une association loi 1901" % SITE,
               "- [École de langue arabe](%s/ecole-arabe/): la solution pour une école de langue" % SITE,
-              "- [Modèles à télécharger](%s/templates/): feuilles d'appel, bulletins, modèles de gestion" % SITE,
               "- [Support](%s/support/): centre d'aide et questions fréquentes" % SITE,
               "", "## Blog", "",
               "%s" % POSITIONNEMENT, ""]
@@ -1805,7 +1949,7 @@ def main():
             "Réglementation, sécurité et gestion des écoles associatives — le blog | MadrassaNET" + suffixe,
             "Réglementation, sécurité, accueil des enfants, gestion quotidienne et outils "
             "numériques : le média pratique des écoles associatives et des structures éducatives.",
-            canonical, "📚 Le blog",
+            canonical, "Le blog",
             "Réglementation, sécurité et gestion des écoles associatives",
             "Un média pratique pour les écoles associatives et les structures éducatives : ce que "
             "dit la règle, comment s'y conformer, et comment tenir la maison au quotidien. Écrit "
@@ -1826,7 +1970,7 @@ def main():
         ecrits.append(ecrire("blog/rubrique/%s/index.html" % slug, page_liste(
             "%s | %s" % (r["titre"], MARQUE), r["description"],
             "%s/blog/rubrique/%s/" % (SITE, slug),
-            "%s %s" % (r["emoji"], r["nom"]), r["titre"], r["chapeau"],
+            "Rubrique · %s" % r["nom"], r["titre"], r["chapeau"],
             dans, "/assets/og/blog.png", slug,
             [("Accueil", "/"), ("Blog", "/blog/"), (r["nom"], None)])))
 
@@ -1837,7 +1981,7 @@ def main():
             "Vidéos : gérer une école coranique ou une madrasa pas à pas | MadrassaNET",
             "Démonstrations et tutoriels en vidéo pour les écoles coraniques, madrasas et "
             "associations scolaires : appel, bulletins, paiements, réinscriptions.",
-            SITE + "/blog/videos/", "▶ Vidéos",
+            SITE + "/blog/videos/", "Vidéos",
             "Les articles en vidéo",
             "Chaque vidéo est accompagnée de son article et de sa transcription : à regarder, "
             "ou à lire si vous êtes pressé.",
@@ -1856,6 +2000,10 @@ def main():
     ecrits.append(ecrire("404.html", page_404(articles)))
     ecrire_robots(bool(sv))
     ecrits.append("robots.txt (bloc SITEMAPS)")
+    ecrire_bloc_accueil(articles)
+    ecrits.append("index.html (bloc BLOG-ACCUEIL)")
+    harmoniser_pages()
+    ecrits.append("%d pages écrites à la main (blocs NAV et PIED)" % len(PAGES_A_LA_MAIN))
 
     # Dossiers générés qui n'ont plus de source : renommage ou suppression
     connus = {a["slug"] for a in articles} | {p["slug"] for p in pages} | {"page", "rubrique", "videos"}

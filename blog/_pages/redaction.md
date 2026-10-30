@@ -4,7 +4,7 @@ titre_court: La rédaction
 titre_seo: La rédaction du blog MadrassaNET et ses sources | MadrassaNET
 description: Qui écrit ce blog, comment les articles de conformité sont documentés, quelles sources sont citées et comment signaler une erreur de droit.
 chapeau: Ce blog affirme des choses sur le droit applicable aux écoles associatives. Voici comment ces affirmations sont établies, et comment nous corriger quand elles cessent d'être exactes.
-etiquette: ✍️ La rédaction
+etiquette: La rédaction
 publie_le: 2026-09-10
 og_image: /assets/og/blog.png
 ---
