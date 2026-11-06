@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Plateforme école en ligne et logiciel de gestion scolaire | MadrassaNET</title>
-  <meta name="description" content="Cours en direct, rediffusions, inscriptions et paiement en ligne, avec toute la gestion de l'école : élèves, familles, appel, notes, bulletins. Web, iPhone et Android.">
+  <title>Logiciel de gestion d'école et cours en ligne | MadrassaNET</title>
+  <meta name="description" content="Appel sur téléphone, bulletins PDF, inscriptions et paiements des familles, et la classe en direct le jour où il le faut. Pour les écoles, associations et madrasas. Web, iPhone et Android.">
   <link rel="canonical" href="https://www.madrassanet.com/">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="MadrassaNET : faites cours en ligne, et gérez votre école">
-  <meta property="og:description" content="La plateforme des écoles en ligne, des associations et des centres de soutien scolaire : classe en direct, rediffusions, paiement en ligne, et toute la gestion scolaire intégrée.">
+  <meta property="og:title" content="MadrassaNET : gérez votre école, passez en ligne à votre rythme">
+  <meta property="og:description" content="La plateforme des écoles sur place, des associations et des madrasas : appel, bulletins, inscriptions et paiements des familles, et la classe en direct le jour où il le faut.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.madrassanet.com/">
   <meta property="og:site_name" content="MadrassaNET">
   <meta property="og:locale" content="fr_FR">
-  <meta property="og:image" content="https://www.madrassanet.com/assets/og/default.png?v=20261030">
-  <meta property="og:image:secure_url" content="https://www.madrassanet.com/assets/og/default.png?v=20261030">
+  <meta property="og:image" content="https://www.madrassanet.com/assets/og/default.png?v=20261105">
+  <meta property="og:image:secure_url" content="https://www.madrassanet.com/assets/og/default.png?v=20261105">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="MadrassaNET, la plateforme des écoles en ligne et des associations">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MadrassaNET : faites cours en ligne, et gérez votre école">
-  <meta name="twitter:description" content="Classe en direct, rediffusions, paiement en ligne, et toute la gestion scolaire intégrée. Web, iPhone et Android, en français, anglais et arabe.">
-  <meta name="twitter:image" content="https://www.madrassanet.com/assets/og/default.png?v=20261030">
+  <meta name="twitter:title" content="MadrassaNET : gérez votre école, passez en ligne à votre rythme">
+  <meta name="twitter:description" content="Appel, bulletins, inscriptions et paiements des familles, et la classe en direct quand il le faut. Web, iPhone et Android, en français, anglais et arabe.">
+  <meta name="twitter:image" content="https://www.madrassanet.com/assets/og/default.png?v=20261105">
   <meta name="twitter:image:alt" content="MadrassaNET, la plateforme des écoles en ligne et des associations">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="alternate" type="application/rss+xml" title="Blog MadrassaNET" href="/blog/feed.xml">
@@ -532,7 +532,8 @@ p{margin:0}
 .plan.star .eyebrow{color:var(--lumiere)}
 .plan.star > p,.plan.star .price small{color:var(--on-nuit-muted)}
 .plan.star li svg{stroke:var(--lumiere)}
-.plan.star .ruban{position:absolute;top:-12px;right:24px;font-size:.7rem;font-weight:700;background:var(--lumiere);color:var(--lumiere-ink);border-radius:999px;padding:4px 12px}
+.plan{position:relative}
+.plan .ruban{position:absolute;top:-12px;right:24px;font-size:.7rem;font-weight:700;background:var(--lumiere);color:var(--lumiere-ink);border-radius:999px;padding:4px 12px}
 .plans-note{margin-top:18px;font-size:.86rem;color:var(--muted);text-align:center}
 @media (max-width:960px){.plans{grid-template-columns:1fr}}
 
@@ -603,6 +604,26 @@ footer .legal a{color:inherit}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
+
+/* ── passer en ligne : trois marches qui montent, du jour vers la nuit (la salle en direct) ── */
+.marches{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.marche{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:26px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.marche:nth-child(1){margin-top:112px}
+.marche:nth-child(2){margin-top:56px}
+.marche-n{font-family:var(--f-display);font-weight:800;font-size:3.4rem;line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--indigo);letter-spacing:-.04em}
+.marche .eyebrow{color:var(--lagon-ink)}
+.marche h3{font-size:1.4rem;line-height:1.15;font-weight:700;text-wrap:balance}
+.marche p{color:var(--muted);font-size:.98rem}
+.marche-tag{margin-top:6px;align-self:flex-start;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--lagon-soft);color:var(--lagon-ink)}
+.marche-tag.lum{background:var(--amber-soft);color:var(--ink)}
+.marche.nuit{background:var(--nuit);color:var(--on-nuit);border-color:var(--nuit);box-shadow:0 30px 60px -30px rgba(10,16,48,.6)}
+.marche.nuit .marche-n{-webkit-text-stroke-color:var(--lumiere)}
+.marche.nuit .eyebrow{color:var(--lumiere)}
+.marche.nuit p{color:var(--on-nuit-muted)}
+.marche .lien{margin-top:6px;font-weight:700;color:var(--lumiere);text-decoration:none}
+.marche .lien:hover{text-decoration:underline}
+.marches-note{margin-top:28px;color:var(--muted);font-size:.95rem;max-width:46em}
+@media (max-width:860px){.marches{grid-template-columns:minmax(0,1fr)}.marche:nth-child(1),.marche:nth-child(2){margin-top:0}}
 </style>
 </head>
 <body>
@@ -615,8 +636,8 @@ footer .legal a{color:inherit}
       <span>Madrassa<b>NET</b></span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
-      <a href="/ecole-en-ligne/">École en ligne</a>
       <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#en-ligne">Passer en ligne</a>
       <a href="#usages">Pour qui</a>
       <a href="/tarifs/">Tarifs</a>
       <a href="/blog/">Blog</a>
@@ -634,14 +655,14 @@ footer .legal a{color:inherit}
   <div class="wrap">
     <div class="hero-copy">
       <div class="usages-line" aria-label="Pour qui">
-        <span>Écoles 100 % en ligne</span><span>Soutien scolaire</span><span>Associations</span><span>Écoles coraniques</span><span>Écoles de langue</span>
+        <span>Écoles coraniques</span><span>Associations</span><span>Soutien scolaire</span><span>Écoles de langue</span><span>Écoles en ligne</span>
       </div>
-      <h1>Faites cours <em>en ligne.</em><br>Et gérez votre école.</h1>
-      <p class="hero-lede"><strong>Cours en direct</strong>, rediffusions, catalogue, inscriptions et paiement en ligne, et avec eux <strong>toute la gestion de l'école</strong> : élèves, familles, appel, notes et bulletins. Une seule plateforme, à votre nom, pour les écoles en ligne, les associations et les centres de soutien scolaire.</p>
+      <h1>Gérez votre école.<br>Passez <em>en ligne</em> à votre rythme.</h1>
+      <p class="hero-lede"><strong>L'appel sur téléphone</strong>, les absences signalées aux parents, les notes et les bulletins, les inscriptions et les paiements des familles : tout ce qui fait tourner votre école, au même endroit. <strong>Le jour où la salle manque, le cours passe en visio</strong>, sans changer d'outil.</p>
       <div class="hero-ctas">
         <a class="btn btn-lumiere" href="#contact" data-objet="Demande de démo">Demander une démo
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-ghost" href="#parcours">Voir le parcours d'un élève</a>
+        <a class="btn btn-ghost" href="#en-ligne">Voir comment passer en ligne</a>
       </div>
       <div class="hero-proof">
         <span><i></i>Rien à installer</span>
@@ -654,7 +675,7 @@ footer .legal a{color:inherit}
     <div class="room-wrap">
      <div class="hero-views">
       <!-- vue 1 : la direction -->
-      <div class="ha-view" data-v="gestion" role="img" aria-label="Aperçu du tableau de bord de la direction : effectifs, présences, réinscriptions, paiements et cours du jour" aria-hidden="true">
+      <div class="ha-view on" data-v="gestion" role="img" aria-label="Aperçu du tableau de bord de la direction : effectifs, présences, réinscriptions, paiements et cours du jour" aria-hidden="false">
        <div class="ha-win">
         <div class="ecran-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="addr">cours.academie-horizon.fr/direction</span></div>
         <div class="g">
@@ -676,7 +697,7 @@ footer .legal a{color:inherit}
                 <div class="cr"><time>09:00</time><div>Coran · niveau 1<small>Salle 2 · M. Haddad</small></div><span class="etat ok">Appel fait</span></div>
                 <div class="cr"><time>10:30</time><div>Arabe · niveau 2<small>Salle 3 · Mme Benali</small></div><span class="etat att">Appel à faire</span></div>
                 <div class="cr"><time>14:00</time><div>Aide aux devoirs CM2<small>Salle 1 · Mme Roux</small></div><span class="etat rel">À venir</span></div>
-                <div class="cr"><time>17:00</time><div>Soutien maths 3e<small>En ligne · Mme Benali</small></div><span class="etat live">● En direct</span></div>
+                <div class="cr"><time>17:00</time><div>Soutien maths · 3e<small>Salle 1 fermée · passé en visio</small></div><span class="etat live">● En direct</span></div>
               </div>
               <div class="g-card">
                 <h5>À traiter</h5>
@@ -709,11 +730,11 @@ footer .legal a{color:inherit}
       </div>
 
       <!-- vue 3 : le cours en direct -->
-      <div class="ha-view on" data-v="direct">
+      <div class="ha-view" data-v="direct" aria-hidden="true">
       <div class="room" role="img" aria-label="Aperçu d'une classe en direct sur MadrassaNET : l'écran de l'enseignant, la conversation et les élèves présents">
         <div class="room-top">
           <span class="live"><i></i>En direct</span>
-          <div class="room-title"><b id="rTitle">Équations du premier degré</b><small id="rSub">Soutien maths · 3e · Séance 6 sur 12</small></div>
+          <div class="room-title"><b id="rTitle">Équations du premier degré</b><small id="rSub">Soutien maths · 3e · En visio, salle 1 fermée</small></div>
           <span class="chip-dark hide-s" id="rTimer">00:24 <span>/ 60 min</span></span>
           <span class="chip-dark" id="rCount">8 <span>/ 10 présents</span></span>
         </div>
@@ -755,11 +776,11 @@ footer .legal a{color:inherit}
       </div>
      </div>
       <div class="subjects" role="group" aria-label="Changer d'écran">
-        <button class="subj" type="button" data-v="direct" aria-pressed="true">Cours en direct</button>
-        <button class="subj" type="button" data-v="gestion" aria-pressed="false">Piloter l'école</button>
+        <button class="subj" type="button" data-v="gestion" aria-pressed="true">Piloter l'école</button>
         <button class="subj" type="button" data-v="appel" aria-pressed="false">Faire l'appel</button>
+        <button class="subj" type="button" data-v="direct" aria-pressed="false">Le cours passe en visio</button>
       </div>
-      <p class="room-caption">Les cours en ligne et la gestion de l'école, dans le même outil. Illustration, données fictives.</p>
+      <p class="room-caption">La gestion de l'école au quotidien, et la visio le jour où la salle manque. Illustration, données fictives.</p>
     </div>
   </div>
   <div class="address-strip">
@@ -775,46 +796,46 @@ footer .legal a{color:inherit}
 <section class="section" id="fonctionnalites">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Une plateforme au lieu de six outils</span>
-      <h2>Fini le lien de visio dans un groupe de messagerie et les paiements dans un tableur.</h2>
-      <p>Une école en ligne tient souvent avec six outils qui ne se parlent pas. MadrassaNET les remplace par un espace unique : la classe en direct et tout ce qui l'entoure, avec la gestion de l'école intégrée.</p>
+      <span class="eyebrow">Un seul outil pour toute l'école</span>
+      <h2>Fini le cahier d'appel, les dossiers papier et les paiements dans un tableur.</h2>
+      <p>Une école sur place tient souvent avec un cahier, des formulaires, un tableur et un groupe de messagerie qui ne se parlent pas. MadrassaNET les réunit dans un espace unique, et y ajoute la classe en visio le jour où vous en avez besoin.</p>
     </div>
 
     <div class="consolide">
       <div class="avant" aria-label="Les outils habituellement utilisés">
-        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg></span><b>Visioconférence</b><small>lien + mot de passe</small></div>
-        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><b>Formulaire d'inscription</b><small>à recopier</small></div>
+        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></span><b>Cahier d'appel</b><small>absences à reporter</small></div>
+        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><b>Dossiers d'inscription</b><small>papier, à recopier</small></div>
         <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.5a3 3 0 1 0 0 5M8 11h5M8 13h5"/></svg></span><b>Tableur des paiements</b><small>relances à la main</small></div>
-        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></svg></span><b>Hébergeur de vidéos</b><small>rediffusions publiques</small></div>
+        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v4h4M10 12h6M10 16h4"/></svg></span><b>Bulletins</b><small>un par un, à la main</small></div>
         <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 5h16v11H8l-4 4z"/></svg></span><b>Groupe de messagerie</b><small>tout se perd</small></div>
-        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></span><b>Cahier d'appel et notes</b><small>à ressaisir</small></div>
+        <div class="outil"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg></span><b>Visio à part</b><small>lien + mot de passe</small></div>
       </div>
       <div class="fleche" aria-hidden="true">
         <svg viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="33" stroke="var(--line)" stroke-width="2"/><path d="M20 35h28M40 25l10 10-10 10" stroke="var(--indigo)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="apres">
         <div class="apres-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="url">https://<b>cours.academie-horizon.fr</b></span></div>
-        <span class="apres-label lum" style="margin-top:0">Enseigner en ligne</span>
+        <span class="apres-label" style="margin-top:0">La gestion de l'école</span>
+        <div class="modules">
+          <div class="mod"><b>Élèves et familles</b><span>Fiches, fratries, réinscriptions</span></div>
+          <div class="mod"><b>Appel et absences</b><span>Sur mobile, parents prévenus</span></div>
+          <div class="mod"><b>Notes et bulletins</b><span>PDF, en français ou en arabe</span></div>
+          <div class="mod"><b>Inscriptions en ligne</b><span>Dossier rempli par la famille</span></div>
+          <div class="mod"><b>Paiements des familles</b><span>Carte ou virement, reçus</span></div>
+          <div class="mod"><b>Messages</b><span>Notifications sur le téléphone</span></div>
+        </div>
+        <span class="apres-label lum">Et l'en ligne, quand vous voulez</span>
         <div class="modules">
           <div class="mod hl"><b>Classe en direct</b><span>Dans le navigateur, sans lien à envoyer</span></div>
           <div class="mod hl"><b>Rediffusions</b><span>Réservées aux élèves inscrits</span></div>
-          <div class="mod hl"><b>Catalogue</b><span>Fiches de cours, programme, enseignant</span></div>
-          <div class="mod hl"><b>Paiement en ligne</b><span>Carte ou virement, relances automatiques</span></div>
-          <div class="mod hl"><b>Devoirs</b><span>Rendus, corrigés, notés</span></div>
-          <div class="mod hl"><b>Votre adresse</b><span>Votre domaine, votre logo</span></div>
-        </div>
-        <span class="apres-label" style="margin-top:18px">Et toute la gestion de l'école</span>
-        <div class="modules">
-          <div class="mod"><b>Élèves et familles</b><span>Fiches, fratries, réinscriptions</span></div>
-          <div class="mod"><b>Appel et notes</b><span>Sur mobile, parents prévenus</span></div>
-          <div class="mod"><b>Bulletins</b><span>PDF, en français ou en arabe</span></div>
+          <div class="mod hl"><b>Catalogue</b><span>Des cours vendus à l'unité</span></div>
         </div>
       </div>
     </div>
 
     <div class="definition">
-      <p><strong>MadrassaNET est une plateforme pour faire vivre une école en ligne : cours en direct, rediffusions, inscriptions et paiement en ligne, avec toute la gestion scolaire intégrée</strong> (élèves, familles, présences, notes et bulletins), sur le web et sur mobile, sous le nom de l'école.</p>
-      <p>Elle sert aussi bien aux écoles 100 % en ligne qu'aux associations et écoles sur place qui gèrent leurs élèves et ajoutent des cours à distance. Elle fonctionne en français, en anglais et en arabe, et ses données sont hébergées en France.</p>
+      <p><strong>MadrassaNET est une plateforme de gestion d'école : élèves, familles, appel, notes, bulletins, inscriptions et paiements des familles, avec la classe en direct intégrée</strong> pour faire cours à distance quand il le faut, sur le web et sur mobile, sous le nom de l'école.</p>
+      <p>Elle sert d'abord aux écoles sur place (écoles coraniques, associations, centres de soutien scolaire, écoles de langue) qui veulent passer tout ou partie de leurs cours en ligne, et aux écoles 100 % en ligne. Elle fonctionne en français, en anglais et en arabe, et ses données sont hébergées en France.</p>
     </div>
   </div>
 </section>
@@ -824,41 +845,41 @@ footer .legal a{color:inherit}
 
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Le parcours d'un élève</span>
-      <h2>De l'inscription au bulletin, sans quitter la plateforme.</h2>
-      <p>Suivez Inès, élève de 3e inscrite en soutien de mathématiques à l'Académie Horizon, une école de démonstration qui enseigne en ligne et en salle.</p>
+      <span class="eyebrow">Une année à l'école</span>
+      <h2>De l'inscription au bulletin, en salle et parfois en ligne.</h2>
+      <p>Suivez Inès, élève de 3e en soutien de mathématiques à l'Académie Horizon, une école de démonstration qui fait cours en salle le samedi et le mercredi.</p>
     </div>
 
     <!-- acte 1 -->
     <article class="acte">
       <div class="acte-copy">
         <div class="num" aria-hidden="true">01</div>
-        <span class="eyebrow">La famille</span>
-        <h3>Elle choisit un cours, inscrit son enfant et règle en ligne.</h3>
-        <p>Votre catalogue présente chaque cours comme une vraie fiche : programme séance par séance, enseignant, horaires, places restantes.</p>
+        <span class="eyebrow">La rentrée</span>
+        <h3>La famille inscrit ses enfants et règle en ligne.</h3>
+        <p>Plus de file d'attente le premier samedi ni d'espèces à compter : le dossier se remplit depuis le téléphone, une fois pour toute la fratrie.</p>
         <ul class="points">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Un espace famille.</b> <span>Le parent inscrit chacun de ses enfants au bon cours, les fratries sont réunies.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Carte bancaire ou virement.</b> <span>Le paiement arrive sur le compte de l'école. Le virement porte une référence unique et les retards sont relancés.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Aucune commission sur vos ventes.</b> <span>Vous restez le vendeur et vous encaissez directement.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Un dossier par famille.</b> <span>Le parent inscrit chacun de ses enfants dans sa classe, les fratries sont réunies.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Carte bancaire ou virement.</b> <span>Le paiement arrive sur le compte de l'école ; le virement porte une référence unique.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Un reçu pour chaque paiement.</b> <span>La famille le retrouve dans son espace, le secrétariat sait qui a payé.</span></div></li>
         </ul>
       </div>
-      <div class="ecran" aria-label="Écran : fiche d'un cours et choix du paiement">
-        <div class="ecran-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="addr">cours.academie-horizon.fr/catalogue/maths-3e</span></div>
+      <div class="ecran" aria-label="Écran : inscription d'un enfant et choix du paiement">
+        <div class="ecran-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="addr">cours.academie-horizon.fr/inscriptions/2026-2027</span></div>
         <div class="app">
           <div class="app-nav">
             <div class="app-school"><i>AH</i><div><b>Académie Horizon</b><small>Espace famille</small></div></div>
-            <span>Accueil</span><span>Mes enfants</span><span class="on">Catalogue</span><span>Messages</span><span>Paiements</span>
+            <span>Accueil</span><span>Mes enfants</span><span class="on">Inscriptions</span><span>Messages</span><span>Paiements</span>
           </div>
           <div class="app-main">
-            <div class="serif" style="font-size:1.35rem">Soutien maths · 3e</div>
+            <div class="serif" style="font-size:1.35rem">Inscriptions 2026-2027</div>
             <div class="fiche">
               <div class="fiche-card">
                 <div class="fiche-visu"></div>
                 <div class="fiche-in">
-                  <div class="tags"><span class="tag">Collège</span><span class="tag t2">12 séances</span><span class="tag t2">Mer. 17 h</span></div>
-                  <h4>Réussir le brevet de maths</h4>
-                  <p>Avec Mme Benali · 6 places restantes sur 10</p>
-                  <div class="prog"><span>Séance 1 · Calcul littéral</span><span>Séance 6 · Équations</span><span>Séance 12 · Brevet blanc</span></div>
+                  <div class="tags"><span class="tag">Collège</span><span class="tag t2">Sam. 10 h</span><span class="tag t2">Mer. 17 h</span></div>
+                  <h4>Soutien maths · 3e</h4>
+                  <p>Avec Mme Benali · salle 1 · 4 places restantes sur 12</p>
+                  <div class="prog"><span>Rayan · Arabe niveau 2 · inscrit</span><span>Inès · Soutien maths 3e · à régler</span><span>Total famille · 360 € pour l'année</span></div>
                 </div>
               </div>
               <div class="pay">
@@ -878,13 +899,40 @@ footer .legal a{color:inherit}
     <article class="acte">
       <div class="acte-copy">
         <div class="num" aria-hidden="true">02</div>
-        <span class="eyebrow">L'élève, le mercredi à 17 h</span>
-        <h3>Un clic sur « Rejoindre », et le cours commence.</h3>
-        <p>Pas de lien à chercher ni de mot de passe de réunion. L'élève entre depuis son espace, et seulement s'il est inscrit au cours.</p>
+        <span class="eyebrow">Le samedi, en salle</span>
+        <h3>L'appel en quelques secondes, les parents prévenus.</h3>
+        <p>L'enseignant fait l'appel sur son téléphone. Une absence part aussitôt chez les parents, qui la justifient depuis leur espace.</p>
         <ul class="points">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Prêt avant d'entrer.</b> <span>Micro, caméra et haut-parleur sont testés, puis l'élève patiente en salle d'attente.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Une vraie salle de classe.</b> <span>Partage d'écran, conversation, main levée, sondages ; la présence est relevée toute seule.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Enregistré, sans filmer les élèves.</b> <span>Seuls l'écran et la voix de l'enseignant sont enregistrés.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Présent, absent, en retard.</b> <span>Un geste par élève, l'appel validé en bas de la liste.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Les familles prévenues.</b> <span>Une notification dès que l'enseignant valide une absence.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Les absences justifiées.</b> <span>Le parent envoie son motif, le secrétariat le retrouve sur la fiche de l'élève.</span></div></li>
+        </ul>
+      </div>
+      <div class="ecran" aria-label="Écran : appel d'une classe en salle">
+        <div class="ecran-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="addr">cours.academie-horizon.fr/appel</span></div>
+        <div class="ap">
+          <div class="ap-head"><div><b>Soutien maths · 3e</b><small>Samedi 10:00 · Salle 1 · Mme Benali</small></div><div class="ap-count"><span class="etat ok">10 présents</span><span class="etat att">1 retard</span><span class="etat live">1 absent</span></div></div>
+          <div class="el"><span class="av" style="background:#4453D6">IM</span><div>Inès Martin<small>Famille Martin</small></div><span class="seg"><span class="p">P</span><span>A</span><span>R</span></span></div>
+          <div class="el"><span class="av" style="background:#0A7C70">YK</span><div>Yanis Kaci<small>Famille Kaci</small></div><span class="seg"><span class="p">P</span><span>A</span><span>R</span></span></div>
+          <div class="el"><span class="av" style="background:#9C3D5A">AS</span><div>Adam Saïdi<small>Parents prévenus par notification</small></div><span class="seg"><span>P</span><span class="a">A</span><span>R</span></span></div>
+          <div class="el"><span class="av" style="background:#7A4CC2">LD</span><div>Lina Diallo<small>Arrivée à 10:12</small></div><span class="seg"><span>P</span><span>A</span><span class="r">R</span></span></div>
+          <div class="el"><span class="av" style="background:#B4602A">SH</span><div>Sami Haddad<small>Famille Haddad</small></div><span class="seg"><span class="p">P</span><span>A</span><span>R</span></span></div>
+          <div class="ap-go">Valider l'appel</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- acte 3 -->
+    <article class="acte">
+      <div class="acte-copy">
+        <div class="num" aria-hidden="true">03</div>
+        <span class="eyebrow">Le mercredi où la salle est fermée</span>
+        <h3>Le cours passe en visio au lieu d'être annulé.</h3>
+        <p>Dans la séance prévue, l'école coche « Séance en visioconférence ». Inès retrouve le cours dans son planning, à l'heure habituelle, et entre d'un clic.</p>
+        <ul class="points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Rien à envoyer.</b> <span>Ni lien ni mot de passe de réunion : l'élève entre depuis son espace, et seulement s'il est inscrit.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Une vraie salle de classe.</b> <span>Partage d'écran, conversation, main levée, sondages.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>L'appel comme d'habitude.</b> <span>L'enseignant le fait depuis la salle, les présences rejoignent celles du samedi.</span></div></li>
         </ul>
       </div>
       <div class="ecran" aria-label="Écran : accueil de l'élève pendant un cours en direct">
@@ -892,14 +940,14 @@ footer .legal a{color:inherit}
         <div class="app">
           <div class="app-nav">
             <div class="app-school"><i>AH</i><div><b>Académie Horizon</b><small>Espace élève</small></div></div>
-            <span class="on">Accueil</span><span>Mes cours</span><span>Agenda</span><span>Rediffusions</span><span>Devoirs</span>
+            <span class="on">Accueil</span><span>Agenda</span><span>Devoirs</span><span>Résultats</span><span>Messages</span>
           </div>
           <div class="app-main">
             <small style="opacity:.6">Mercredi 4 novembre</small>
             <div class="serif" style="font-size:1.6rem;line-height:1.1">Bonjour Inès</div>
             <div class="live-card">
               <span class="pill"><i></i>EN DIRECT · DEPUIS 2 MIN</span>
-              <small>Soutien maths · 3e · Séance 6 sur 12</small>
+              <small>Soutien maths · 3e · Salle 1 fermée, cours en visio</small>
               <h4>Équations du premier degré</h4>
               <div class="row"><span class="join">Rejoindre la salle</span><span>Voir les supports</span></div>
             </div>
@@ -913,17 +961,17 @@ footer .legal a{color:inherit}
       </div>
     </article>
 
-    <!-- acte 3 -->
+    <!-- acte 4 -->
     <article class="acte">
       <div class="acte-copy">
-        <div class="num" aria-hidden="true">03</div>
+        <div class="num" aria-hidden="true">04</div>
         <span class="eyebrow">Tout au long du trimestre</span>
         <h3>Chaque élève suivi, du devoir au bulletin.</h3>
         <p>Les enseignants saisissent les notes, les moyennes se calculent, les bulletins se publient en PDF. Les parents suivent tout depuis leur téléphone.</p>
         <ul class="points">
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Bulletins PDF, en français ou en arabe.</b> <span>Moyennes, coefficients, appréciations, logo de l'école.</span></div></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Devoirs et corrections.</b> <span>L'élève dépose son travail ; l'enseignant note et laisse une appréciation.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Rediffusions pour les cours en ligne.</b> <span>Une séance manquée se revoit dans l'espace de l'élève.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Les parents suivent tout.</b> <span>Absences, notes et bulletin arrivent sur leur téléphone.</span></div></li>
         </ul>
       </div>
       <div class="ecran" aria-label="Écran : résultats d'un élève, bulletin et devoir corrigé">
@@ -940,7 +988,7 @@ footer .legal a{color:inherit}
               <table><tbody>
                 <tr><td>Coran et tajwid</td><td class="n">16,5</td></tr>
                 <tr><td>Langue arabe</td><td class="n">15,5</td></tr>
-                <tr><td>Soutien maths (en ligne)</td><td class="n">14,0</td></tr>
+                <tr><td>Mathématiques</td><td class="n">14,0</td></tr>
               </tbody></table>
             </div>
             <div class="serif" style="font-size:1.25rem;margin-top:14px">Corrigé</div>
@@ -954,37 +1002,40 @@ footer .legal a{color:inherit}
       </div>
     </article>
 
-    <!-- acte 4 -->
-    <article class="acte">
-      <div class="acte-copy">
-        <div class="num" aria-hidden="true">04</div>
-        <span class="eyebrow">La direction</span>
-        <h3>Vous voyez l'école entière, et ce qui reste à faire.</h3>
-        <p>Cours, groupes, enseignants, familles et paiements se gèrent depuis le même espace, que l'école soit en ligne, sur place ou les deux.</p>
-        <ul class="points">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Les encaissements.</b> <span>Virements à valider, relances envoyées, places libérées quand rien n'arrive.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>Des droits par rôle.</b> <span>Direction, secrétariat, trésorerie, enseignants : chacun voit ce qui le concerne.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><div><b>L'appel et les absences.</b> <span>En salle comme en ligne, les présences arrivent au même endroit et les familles sont prévenues.</span></div></li>
-        </ul>
-      </div>
-      <div class="ecran" aria-label="Écran : tableau de bord de la direction">
-        <div class="ecran-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="addr">cours.academie-horizon.fr/direction</span></div>
-        <div class="dash">
-          <div class="kpis">
-            <div class="kpi"><small>Élèves inscrits</small><b>184</b><div class="spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M0 20 L20 17 L40 15 L60 11 L80 8 L100 4" fill="none" stroke="var(--indigo)" stroke-width="2"/><circle cx="100" cy="4" r="2.5" fill="var(--indigo)"/></svg></div></div>
-            <div class="kpi"><small>Présence ce mois</small><b>93 %</b><div class="spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M0 9 L20 7 L40 10 L60 6 L80 8 L100 6" fill="none" stroke="var(--lagon-ink)" stroke-width="2"/><circle cx="100" cy="6" r="2.5" fill="var(--lagon-ink)"/></svg></div></div>
-            <div class="kpi"><small>À encaisser</small><b>1 260 €</b><div class="spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M0 6 L20 10 L40 9 L60 14 L80 17 L100 19" fill="none" stroke="#C8961E" stroke-width="2"/><circle cx="100" cy="19" r="2.5" fill="#C8961E"/></svg></div></div>
-          </div>
-          <div class="liste">
-            <h5>Virements à valider <span>4 en attente</span></h5>
-            <div class="ligne"><span>Famille Martin · Inès</span><span class="ref">AH-2611-INES</span><span class="mt">180 €</span><span class="etat att">À valider</span></div>
-            <div class="ligne"><span>Famille Diallo · Awa</span><span class="ref">AH-2608-AWA</span><span class="mt">240 €</span><span class="etat rel">Relancée</span></div>
-            <div class="ligne"><span>Famille Haddad · Sami</span><span class="ref">AH-2604-SAMI</span><span class="mt">180 €</span><span class="etat ok">Reçu</span></div>
-            <div class="ligne"><span>Famille Roux · Léa</span><span class="ref">AH-2599-LEA</span><span class="mt">120 €</span><span class="etat ok">Reçu</span></div>
-          </div>
-        </div>
-      </div>
-    </article>
+  </div>
+</section>
+
+<!-- ─────────── PASSER EN LIGNE ─────────── -->
+<section class="section" id="en-ligne">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Passer en ligne</span>
+      <h2>L'en ligne, une marche après l'autre.</h2>
+      <p>Vous n'avez pas à devenir une école en ligne. Commencez par ce qui simplifie la rentrée, gardez vos cours quand la salle manque, et allez plus loin seulement si vous le voulez.</p>
+    </div>
+    <ol class="marches">
+      <li class="marche">
+        <span class="marche-n" aria-hidden="true">1</span>
+        <span class="eyebrow">Dès la rentrée</span>
+        <h3>Les inscriptions et les paiements</h3>
+        <p>Les familles remplissent leur dossier en ligne et règlent par carte ou par virement. Vous ne recopiez plus rien et vous savez qui a payé.</p>
+      </li>
+      <li class="marche">
+        <span class="marche-n" aria-hidden="true">2</span>
+        <span class="eyebrow">Quand la salle manque</span>
+        <h3>Le cours maintenu en visio</h3>
+        <p>Salle fermée, intempéries, enseignant en déplacement : la séance prévue passe en visioconférence. Les élèves la rejoignent depuis leur planning, à l'heure habituelle.</p>
+        <span class="marche-tag lum">Option classe en direct</span>
+      </li>
+      <li class="marche nuit">
+        <span class="marche-n" aria-hidden="true">3</span>
+        <span class="eyebrow">Si vous le voulez</span>
+        <h3>Des cours entièrement en ligne</h3>
+        <p>Un groupe du soir pour les adultes, un niveau qui ne trouve pas de salle : rediffusions, catalogue et paiement à l'unité, dans le même outil que vos cours du samedi.</p>
+        <a class="lien" href="/ecole-en-ligne/">Découvrir l'offre école en ligne →</a>
+      </li>
+    </ol>
+    <p class="marches-note">Chaque marche se monte sans changer d'outil ni ressaisir vos élèves : ce sont les mêmes classes, les mêmes familles et le même appel.</p>
   </div>
 </section>
 
@@ -994,29 +1045,29 @@ footer .legal a{color:inherit}
     <div class="sec-head">
       <span class="eyebrow">Pour qui</span>
       <h2>Une plateforme, autant d'écoles que d'usages.</h2>
-      <p>Les modules s'allument selon votre façon d'enseigner : en ligne, sur place, ou les deux. La gestion de l'école est toujours incluse.</p>
+      <p>Les modules s'allument selon votre façon d'enseigner : sur place, en ligne, ou les deux. La gestion de l'école est toujours incluse.</p>
     </div>
     <div class="usages">
       <div class="u-tabs" role="tablist" aria-label="Types d'établissement">
-        <button class="u-tab" role="tab" type="button" id="tab-ligne" aria-controls="panel-usage" aria-selected="true" data-u="ligne" style="--c:#F6B93B"><span class="dot"></span>École 100 % en ligne<span class="new">Nouveau</span></button>
-        <button class="u-tab" role="tab" type="button" id="tab-soutien" aria-controls="panel-usage" aria-selected="false" data-u="soutien" style="--c:#3DD6C3"><span class="dot"></span>Soutien scolaire</button>
+        <button class="u-tab" role="tab" type="button" id="tab-coran" aria-controls="panel-usage" aria-selected="true" data-u="coran" style="--c:#2E9E6A"><span class="dot"></span>École coranique, madrasa</button>
         <button class="u-tab" role="tab" type="button" id="tab-asso" aria-controls="panel-usage" aria-selected="false" data-u="asso" style="--c:#7C8CFF"><span class="dot"></span>Association éducative</button>
-        <button class="u-tab" role="tab" type="button" id="tab-coran" aria-controls="panel-usage" aria-selected="false" data-u="coran" style="--c:#2E9E6A"><span class="dot"></span>École coranique, madrasa</button>
+        <button class="u-tab" role="tab" type="button" id="tab-soutien" aria-controls="panel-usage" aria-selected="false" data-u="soutien" style="--c:#3DD6C3"><span class="dot"></span>Soutien scolaire</button>
         <button class="u-tab" role="tab" type="button" id="tab-langue" aria-controls="panel-usage" aria-selected="false" data-u="langue" style="--c:#E0742C"><span class="dot"></span>École de langue</button>
         <button class="u-tab" role="tab" type="button" id="tab-adultes" aria-controls="panel-usage" aria-selected="false" data-u="adultes" style="--c:#B05AC8"><span class="dot"></span>Cours pour adultes</button>
+        <button class="u-tab" role="tab" type="button" id="tab-ligne" aria-controls="panel-usage" aria-selected="false" data-u="ligne" style="--c:#F6B93B"><span class="dot"></span>École 100 % en ligne<span class="new">Nouveau</span></button>
       </div>
-      <div class="u-panel" id="panel-usage" role="tabpanel" aria-labelledby="tab-ligne" style="--c:#F6B93B">
+      <div class="u-panel" id="panel-usage" role="tabpanel" aria-labelledby="tab-coran" style="--c:#2E9E6A">
         <div>
-          <h3 id="uTitle">Lancez votre école en ligne, avec tout ce qu'il faut dès le premier jour.</h3>
-          <p id="uLede">Vous enseignez à distance, à des élèves de toute la France ou d'ailleurs. Vos familles s'inscrivent, paient et suivent les cours au même endroit.</p>
+          <h3 id="uTitle">L'outil des écoles coraniques et des madrasas, depuis le premier jour.</h3>
+          <p id="uLede">Appel sur mobile, bulletins bilingues, réinscriptions et paiements des familles : MadrassaNET est né dans ces écoles.</p>
           <ul class="points" id="uPoints"></ul>
         </div>
         <div class="u-side">
           <span class="eyebrow">Modules activés</span>
           <div class="config" id="uConfig"></div>
           <span class="eyebrow">Exemple</span>
-          <blockquote id="uQuote">Douze cours en quatre parcours, deux séances par semaine, dix élèves par groupe, des rediffusions pour ceux qui ont manqué.</blockquote>
-          <a class="lien" id="uLink" href="/ecole-en-ligne/">Découvrir l'offre école en ligne →</a>
+          <blockquote id="uQuote">Une madrasa de 300 élèves le samedi et le dimanche, avec des cours de Coran en ligne pour les adultes en semaine.</blockquote>
+          <a class="lien" id="uLink" href="/madrasa/">Découvrir l'offre madrasa →</a>
         </div>
       </div>
     </div>
@@ -1029,11 +1080,11 @@ footer .legal a{color:inherit}
     <div>
       <span class="eyebrow">Sur téléphone</span>
       <h2>L'école dans la poche des élèves et des parents.</h2>
-      <p class="lede">L'application MadrassaNET pour iPhone et Android donne accès au même espace : le cours en direct à rejoindre, les devoirs, les absences, les messages et les notifications.</p>
+      <p class="lede">L'application MadrassaNET pour iPhone et Android donne accès au même espace : les absences, les notes, les devoirs, les messages et les notifications, et le cours en visio à rejoindre.</p>
       <ul class="facts">
-        <li><span><b>L'élève</b> rejoint son cours en direct depuis son téléphone, l'écran reste allumé pendant la séance.</span></li>
         <li><span><b>Le parent</b> entre dans l'espace de chaque enfant et reçoit absences, notes et messages.</span></li>
         <li><span><b>L'enseignant</b> fait l'appel depuis son téléphone et retrouve sa journée, ses classes et ses copies.</span></li>
+        <li><span><b>L'élève</b> rejoint depuis son téléphone le cours passé en visio, l'écran reste allumé pendant la séance.</span></li>
       </ul>
       <div class="stores">
         <a class="store" href="https://apps.apple.com/app/id6761765874" target="_blank" rel="noopener" data-track="App - App Store"><span>Télécharger dans</span><b>l'App Store</b></a>
@@ -1110,10 +1161,10 @@ footer .legal a{color:inherit}
   <div class="wrap">
     <div class="sec-head center">
       <span class="eyebrow">Tarifs</span>
-      <h2>Une offre sur mesure pour l'école en ligne, un prix clair pour l'école sur place.</h2>
+      <h2>Un prix clair pour l'école sur place. L'en ligne en option, sur devis.</h2>
     </div>
     <div class="plans">
-      <div class="plan">
+      <div class="plan star">
         <span class="eyebrow">École sur place</span>
         <h3>Gestion de l'école</h3>
         <div class="price">1 € <small>par élève et par an</small></div>
@@ -1124,14 +1175,14 @@ footer .legal a{color:inherit}
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span>Application mobile pour les familles</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span>Support par courriel sous 24 h ouvrées</span></li>
         </ul>
-        <a class="btn btn-line" href="#contact" data-objet="Renseignements sur les tarifs">Demander un devis</a>
+        <a class="btn btn-lumiere" href="#contact" data-objet="Renseignements sur les tarifs">Demander un devis</a>
       </div>
-      <div class="plan star">
+      <div class="plan">
         <span class="ruban">Nouveau</span>
-        <span class="eyebrow">École en ligne</span>
-        <h3>Tout pour enseigner à distance</h3>
+        <span class="eyebrow">En ligne ou hybride</span>
+        <h3>Ajoutez les cours à distance</h3>
         <div class="price">Sur devis</div>
-        <p>Selon le nombre de cours, d'heures en direct et d'élèves.</p>
+        <p>Pour l'école sur place qui passe des séances en visio, comme pour l'école 100 % en ligne. Selon les heures en direct et le nombre d'élèves.</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span>Toute la gestion de l'école incluse</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span>Classe en direct et enregistrements</span></li>
@@ -1139,7 +1190,7 @@ footer .legal a{color:inherit}
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span>Votre adresse web et votre identité</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg><span>Mise en place de vos premiers cours avec vous</span></li>
         </ul>
-        <a class="btn btn-lumiere" href="#contact" data-objet="Demande de démo">Parler de votre projet</a>
+        <a class="btn btn-line" href="#contact" data-objet="Demande de démo">Parler de votre projet</a>
       </div>
       <div class="plan">
         <span class="eyebrow">Accompagnement</span>
@@ -1167,12 +1218,13 @@ footer .legal a{color:inherit}
       <h2>Ce qu'on nous demande avant de se lancer.</h2>
     </div>
     <div class="faq">
-      <details open><summary>Qu'est-ce que MadrassaNET ?</summary><p><strong>MadrassaNET est une plateforme tout-en-un pour les écoles en ligne, avec toute la gestion scolaire intégrée.</strong> Elle réunit les cours en direct, les rediffusions, les inscriptions et le paiement en ligne, ainsi que les élèves, les familles, les présences, les notes et les bulletins, sur le web et sur mobile. Elle sert aux écoles en ligne, aux associations éducatives, aux centres de soutien scolaire et aux écoles coraniques.</p></details>
+      <details open><summary>Qu'est-ce que MadrassaNET ?</summary><p><strong>MadrassaNET est une plateforme de gestion d'école, avec la classe en direct intégrée.</strong> Elle réunit les élèves, les familles, l'appel, les notes et les bulletins, les inscriptions et les paiements des familles, et permet de faire cours en visio quand il le faut, sur le web et sur mobile. Elle sert aux écoles coraniques, aux associations éducatives, aux centres de soutien scolaire, aux écoles de langue et aux écoles en ligne.</p></details>
+      <details><summary>Peut-on l'utiliser sans faire de cours en ligne ?</summary><p><strong>Oui.</strong> Appel sur mobile, bulletins PDF, inscriptions et paiements des familles suffisent à une école sur place ; la classe en direct s'ajoute le jour où vous en avez besoin, sans changer d'outil.</p></details>
+      <details><summary>Peut-on passer un seul cours en visio, de temps en temps ?</summary><p><strong>Oui, avec l'option classe en direct.</strong> Dans la séance prévue, on coche « Séance en visioconférence » : les élèves la retrouvent dans leur planning à l'heure habituelle et la rejoignent depuis leur ordinateur ou leur téléphone, sans lien à envoyer.</p></details>
       <details><summary>Faut-il installer un logiciel pour suivre un cours en direct ?</summary><p><strong>Non.</strong> Sur ordinateur, le cours se suit dans le navigateur ; sur téléphone, dans l'application MadrassaNET. L'élève entre depuis son espace, sans lien ni mot de passe de réunion.</p></details>
       <details><summary>Puis-je encaisser les inscriptions en ligne ?</summary><p><strong>Oui, par carte bancaire ou par virement, directement sur le compte de votre école.</strong> MadrassaNET ne prélève aucune commission sur vos ventes ; les virements portent une référence unique et les retards sont relancés automatiquement.</p></details>
       <details><summary>Les cours sont-ils enregistrés ?</summary><p><strong>Oui, si vous le souhaitez.</strong> L'enregistrement garde l'écran partagé et la voix de l'enseignant, jamais l'image ni la voix des élèves, et la rediffusion n'est visible que des élèves inscrits au cours.</p></details>
       <details><summary>Mon école peut-elle avoir sa propre adresse web ?</summary><p><strong>Oui.</strong> Nous branchons la plateforme sur votre domaine, par exemple cours.votre-ecole.fr, avec votre nom, votre logo et vos couleurs.</p></details>
-      <details><summary>Peut-on l'utiliser sans faire de cours en ligne ?</summary><p><strong>Oui.</strong> Appel sur mobile, bulletins PDF, réinscriptions et paiements des familles suffisent à une école sur place ; la classe en direct s'ajoute le jour où vous en avez besoin, sans changer d'outil.</p></details>
       <details><summary>Combien de temps faut-il pour démarrer ?</summary><p><strong>Quelques jours pour une école déjà organisée.</strong> Vos élèves et vos familles s'importent depuis un tableur, puis vous créez vos classes et vos enseignants ; nous vous accompagnons pour la mise en place.</p></details>
     </div>
   </div>
@@ -1218,11 +1270,11 @@ footer .legal a{color:inherit}
   <div class="wrap contact-wrap">
     <div class="contact-copy">
       <span class="eyebrow" style="color:var(--lumiere)">Démonstration</span>
-      <h2>Ouvrez votre école en ligne, à votre nom.</h2>
-      <p>Une démonstration de trente minutes sur une école fictive : cours en direct, rediffusions, inscriptions, et toute la gestion de l'école. Vous voyez ce que verront votre équipe et vos familles.</p>
+      <h2>Voyez votre école dans MadrassaNET.</h2>
+      <p>Une démonstration de trente minutes sur une école fictive : l'appel, les bulletins, les inscriptions et les paiements, puis un cours passé en visio. Vous voyez ce que verront votre équipe et vos familles.</p>
       <ul class="facts">
         <li><span><b>Réponse sous 24 h ouvrées</b>, du lundi au vendredi, de 9 h à 18 h.</span></li>
-        <li><span><b>Une démonstration adaptée</b> à votre école : en ligne, sur place, ou les deux.</span></li>
+        <li><span><b>Une démonstration adaptée</b> à votre école : sur place, en ligne, ou les deux.</span></li>
         <li><span><b>Gratuit pour les associations en difficulté</b>, sur demande.</span></li>
       </ul>
     </div>
@@ -1296,10 +1348,10 @@ footer .legal a{color:inherit}
   <div class="wrap">
     <div>
       <a class="brand" href="#top"><span class="brand-mark"><svg viewBox="15.5 19.4 33 37.4" aria-hidden="true"><path d="M17 45V21.5a1 1 0 0 1 1.8-.6L32 38l13.2-17.1a1 1 0 0 1 1.8.6V45h-6.6V32.4l-6.7 8.6a2.4 2.4 0 0 1-3.4 0l-6.7-8.6V45H17Z" fill="#fff"/><circle cx="32" cy="52" r="3.2" fill="#80DEEA"/></svg></span><span>Madrassa<b>NET</b></span></a>
-      <p style="margin-top:14px;max-width:26em">La plateforme des écoles en ligne, avec toute la gestion scolaire intégrée.</p>
+      <p style="margin-top:14px;max-width:26em">La plateforme de gestion des écoles, sur place et en ligne.</p>
     </div>
-    <div><h4>Pour qui</h4><ul><li><a href="/ecole-en-ligne/">École en ligne</a></li><li><a href="/soutien-scolaire/">Soutien scolaire</a></li><li><a href="/association-scolaire/">Association scolaire</a></li><li><a href="/madrasa/">Gestion de madrasa</a></li><li><a href="/ecole-arabe/">École de langue arabe</a></li></ul></div>
-    <div><h4>Plateforme</h4><ul><li><a href="#parcours">Classe en direct</a></li><li><a href="/fonctionnalites/presences/">Présences et appel</a></li><li><a href="/fonctionnalites/bulletins/">Bulletins PDF</a></li><li><a href="/fonctionnalites/finances/">Paiements</a></li><li><a href="/tarifs/">Tarifs</a></li></ul></div>
+    <div><h4>Pour qui</h4><ul><li><a href="/madrasa/">Gestion de madrasa</a></li><li><a href="/association-scolaire/">Association scolaire</a></li><li><a href="/soutien-scolaire/">Soutien scolaire</a></li><li><a href="/ecole-arabe/">École de langue arabe</a></li><li><a href="/ecole-en-ligne/">École en ligne</a></li></ul></div>
+    <div><h4>Plateforme</h4><ul><li><a href="/fonctionnalites/presences/">Présences et appel</a></li><li><a href="/fonctionnalites/bulletins/">Bulletins PDF</a></li><li><a href="/fonctionnalites/finances/">Paiements</a></li><li><a href="#en-ligne">Classe en direct</a></li><li><a href="/tarifs/">Tarifs</a></li></ul></div>
     <div><h4>Ressources</h4><ul><li><a href="/blog/">Blog</a></li><li><a href="/support/">Centre d'aide</a></li><li><a href="/blog/redaction/">La rédaction et nos sources</a></li></ul></div>
     <div class="legal"><span>© 2026 MadrassaNET · Écrans d'illustration, données fictives</span><span><a href="/privacy/">Confidentialité</a> · <a href="/terms/">Conditions d'utilisation</a> · <a href="/legal/">Mentions légales</a></span></div>
   </div>
@@ -1310,7 +1362,7 @@ footer .legal a{color:inherit}
   var reduit = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── hero : la direction, l'appel, le cours en direct ── */
-  var vues = ['direct','gestion','appel'], vue = 'direct', auto = !reduit;
+  var vues = ['gestion','appel','direct'], vue = 'gestion', auto = !reduit;
   function montrer(v, parClic){
     vue = v;
     if (parClic) auto = false;
@@ -1342,13 +1394,13 @@ footer .legal a{color:inherit}
       while (chat.children.length > 4) chat.removeChild(chat.firstChild);
       document.getElementById('tInes').classList.toggle('hand', m[2] === 2);
     }, 2200);
-    /* le direct reste trois temps à l'écran, la direction et l'appel un chacun : 60 / 40 */
-    var reste = 2;
+    /* la direction reste deux temps à l'écran, l'appel et la visio un chacun : sur place d'abord */
+    var reste = 1;
     setInterval(function(){
       if (!auto) return;
-      if (vue === 'direct' && reste > 0){ reste--; return; }
+      if (vue === 'gestion' && reste > 0){ reste--; return; }
       var suite = vues[(vues.indexOf(vue) + 1) % vues.length];
-      if (suite === 'direct') reste = 2;
+      if (suite === 'gestion') reste = 1;
       montrer(suite, false);
     }, 5500);
   }
@@ -1393,7 +1445,7 @@ footer .legal a{color:inherit}
     document.querySelectorAll('.u-tab').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.u === k ? 'true' : 'false'); });
   }
   document.querySelectorAll('.u-tab').forEach(function(b){ b.addEventListener('click', function(){ usage(b.dataset.u); }); });
-  usage('ligne');
+  usage('coran');
 
   /* ── bulletin trilingue ── */
   var L = {
@@ -1573,7 +1625,7 @@ footer .legal a{color:inherit}
       "name": "MadrassaNET",
       "url": "https://www.madrassanet.com/",
       "logo": "https://www.madrassanet.com/assets/og/logo-512.png?v=20261030",
-      "description": "Plateforme des écoles en ligne, des associations éducatives et des centres de soutien scolaire, avec la gestion scolaire intégrée.",
+      "description": "Plateforme de gestion des écoles, des associations éducatives et des centres de soutien scolaire, sur place et en ligne.",
       "sameAs": [
         "https://apps.apple.com/app/id6761765874",
         "https://play.google.com/store/apps/details?id=com.madrassanet.mobile"
@@ -1593,19 +1645,20 @@ footer .legal a{color:inherit}
       "name": "MadrassaNET",
       "operatingSystem": "Web, iOS, Android",
       "applicationCategory": "EducationalApplication",
-      "description": "Plateforme pour faire vivre une école en ligne (cours en direct, rediffusions, inscriptions et paiement en ligne) avec toute la gestion scolaire intégrée : élèves, familles, présences, notes et bulletins. Pour les écoles en ligne, les associations éducatives, les centres de soutien scolaire et les écoles coraniques.",
+      "description": "Plateforme de gestion d'école (élèves, familles, appel, notes, bulletins, inscriptions et paiements des familles) avec la classe en direct intégrée pour passer des cours en ligne. Pour les écoles coraniques, les associations éducatives, les centres de soutien scolaire, les écoles de langue et les écoles en ligne.",
       "url": "https://www.madrassanet.com/",
       "inLanguage": ["fr", "en", "ar"],
       "publisher": { "@id": "https://www.madrassanet.com/#organization" },
       "featureList": [
-        "Classe en direct dans le navigateur, sans installation",
-        "Enregistrement des cours et rediffusions réservées aux élèves inscrits",
-        "Catalogue de cours public au nom de l'école",
-        "Inscription et paiement en ligne par carte bancaire ou virement",
-        "Devoirs rendus en ligne, corrigés et notés",
         "Appel sur mobile et notification des absences aux familles",
         "Notes, moyennes et bulletins PDF en français ou en arabe",
         "Inscriptions et réinscriptions par famille",
+        "Inscription et paiement en ligne par carte bancaire ou virement",
+        "Séance prévue en salle passée en visioconférence",
+        "Classe en direct dans le navigateur, sans installation",
+        "Enregistrement des cours et rediffusions réservées aux élèves inscrits",
+        "Catalogue de cours public au nom de l'école",
+        "Devoirs rendus en ligne, corrigés et notés",
         "Droits d'accès par rôle",
         "Application iPhone et Android",
         "Interface en français, anglais et arabe",
@@ -1622,7 +1675,11 @@ footer .legal a{color:inherit}
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "Qu'est-ce que MadrassaNET ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "MadrassaNET est une plateforme tout-en-un pour les écoles en ligne, avec toute la gestion scolaire intégrée. Elle réunit les cours en direct, les rediffusions, les inscriptions et le paiement en ligne, ainsi que les élèves, les familles, les présences, les notes et les bulletins, sur le web et sur mobile. Elle sert aux écoles en ligne, aux associations éducatives, aux centres de soutien scolaire et aux écoles coraniques." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "MadrassaNET est une plateforme de gestion d'école, avec la classe en direct intégrée. Elle réunit les élèves, les familles, l'appel, les notes et les bulletins, les inscriptions et les paiements des familles, et permet de faire cours en visio quand il le faut, sur le web et sur mobile. Elle sert aux écoles coraniques, aux associations éducatives, aux centres de soutien scolaire, aux écoles de langue et aux écoles en ligne." } },
+        { "@type": "Question", "name": "Peut-on l'utiliser sans faire de cours en ligne ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Appel sur mobile, bulletins PDF, inscriptions et paiements des familles suffisent à une école sur place ; la classe en direct s'ajoute le jour où vous en avez besoin, sans changer d'outil." } },
+        { "@type": "Question", "name": "Peut-on passer un seul cours en visio, de temps en temps ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui, avec l'option classe en direct. Dans la séance prévue, on coche « Séance en visioconférence » : les élèves la retrouvent dans leur planning à l'heure habituelle et la rejoignent depuis leur ordinateur ou leur téléphone, sans lien à envoyer." } },
         { "@type": "Question", "name": "Faut-il installer un logiciel pour suivre un cours en direct ?",
           "acceptedAnswer": { "@type": "Answer", "text": "Non. Sur ordinateur, le cours se suit dans le navigateur ; sur téléphone, dans l'application MadrassaNET. L'élève entre depuis son espace, sans lien ni mot de passe de réunion." } },
         { "@type": "Question", "name": "Puis-je encaisser les inscriptions en ligne ?",
@@ -1631,8 +1688,6 @@ footer .legal a{color:inherit}
           "acceptedAnswer": { "@type": "Answer", "text": "Oui, si vous le souhaitez. L'enregistrement garde l'écran partagé et la voix de l'enseignant, jamais l'image ni la voix des élèves, et la rediffusion n'est visible que des élèves inscrits au cours." } },
         { "@type": "Question", "name": "Mon école peut-elle avoir sa propre adresse web ?",
           "acceptedAnswer": { "@type": "Answer", "text": "Oui. Nous branchons la plateforme sur votre domaine, par exemple cours.votre-ecole.fr, avec votre nom, votre logo et vos couleurs." } },
-        { "@type": "Question", "name": "Peut-on l'utiliser sans faire de cours en ligne ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Appel sur mobile, bulletins PDF, réinscriptions et paiements des familles suffisent à une école sur place ; la classe en direct s'ajoute le jour où vous en avez besoin, sans changer d'outil." } },
         { "@type": "Question", "name": "Combien de temps faut-il pour démarrer ?",
           "acceptedAnswer": { "@type": "Answer", "text": "Quelques jours pour une école déjà organisée. Vos élèves et vos familles s'importent depuis un tableur, puis vous créez vos classes et vos enseignants ; nous vous accompagnons pour la mise en place." } }
       ]

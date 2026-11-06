@@ -210,8 +210,8 @@ def carte(nom, titre, sous_titre, etiquette=None):
 
 # nom, titre de la carte, sous-titre, étiquette
 CARTES = [
-    ("default", "Faites cours *en ligne.*\nEt gérez votre école.",
-     "Classe en direct, inscriptions, paiement et gestion de l'école", None),
+    ("default", "Gérez votre école.\nPassez *en ligne* à votre rythme.",
+     "Appel, bulletins, inscriptions et paiements, et la visio quand il le faut", None),
     ("ecole-en-ligne", "Ouvrez votre école\n*en ligne,* à votre nom",
      "Cours en direct, rediffusions, inscriptions et paiement en ligne", "École en ligne"),
     ("soutien-scolaire", "Le logiciel des centres\nde *soutien scolaire*",

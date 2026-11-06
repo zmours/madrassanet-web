@@ -48,8 +48,8 @@ OUT_BLOG = os.path.join(ROOT, "blog")
 
 SITE = "https://www.madrassanet.com"
 MARQUE = "MadrassaNET"
-PITCH = ("La plateforme des écoles en ligne, des associations et des centres de "
-         "soutien scolaire, avec toute la gestion de l'école intégrée.")
+PITCH = ("La plateforme de gestion des écoles, des associations et des centres de "
+         "soutien scolaire, sur place et en ligne.")
 PAR_PAGE = 9
 
 # Version des images de partage : WhatsApp et Facebook gardent l'ancienne image
@@ -678,7 +678,7 @@ def nav(courant="/blog/"):
     """
     # Les mêmes entrées que le menu de l'accueil (index.html), pour qu'on ne
     # change pas de site en passant de l'un à l'autre.
-    liens = [("/ecole-en-ligne/", "École en ligne"), ("/#fonctionnalites", "Fonctionnalités"),
+    liens = [("/#fonctionnalites", "Fonctionnalités"), ("/#en-ligne", "Passer en ligne"),
              ("/#usages", "Pour qui"), ("/tarifs/", "Tarifs"), ("/blog/", "Blog"),
              ("/support/", "Support")]
 
@@ -738,11 +738,11 @@ def pied_html():
       <div class="footer-col">
         <h4>Pour qui</h4>
         <ul>
-          <li><a href="/ecole-en-ligne/">École en ligne</a></li>
-          <li><a href="/soutien-scolaire/">Soutien scolaire</a></li>
-          <li><a href="/association-scolaire/">Association scolaire</a></li>
           <li><a href="/madrasa/">Gestion de madrasa</a></li>
+          <li><a href="/association-scolaire/">Association scolaire</a></li>
+          <li><a href="/soutien-scolaire/">Soutien scolaire</a></li>
           <li><a href="/ecole-arabe/">École de langue arabe</a></li>
+          <li><a href="/ecole-en-ligne/">École en ligne</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1621,23 +1621,26 @@ def fichier_llms(articles):
     """llms.txt — chantier §8.2-5 du plan marketing. Une part croissante des
     « quel logiciel pour gérer une école coranique ? » se pose à un assistant,
     qui ne lira pas le JavaScript de la page : autant lui donner le plan."""
-    # Le positionnement suit l'accueil (#916) : l'école en ligne d'abord, la
-    # gestion de l'école intégrée ensuite. Ne rien affirmer ici que le produit
+    # Le positionnement suit l'accueil (#1054, qui remplace #916) : l'école sur
+    # place d'abord, l'en ligne en prolongement. Ne rien affirmer ici que le produit
     # ne fasse pas : un assistant le répétera tel quel.
     lignes = ["# MadrassaNET", "", "> %s" % PITCH.rstrip("."), "",
-              "MadrassaNET est une plateforme pour faire vivre une école en ligne : "
-              "classe en direct dans le navigateur (sans installation), enregistrement des "
-              "cours et rediffusions réservées aux élèves inscrits, catalogue de cours au nom "
-              "de l'école, inscription et paiement en ligne par carte bancaire ou virement "
-              "sur le compte de l'école, sans commission, devoirs rendus et corrigés en ligne.",
+              "MadrassaNET est une plateforme de gestion d'école : élèves et familles, "
+              "inscriptions et réinscriptions, appel sur mobile avec notification des absences "
+              "aux familles, notes, moyennes et bulletins PDF en français ou en arabe, paiements "
+              "des familles par carte bancaire ou virement sur le compte de l'école, droits "
+              "d'accès par rôle. Une école sur place peut l'utiliser sans jamais faire cours en "
+              "ligne.",
               "",
-              "La gestion de l'école est intégrée : élèves et familles, inscriptions et "
-              "réinscriptions, appel sur mobile avec notification des absences aux familles, "
-              "notes, moyennes et bulletins PDF en français ou en arabe, droits d'accès par "
-              "rôle. Une école sur place peut l'utiliser sans jamais faire cours en ligne.",
+              "La classe en direct est intégrée pour passer en ligne à son rythme : une séance "
+              "prévue en salle peut passer en visioconférence (salle fermée, intempéries), les "
+              "élèves la rejoignant depuis leur planning, sans installation ni lien à envoyer. "
+              "Pour aller plus loin : enregistrement des cours et rediffusions réservées aux "
+              "élèves inscrits, catalogue de cours au nom de l'école, vente à l'unité sans "
+              "commission, jusqu'à l'école 100 % en ligne.",
               "",
-              "- Pour qui : écoles 100 % en ligne, associations éducatives, centres de soutien "
-              "scolaire, écoles coraniques et madrasas, écoles de langue, cours pour adultes.",
+              "- Pour qui : écoles coraniques et madrasas, associations éducatives, centres de "
+              "soutien scolaire, écoles de langue, cours pour adultes, écoles 100 % en ligne.",
               "- Où : web, application iPhone et Android ; interface en français, anglais et "
               "arabe (de droite à gauche) ; données hébergées en France.",
               "- Domaine personnalisé : la plateforme peut être servie sur l'adresse de "
